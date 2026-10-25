@@ -1,6 +1,6 @@
 # Part 2: Breaking down "12-month SIP continuation for first-time investors"
 
-*Draft v2, built from the discovery engine (8,832 items analysed; 4,040 relevant; 546 drop-off signals). Numbers are directional, not statistically solid. Interviews will confirm or kill each branch.*
+*Draft v3, built from the discovery engine (11,711 items analysed; 4,952 relevant; 696 drop-off signals). Numbers are directional, not statistically solid. Interviews will confirm or kill each branch.*
 
 ## 1. The metric, defined precisely
 
@@ -58,25 +58,25 @@ Everything we can do to the metric moves A, shrinks one of the three exit routes
 
 ## 4. What the engine says about each branch
 
-Drop-off signals = pause, reduce, stop, considering stopping, or failed instalment. Grouped from the extracted "trigger" field. Updated after analysing 8,832 items (4,040 relevant; 546 drop-off signals; 861 first-year relevant items, 79 of them drop-offs).
+Drop-off signals = pause, reduce, stop, considering stopping, or failed instalment. Grouped from the extracted "trigger" field. Final run: 11,711 items analysed (one record per item), 4,952 judged relevant (own mutual-fund SIP experience), 696 drop-off signals, 1,063 first-year relevant items (122 of them drop-offs).
 
-| Branch | All drop-offs (n=546) | Share where a reason was stated (n=402) | First-year only (n=79) | Representative evidence |
+| Branch | All drop-offs (n=696) | Share where a reason was stated (n=512) | First-year only (n=122) | Representative evidence |
 |---|---|---|---|---|
-| S1 Involuntary (payment/mandate/app failure) | 14% | 20% | 14% | "my sip is not processed since over a month now"; "auto payment fails ... no retry done by the app" |
-| S2a Money/life | 20% | 28% | 15% | "i can not do sip because i don't have fixed income every month" |
-| S2b Understanding/expectation | **30%** | **40%** | **39%** | "SIPs in loss, confused if I should continue or stop" |
+| S1 Involuntary (payment/mandate/app failure) | 13% | 18% | 21% | "my sip is not processed since over a month now"; "auto payment fails ... no retry done by the app" |
+| S2a Money/life | 20% | 27% | 15% | "i can not do sip because i don't have fixed income every month" |
+| S2b Understanding/expectation | **32%** | **43%** | **36%** | "SIPs in loss, confused if I should continue or stop" |
 | S2c Pulled elsewhere | 9% | 12% | 5% | better alternative / advice from others |
-| S3 Silent drift | 0% | 0% | 0% | not observable in public text (see below) |
-| Reason not stated | 26% | n/a | 27% | |
+| S3 Silent drift | 0% (1 item) | 0% | 0% | not observable in public text (see below) |
+| Reason not stated | 26% | n/a | 23% | |
 
-**Source matters.** The branch mix depends on where people write. Play Store drop-off signals are mostly S1 (31 of 50): app and payment reliability. Reddit posts are mostly S2b and S2a (114 and 68 of 277): "is this normal?" and cash-flow questions. YouTube comments mostly do not state a reason. The headline mix therefore partly reflects our sample: 497 Play Store items against 3,549 Reddit posts. Only 497 of 40,000 reviews were SIP-relevant.
+**Source matters.** The branch mix depends on where people write. Play Store drop-off signals are mostly S1 (27 of 45): app and payment reliability. Reddit posts are mostly S2b and S2a (112 and 64 of 265): "is this normal?" and cash-flow questions. YouTube comments, mostly short questions, often state no reason (116 of 278) and otherwise lean S2b (78). The headline mix therefore partly reflects our sample (497 Play Store items against 3,549 Reddit posts, 4,849 Reddit comments and 2,816 YouTube comments). Only 497 of 40,000 reviews were SIP-mentioning after deduplication and length filters.
 
-Among all **first-year relevant items** (n=861) the biggest group of unmet needs is "is this normal?": reassurance 20%, expectation-setting 17%, plain-language explanation 12%, trusted help 5% (together with simple returns view and goal progress, 55% fall under opportunity O3). Pause/reduce is 3% and failed-payment alerts 1% of all first-year items, but among first-year drop-offs they rise to 14% and 10%.
+Among all **first-year relevant items** (n=1,063) the biggest group of unmet needs is "is this normal?": reassurance 17%, expectation-setting 16%, plain-language explanation 16%, trusted human help 5%. Taken together with simple returns view and goal progress, 55% fall under opportunity O3. Pause/reduce is 4% and failed-payment alerts 3% of all first-year items, but among first-year drop-offs they rise to 19% (O2) and 20% (O1), with O3 still the largest at 50%.
 
 ## 5. What the engine cannot see (and why interviews matter)
 
 1. **Silent drift is invisible by construction.** People who quietly lapse do not write reviews or posts. The 0% in S3 is a data gap, not evidence that it is small.
-2. **The first-year voice is thin.** Only 67 of the 546 drop-off signals come from people 0-12 months in (months 3-12: 37); most come from experienced investors.
+2. **The first-year voice is thin.** Only 108 of the 696 drop-off signals come from people 0-12 months in (months 3-12: 53); most come from experienced investors (327) or do not state a stage (206).
 3. **Segment data is mostly missing.** Income stability was stated in only a few dozen drop-off signals; age and source of money almost never. Segment cuts must come from the screener and interviews.
 4. **We have not seen Groww's internal data.** A real team would validate with: failure rate by month, pause/stop reason selections, and days-since-last-open before lapse.
 
@@ -86,7 +86,7 @@ Scale 1-5. Evidence = strength of signals so far. Reach = share of first-year in
 
 | # | Opportunity | Evidence | Reach | Metric link | Fit | AI value | Notes |
 |---|---|---|---|---|---|---|---|
-| O1 | Detect and fix failed or missed instalments quickly (S1) | 4 (strong in Play Store, 31 of 50 signals) | 3 | **5** | 5 | 2 | Mostly deterministic notifications and recovery flows. Strong, but AI adds little. Need to check what Groww already notifies. |
+| O1 | Detect and fix failed or missed instalments quickly (S1) | 4 (60% of Play Store drop-offs; 21% of first-year drop-offs) | 3 | **5** | 5 | 2 | Mostly deterministic notifications and recovery flows. Strong, but AI adds little. Need to check what Groww already notifies. |
 | O2 | A middle path: pause, reduce, or skip instead of stopping (S2a) | 3 | 3 | 4 | 5 | 3 | Product/flow change. AI can help the user choose a sensible reduced amount. Need to check what Groww already offers. |
 | O3 | Explain, in plain language, "what am I looking at and is this normal at month N?" (S2b) | **4** | **5** | 3 | 5 | **5** | Applies to every investor in months 2-6. Personalised, Hinglish-capable, must never advise. Natural fit for an eval-gated AI feature. |
 | O4 | Re-engage drifting investors without pressure (S3, R) | 1 (invisible) | ? | 4 | 3 | 3 | Highest uncertainty, risk of sliding into nudges. Needs interviews to size. |

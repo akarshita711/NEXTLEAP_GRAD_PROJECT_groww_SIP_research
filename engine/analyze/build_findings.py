@@ -7,8 +7,9 @@ def load(p):
     try: return [json.loads(l) for l in open(p)]
     except FileNotFoundError: return []
 v2 = {r["uid"]: r for r in load("../data/processed/extracted_v2.jsonl") if r.get("x")}
-rows = [v2.get(r["uid"], r) for r in load("../data/processed/extracted.jsonl")]          # v2 overrides v1 where it exists
-seen_ = {r["uid"] for r in rows}; rows += [r for u, r in v2.items() if u not in seen_]
+v1 = {r["uid"]: r for r in load("../data/processed/extracted.jsonl") if r.get("x")}
+merged = {**v1, **v2}                      # one record per uid; v2 overrides v1 (earlier failed runs left duplicate error rows, which are ignored)
+rows = list(merged.values())
 ok = [r for r in rows if r.get("x")]
 rel = [r for r in ok if r["x"]["relevant"] and r["x"]["quote_verbatim"] and r["x"]["confidence"] >= 3]
 DROP = {"paused", "reduced", "stopped", "failed_instalment", "considering_stopping"}

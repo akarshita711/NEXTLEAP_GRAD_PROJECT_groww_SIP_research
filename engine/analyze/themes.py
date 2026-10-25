@@ -1,10 +1,15 @@
 """Quantify extracted signals: what breaks continuation, for whom, and what is unmet. Writes data/processed/themes.json"""
 import json, sys, collections as C
 inp = sys.argv[1] if len(sys.argv) > 1 else "../data/processed/extracted.jsonl"
-rows = [json.loads(l) for l in open(inp)]
-ok = [r for r in rows if r.get("x")]
+def load(p):
+    try: return [json.loads(l) for l in open(p)]
+    except FileNotFoundError: return []
+merged = {r["uid"]: r for r in load(inp) if r.get("x")}                                   # v1, one record per item
+merged.update({r["uid"]: r for r in load("../data/processed/extracted_v2.jsonl") if r.get("x")})  # v2 overrides
+rows = list(merged.values())
+ok = rows
 rel = [r for r in ok if r["x"]["relevant"] and r["x"]["quote_verbatim"] and r["x"]["confidence"] >= 3]
-DROP = {"paused", "reduced", "stopped", "failed_instalment", "considering_stopping", "switched_platform"}
+DROP = {"paused", "reduced", "stopped", "failed_instalment", "considering_stopping"}
 drop = [r for r in rel if r["x"]["sip_event"] in DROP]
 pct = lambda n, d: round(100 * n / d, 1) if d else 0
 def dist(rs, key, lst=False):

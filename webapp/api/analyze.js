@@ -42,7 +42,7 @@ function gate(x, text) {
 }
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
-  if (req.method === "GET") return res.status(200).json({ ok: true, models: MODELS });
+  if (req.method === "GET") return res.status(200).json({ ok: true, key_configured: !!process.env.GEMINI_API_KEY, models: MODELS });
   if (req.method !== "POST") return res.status(405).json({ error: "method" });
   const text = String((req.body && req.body.text) || "").trim();
   if (text.length < MIN_CHARS) return res.status(400).json({ error: "too_short", message: `Please paste at least ${MIN_CHARS} characters.` });

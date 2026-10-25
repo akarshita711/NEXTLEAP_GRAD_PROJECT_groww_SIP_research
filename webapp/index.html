@@ -71,22 +71,38 @@ footer{color:var(--muted);font-size:.85rem;margin-top:28px}
 <body>
 <div class="wrap">
 <header>
-  <h1>SIP Discovery Engine</h1>
-  <p class="sub">An AI workflow that reads what first-time Indian investors write about their SIPs and shows where continuation breaks down, how often, and what they say they need.</p>
+  <h1>What do first-time SIP investors expect, do and need?</h1>
+  <p class="sub">An AI discovery engine that reads public conversations about SIPs in India (app reviews, Reddit, YouTube) and answers nine research questions with numbers, real quotes and clear limits. Built to find why investors stay with, or drift away from, their first SIP.</p>
   <span class="disclaimer">Independent research project. Not affiliated with Groww. Not investment advice.</span>
   <nav role="tablist" aria-label="Sections">
-    <button role="tab" aria-selected="true" data-tab="try">Try the engine</button>
-    <button role="tab" aria-selected="false" data-tab="found">What it found</button>
+    <button role="tab" aria-selected="true" data-tab="ask">Ask the engine</button>
+    <button role="tab" aria-selected="false" data-tab="found">Where SIPs break</button>
     <button role="tab" aria-selected="false" data-tab="opps">Opportunities</button>
     <button role="tab" aria-selected="false" data-tab="how">How it works &amp; quality</button>
+    <button role="tab" aria-selected="false" data-tab="try">Test on any text</button>
   </nav>
 </header>
 
-<section class="panel on" id="try">
+<section class="panel on" id="ask">
   <div class="card">
-    <h2>Paste a post, review or comment about a mutual fund SIP</h2>
+    <h2>Ask a research question</h2>
+    <p class="hint">The engine searches the collected reviews, posts and comments for the conversations most relevant to your question, then writes a 2 to 3 sentence answer from them. Every answer is checked by the engine itself (real sources, numbers from the evidence, no advice). Questions asking which fund or stock to pick are declined.</p>
+    <label for="qin" class="hint">Your question (8 to 300 characters)</label>
+    <textarea id="qin" style="min-height:70px" maxlength="300" placeholder="e.g. Why do first-year investors pause a SIP, and what do they say they needed?"></textarea>
+    <div class="row"><button class="btn" id="askgo">Ask the engine</button><span class="count" id="qcnt">0 / 300</span></div>
+    <div class="row" id="qchips"></div>
+    <div id="askout" aria-live="polite"></div>
+  </div>
+  <h2 style="margin:22px 0 6px">The nine research questions, answered from the evidence</h2>
+  <p class="hint" id="evmeta"></p>
+  <div id="qcards"></div>
+</section>
+<section class="panel" id="try">
+  <div class="card">
+    <h2>Test the extraction on any text</h2>
+    <p class="hint">This is the extraction step of the engine, run on one text. It shows how a single post becomes structured data before it is counted.</p>
     <p class="hint">The engine extracts what happened to the SIP, why, how the person feels, and what they seem to need, then checks its own answer before showing it. Please don't paste personal details (PAN, account numbers, phone numbers).</p>
-    <label for="inp" class="hint">Text to analyse (English, Hindi or Hinglish; 20 to 1500 characters)</label>
+    <label for="inp" class="hint">Paste a post, review or comment about a mutual fund SIP (English, Hindi or Hinglish; 20 to 1500 characters)</label>
     <textarea id="inp" maxlength="1500" placeholder="e.g. I started a SIP of 2000 six months ago and it's still showing -3%. Is this normal? Should I stop?"></textarea>
     <div class="row">
       <button class="btn" id="go">Analyse</button>
@@ -154,12 +170,14 @@ footer{color:var(--muted);font-size:.85rem;margin-top:28px}
   <div class="card">
     <h2>How the engine works</h2>
     <ol class="steps">
-      <li><b>Collect</b> public text: Play Store reviews, Reddit posts and comments from Indian investing communities, YouTube comments on SIP videos.</li>
-      <li><b>Clean and filter:</b> remove duplicates and very short text; keep items that mention SIPs or mutual funds.</li>
-      <li><b>Extract</b> with an LLM into a fixed schema: SIP event, stated trigger, emotion, months since start, what they check, where they go when unsure, segment hints, unmet need, plus a verbatim evidence quote.</li>
-      <li><b>Check</b> each output: the quote must appear word-for-word in the source, enum values must be valid, low confidence is flagged. Failing items are down-weighted or hidden.</li>
-      <li><b>Quantify</b> by mapping triggers to the branches of the 12-month continuation metric and needs to opportunity areas.</li>
-      <li><b>Validate</b> against a golden set of items labelled by hand.</li>
+      <li><b>Collect</b> public text about SIPs in India: Play Store reviews, Reddit posts and comments from investing communities, YouTube comments on SIP videos.</li>
+      <li><b>Clean and filter:</b> remove duplicates and very short text, keep items that mention SIPs or mutual funds, and take a seeded random sample of the largest sources so the study is reproducible.</li>
+      <li><b>Extract, pass 1:</b> an LLM reads each item and fills a fixed schema: what happened to the SIP, the stated reason, feeling, stage, what they check, where they go when unsure, unmet need, plus a verbatim quote.</li>
+      <li><b>Extract, pass 2</b> (relevant items only): why they started, what they expected, how behaviour changed, how often they look, what confuses them in the app, age band and source of money, when stated.</li>
+      <li><b>Check:</b> each quote must appear word-for-word in the source, categories must be valid, low-confidence items are down-weighted, and items that are not about a mutual fund SIP are dropped.</li>
+      <li><b>Quantify</b> by mapping reasons to the branches of the 12-month continuation metric and needs to opportunity areas, always showing how many items state each thing.</li>
+      <li><b>Answer:</b> the nine research questions are answered from these counts and quotes. Free-text questions are answered by an LLM that sees only the evidence, then the engine verifies the answer (quotes exist, numbers match, no advice) before showing it. If it fails its own checks, it shows the raw evidence instead.</li>
+      <li><b>Validate</b> against a golden set of items labelled by hand, and against a fixed set of tricky questions (answerable, advice-seeking, off-topic, prompt injection).</li>
     </ol>
   </div>
   <div class="card"><h2>Quality checks</h2><div id="qual"></div></div>
@@ -188,6 +206,62 @@ const SRC = { playstore: "Play Store", reddit: "Reddit post", reddit_comment: "R
 
 // tabs
 $$("nav button").forEach(b => b.onclick = () => { $$("nav button").forEach(x => x.setAttribute("aria-selected", x === b)); $$("section.panel").forEach(s => s.classList.toggle("on", s.id === b.dataset.tab)); });
+
+
+// ---------- ask tab ----------
+const qin = $("#qin"); qin.oninput = () => $("#qcnt").textContent = qin.value.length + " / 300";
+const bar = (name, v, pct, mx) => el("div", { class: "bar" }, [el("span", { text: name }), el("div", { class: "track" }, [Object.assign(el("div", { class: "fill" }), { style: `width:${mx ? 100 * v / mx : 0}%` })]), el("span", { class: "v", text: `${v} (${pct}%)` })]);
+function renderStat(s) {
+  const box = el("div", { style: "margin:12px 0" }, [el("h3", { text: s.label })]);
+  if (s.cols) { box.append(el("div", { class: "scroll" }, [el("table", {}, [el("thead", {}, [el("tr", {}, s.cols.map(c => el("th", { text: c })))]), el("tbody", {}, s.rows.length ? s.rows.map(r => el("tr", {}, r.map(c => el("td", { text: String(c) })))) : [el("tr", {}, [el("td", { text: "Too few items state this." })])])])])); return box; }
+  if (!s.rows.length) { box.append(el("p", { class: "hint", text: "Too few items state this to show a pattern." })); return box; }
+  const mx = Math.max(...s.rows.map(r => r[1])); s.rows.forEach(r => box.append(bar(r[0], r[1], r[2], mx))); return box;
+}
+const headline = q => q.headline || (q.stats[0] && q.stats[0].rows[0] ? `Most common: ${q.stats[0].rows[0][0]} (${q.stats[0].rows[0][1]} items, ${q.stats[0].rows[0][2]}%). ${q.stats[0].label.replace(/\s*\(n=.*$/, "")}.` : "Not enough evidence.");
+function qCard(q) {
+  const d = el("details", { class: "card", id: "q" + q.id });
+  d.append(el("summary", { style: "cursor:pointer;font-weight:600" }, [document.createTextNode(`${q.id}. ${q.question}`)]));
+  d.append(el("p", { text: headline(q), style: "margin:10px 0" }));
+  q.stats.forEach(s => d.append(renderStat(s)));
+  d.append(el("h3", { text: "In their words" })); q.quotes.forEach(x => d.append(el("blockquote", {}, [el("span", { text: "“" + x.q + "” " }), el("span", { class: "tag", text: x.s }), el("span", { class: "tag", text: x.tag })])));
+  d.append(el("div", { class: "callout" }, [el("b", { text: "What this cannot tell us: " }), document.createTextNode(q.caveats.join(" "))]));
+  return d;
+}
+fetch("evidence.json").then(r => r.json()).then(E => {
+  const m = E.meta;
+  $("#evmeta").textContent = `Based on ${m.analysed.toLocaleString("en-IN")} analysed items, of which ${m.relevant.toLocaleString("en-IN")} describe someone's own mutual fund SIP (${m.drop} drop-off signals, ${m.first_year.toLocaleString("en-IN")} from first-year investors). Tap a question to open the evidence.`;
+  $("#qcards").replaceChildren(...E.questions.map(qCard));
+  $("#qchips").replaceChildren(el("span", { class: "hint", style: "margin:0", text: "Try:" }), ...E.questions.map(q => { const b = el("button", { class: "chip", text: q.question.replace(/\s*\(.*?\)/, "").slice(0, 62) + (q.question.length > 62 ? "…" : "") }); b.onclick = () => { qin.value = q.question; qin.oninput(); }; return b; }));
+}).catch(() => $("#qcards").replaceChildren(el("p", { text: "Could not load the saved evidence." })));
+$("#askgo").onclick = async () => {
+  const question = qin.value.trim(), out = $("#askout"), btn = $("#askgo"); out.replaceChildren();
+  if (question.length < 8) { out.append(el("div", { class: "banner uncertain", text: "Please type a question of at least 8 characters." })); return; }
+  btn.disabled = true; btn.textContent = "Reading the conversations…";
+  try {
+    const r = await fetch("/api/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question }) }); const j = await r.json();
+    if (!r.ok) { out.append(el("div", { class: "banner uncertain", text: j.message || "Something went wrong." })); return; }
+    const cls = { ok: "ok", unverified: "uncertain", out_of_scope: "uncertain", declined: "out" }[j.status] || "uncertain";
+    const title = { ok: "Answer written from the retrieved conversations and passed the engine's checks", unverified: "Answer not shown: it failed the engine's own checks", out_of_scope: "The collected conversations cannot answer this", declined: "Declined" }[j.status];
+    out.append(el("div", { class: "banner " + cls, text: title }));
+    const byId = Object.fromEntries((j.retrieved || []).map(p => [p.id, p]));
+    const passage = (p, cited) => el("blockquote", {}, [el("span", { text: "“" + p.t + "” " }), el("span", { class: "tag", text: p.s }), el("span", { class: "tag", text: p.stage }), el("span", { class: "tag", text: p.ev }), cited ? el("span", { class: "tag", text: p.id }) : document.createTextNode("")]);
+    if (j.status === "ok") {
+      out.append(el("p", { text: j.answer, style: "font-size:1.08rem" }));
+      out.append(el("p", { class: "hint", text: `Evidence strength: ${j.strength}. The engine searched ${(j.search && j.search.matched) || ""} matching conversations for: ${((j.search && j.search.keywords) || []).slice(0, 8).join(", ")}. It wrote the answer from the ${(j.retrieved || []).length} most relevant. Sources it relied on:` }));
+      (j.cited || []).filter(id => byId[id]).forEach(id => out.append(passage(byId[id], true)));
+      if (j.limits) out.append(el("div", { class: "callout" }, [el("b", { text: "Limits: " }), document.createTextNode(j.limits)]));
+      out.append(el("p", { class: "hint", text: "Checks: " + j.checks.map(c => (c.ok ? "✓ " : "✗ ") + c.name).join("  ·  ") }));
+    } else {
+      out.append(el("p", { text: j.message || "" }));
+      if ((j.retrieved || []).length) { out.append(el("h3", { text: "Most relevant conversations found" })); j.retrieved.slice(0, 5).forEach(p => out.append(passage(p, false))); }
+    }
+    if (j.status === "ok" && (j.retrieved || []).length) { const d = el("details", {}, [el("summary", { text: `See all ${j.retrieved.length} retrieved conversations`, style: "cursor:pointer" })]); j.retrieved.forEach(p => d.append(passage(p, true))); out.append(d); }
+    if (j.related_question) { const row = el("div", { class: "row" }, [el("span", { class: "hint", style: "margin:0", text: "Full numbers for the closest saved question:" })]);
+      const bq = el("button", { class: "chip", text: "Question " + j.related_question }); bq.onclick = () => { const d = $("#q" + j.related_question); if (d) { d.open = true; d.scrollIntoView({ behavior: "smooth" }); } }; row.append(bq); out.append(row); }
+    if (j.notice) out.append(el("p", { class: "hint", text: j.notice + (j.model ? " Model: " + j.model : "") }));
+  } catch (e) { out.append(el("div", { class: "banner uncertain", text: "Could not reach the engine. The saved answers below still work." })); }
+  finally { btn.disabled = false; btn.textContent = "Ask the engine"; }
+};
 
 // try-it
 const EX = [

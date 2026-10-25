@@ -3,7 +3,7 @@
 The app is a static page (`index.html`, `findings.json`) plus one serverless function (`api/analyze.js`). No build step.
 
 ## Option A: Vercel CLI (recommended, works without GitHub)
-1. Install Node.js 20+ (https://nodejs.org) if you don't have it.
+1. Install Node.js 24+ (https://nodejs.org) if you don't have it.
 2. Open a terminal in this `webapp` folder, then:
    ```
    npm i -g vercel
