@@ -1,0 +1,1 @@
+Reddit comments: random sample of 3,000 (seed 5) of 14,211 in corpus; Reddit posts and YouTube in full

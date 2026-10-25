@@ -1,0 +1,289 @@
+{
+ "enums": {
+  "investor_stage": [
+   "considering",
+   "started_0_3m",
+   "early_3_12m",
+   "established_12m_plus",
+   "unclear"
+  ],
+  "sip_event": [
+   "none",
+   "started",
+   "continuing",
+   "paused",
+   "reduced",
+   "stopped",
+   "failed_instalment",
+   "switched_platform",
+   "considering_stopping",
+   "unclear"
+  ],
+  "trigger": [
+   "cash_flow_pressure",
+   "low_or_negative_returns",
+   "expectation_mismatch",
+   "confusion_about_numbers",
+   "failed_payment_or_mandate",
+   "better_alternative",
+   "lost_interest_or_forgot",
+   "life_event",
+   "advice_from_others",
+   "app_issue",
+   "none",
+   "unclear"
+  ],
+  "emotion": [
+   "anxious",
+   "confused",
+   "disappointed",
+   "frustrated",
+   "neutral",
+   "content",
+   "confident"
+  ],
+  "income_stability": [
+   "fixed_salary",
+   "variable_pay",
+   "irregular",
+   "student_or_dependent",
+   "unknown"
+  ],
+  "who_influenced": [
+   "friend_colleague",
+   "family",
+   "creator_social",
+   "workplace",
+   "app_prompt",
+   "self_research",
+   "unknown"
+  ],
+  "unmet_need": [
+   "reassurance_whats_normal",
+   "plain_language_explanation",
+   "flexible_pause_or_reduce",
+   "failed_payment_alerts",
+   "expectation_setting",
+   "goal_progress_view",
+   "simple_returns_view",
+   "trusted_human_help",
+   "none"
+  ]
+ },
+ "lists": {
+  "what_they_check": [
+   "current_value",
+   "returns_percent",
+   "xirr",
+   "nav",
+   "units",
+   "sip_date_status",
+   "statement",
+   "market_news",
+   "none"
+  ],
+  "outside_app": [
+   "youtube",
+   "reddit_forums",
+   "friends_family",
+   "advisor",
+   "google_search",
+   "whatsapp_telegram",
+   "compare_other_platform",
+   "none"
+  ]
+ },
+ "schema": {
+  "type": "OBJECT",
+  "properties": {
+   "relevant": {
+    "type": "BOOLEAN"
+   },
+   "months_since_start": {
+    "type": "INTEGER",
+    "nullable": true
+   },
+   "confidence": {
+    "type": "INTEGER"
+   },
+   "evidence_quote": {
+    "type": "STRING"
+   },
+   "investor_stage": {
+    "type": "STRING",
+    "enum": [
+     "considering",
+     "started_0_3m",
+     "early_3_12m",
+     "established_12m_plus",
+     "unclear"
+    ]
+   },
+   "sip_event": {
+    "type": "STRING",
+    "enum": [
+     "none",
+     "started",
+     "continuing",
+     "paused",
+     "reduced",
+     "stopped",
+     "failed_instalment",
+     "switched_platform",
+     "considering_stopping",
+     "unclear"
+    ]
+   },
+   "trigger": {
+    "type": "STRING",
+    "enum": [
+     "cash_flow_pressure",
+     "low_or_negative_returns",
+     "expectation_mismatch",
+     "confusion_about_numbers",
+     "failed_payment_or_mandate",
+     "better_alternative",
+     "lost_interest_or_forgot",
+     "life_event",
+     "advice_from_others",
+     "app_issue",
+     "none",
+     "unclear"
+    ]
+   },
+   "emotion": {
+    "type": "STRING",
+    "enum": [
+     "anxious",
+     "confused",
+     "disappointed",
+     "frustrated",
+     "neutral",
+     "content",
+     "confident"
+    ]
+   },
+   "income_stability": {
+    "type": "STRING",
+    "enum": [
+     "fixed_salary",
+     "variable_pay",
+     "irregular",
+     "student_or_dependent",
+     "unknown"
+    ]
+   },
+   "who_influenced": {
+    "type": "STRING",
+    "enum": [
+     "friend_colleague",
+     "family",
+     "creator_social",
+     "workplace",
+     "app_prompt",
+     "self_research",
+     "unknown"
+    ]
+   },
+   "unmet_need": {
+    "type": "STRING",
+    "enum": [
+     "reassurance_whats_normal",
+     "plain_language_explanation",
+     "flexible_pause_or_reduce",
+     "failed_payment_alerts",
+     "expectation_setting",
+     "goal_progress_view",
+     "simple_returns_view",
+     "trusted_human_help",
+     "none"
+    ]
+   },
+   "what_they_check": {
+    "type": "ARRAY",
+    "items": {
+     "type": "STRING",
+     "enum": [
+      "current_value",
+      "returns_percent",
+      "xirr",
+      "nav",
+      "units",
+      "sip_date_status",
+      "statement",
+      "market_news",
+      "none"
+     ]
+    }
+   },
+   "outside_app": {
+    "type": "ARRAY",
+    "items": {
+     "type": "STRING",
+     "enum": [
+      "youtube",
+      "reddit_forums",
+      "friends_family",
+      "advisor",
+      "google_search",
+      "whatsapp_telegram",
+      "compare_other_platform",
+      "none"
+     ]
+    }
+   }
+  },
+  "required": [
+   "relevant",
+   "months_since_start",
+   "confidence",
+   "evidence_quote",
+   "investor_stage",
+   "sip_event",
+   "trigger",
+   "emotion",
+   "income_stability",
+   "who_influenced",
+   "unmet_need",
+   "what_they_check",
+   "outside_app"
+  ]
+ },
+ "prompt_v1": "You analyse one public post/comment/review by an Indian retail investor about mutual fund SIPs (Systematic Investment Plans).\nExtract ONLY what the text explicitly states or very strongly implies. Never guess: use \"unclear\"/\"unknown\"/\"none\" when not stated.\n\n- relevant: true only if the author describes THEIR OWN or a specific person's SIP/mutual-fund investing experience, expectations, doubts or behaviour. False for pure app bugs, stock/IPO/F&O trading, generic praise (\"nice app\"), promotions, or pure Q&A about unrelated topics.\n- months_since_start: integer months since they began their SIP, only if stated or computable; else null.\n- sip_event: what happened to THEIR SIP (paused/reduced/stopped/failed_instalment/considering_stopping/switched_platform/continuing/started/none).\n- trigger: the main stated reason behind the event or worry.\n- what_they_check: things the author says they look at in the app/statement. outside_app: where they go when unsure.\n- income_stability / who_influenced: only if explicitly stated.\n- unmet_need: the single most important unmet need that the text reveals.\n- evidence_quote: an EXACT verbatim substring of the text (max 200 chars) supporting your sip_event/trigger. Empty string if not relevant.\n- confidence: 1 (low) to 5 (high) in your overall extraction.\nPosts may be in English, Hindi or Hinglish. Do not provide investment advice.",
+ "prompt": "You analyse one public post/comment/review by an Indian retail investor about mutual fund SIPs (Systematic Investment Plans).\nExtract ONLY what the text explicitly states or very strongly implies. Never guess: use \"unclear\"/\"unknown\"/\"none\" when not stated.\n\n- relevant: true ONLY if the author describes THEIR OWN or a specific person's experience, expectations, doubts or behaviour with an Indian MUTUAL FUND SIP. FALSE for: crypto/stock/gold SIPs, insurance/ULIP/endowment, PPF/NPS/EPF/FDs, pure app bugs, stock/IPO/F&O trading, generic praise (\"nice app\"), promotions, or Q&A on unrelated topics.\n- months_since_start: integer months since they began their SIP, only if stated or computable; else null.\n- sip_event: what happened to THEIR SIP (paused/reduced/stopped/failed_instalment/considering_stopping/switched_platform/continuing/started/none).\n- trigger: the main stated reason behind the event or worry.\n- what_they_check: things the author says they look at in the app/statement. outside_app: where they go when unsure.\n- income_stability / who_influenced: only if explicitly stated.\n- unmet_need: the single most important unmet need that the text reveals.\n- evidence_quote: an EXACT verbatim substring of the text (max 200 chars) supporting your sip_event/trigger. Empty string if not relevant.\n- confidence: 1 (low) to 5 (high) in your overall extraction.\nPosts may be in English, Hindi or Hinglish. Do not provide investment advice.",
+ "branch": {
+  "failed_payment_or_mandate": "S1",
+  "app_issue": "S1",
+  "cash_flow_pressure": "S2a",
+  "life_event": "S2a",
+  "low_or_negative_returns": "S2b",
+  "expectation_mismatch": "S2b",
+  "confusion_about_numbers": "S2b",
+  "better_alternative": "S2c",
+  "advice_from_others": "S2c",
+  "lost_interest_or_forgot": "S3"
+ },
+ "branch_names": {
+  "S1": "Involuntary: SIP broke (payment, mandate, app)",
+  "S2a": "Voluntary: money / life event",
+  "S2b": "Voluntary: understanding & expectation",
+  "S2c": "Voluntary: pulled elsewhere",
+  "S3": "Silent drift"
+ },
+ "opp": {
+  "failed_payment_alerts": "O1",
+  "flexible_pause_or_reduce": "O2",
+  "plain_language_explanation": "O3",
+  "reassurance_whats_normal": "O3",
+  "expectation_setting": "O3",
+  "simple_returns_view": "O3",
+  "goal_progress_view": "O3",
+  "trusted_human_help": "O4"
+ },
+ "opp_names": {
+  "O1": "Fix failed/missed instalments fast",
+  "O2": "A middle path: pause / reduce / skip",
+  "O3": "Explain 'what am I looking at, is this normal?'",
+  "O4": "Trusted help / re-engagement"
+ }
+}

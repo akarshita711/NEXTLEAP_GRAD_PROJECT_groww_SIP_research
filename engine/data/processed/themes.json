@@ -1,0 +1,1035 @@
+{
+ "volumes": {
+  "analysed": 12183,
+  "extraction_ok": 4860,
+  "relevant_high_conf": 1772,
+  "drop_signals": 315,
+  "by_source_relevant": {
+   "playstore": 242,
+   "reddit": 660,
+   "reddit_comment": 327,
+   "youtube": 543
+  },
+  "by_source_analysed": {
+   "playstore": 497,
+   "reddit": 3549,
+   "reddit_comment": 3482,
+   "youtube": 4655
+  }
+ },
+ "sip_event_all_relevant": {
+  "continuing": [
+   627,
+   35.4
+  ],
+  "none": [
+   556,
+   31.4
+  ],
+  "started": [
+   270,
+   15.2
+  ],
+  "stopped": [
+   111,
+   6.3
+  ],
+  "considering_stopping": [
+   91,
+   5.1
+  ],
+  "switched_platform": [
+   47,
+   2.7
+  ],
+  "failed_instalment": [
+   37,
+   2.1
+  ],
+  "paused": [
+   15,
+   0.8
+  ],
+  "reduced": [
+   14,
+   0.8
+  ],
+  "unclear": [
+   4,
+   0.2
+  ]
+ },
+ "trigger_among_drop": {
+  "none": [
+   61,
+   19.4
+  ],
+  "better_alternative": [
+   47,
+   14.9
+  ],
+  "unclear": [
+   39,
+   12.4
+  ],
+  "app_issue": [
+   34,
+   10.8
+  ],
+  "low_or_negative_returns": [
+   32,
+   10.2
+  ],
+  "failed_payment_or_mandate": [
+   31,
+   9.8
+  ],
+  "cash_flow_pressure": [
+   20,
+   6.3
+  ],
+  "confusion_about_numbers": [
+   17,
+   5.4
+  ],
+  "life_event": [
+   16,
+   5.1
+  ],
+  "expectation_mismatch": [
+   13,
+   4.1
+  ],
+  "advice_from_others": [
+   5,
+   1.6
+  ]
+ },
+ "unmet_need_among_drop": {
+  "none": [
+   68,
+   21.6
+  ],
+  "flexible_pause_or_reduce": [
+   52,
+   16.5
+  ],
+  "failed_payment_alerts": [
+   45,
+   14.3
+  ],
+  "plain_language_explanation": [
+   45,
+   14.3
+  ],
+  "trusted_human_help": [
+   30,
+   9.5
+  ],
+  "simple_returns_view": [
+   25,
+   7.9
+  ],
+  "reassurance_whats_normal": [
+   25,
+   7.9
+  ],
+  "expectation_setting": [
+   21,
+   6.7
+  ],
+  "goal_progress_view": [
+   4,
+   1.3
+  ]
+ },
+ "unmet_need_all_relevant": {
+  "none": [
+   650,
+   36.7
+  ],
+  "plain_language_explanation": [
+   258,
+   14.6
+  ],
+  "expectation_setting": [
+   215,
+   12.1
+  ],
+  "trusted_human_help": [
+   210,
+   11.9
+  ],
+  "reassurance_whats_normal": [
+   122,
+   6.9
+  ],
+  "flexible_pause_or_reduce": [
+   102,
+   5.8
+  ],
+  "simple_returns_view": [
+   82,
+   4.6
+  ],
+  "goal_progress_view": [
+   79,
+   4.5
+  ],
+  "failed_payment_alerts": [
+   54,
+   3.0
+  ]
+ },
+ "emotion_among_drop": {
+  "neutral": [
+   114,
+   36.2
+  ],
+  "frustrated": [
+   78,
+   24.8
+  ],
+  "confused": [
+   53,
+   16.8
+  ],
+  "anxious": [
+   34,
+   10.8
+  ],
+  "disappointed": [
+   30,
+   9.5
+  ],
+  "content": [
+   4,
+   1.3
+  ],
+  "confident": [
+   2,
+   0.6
+  ]
+ },
+ "outside_app_among_drop": {
+  "none": [
+   78,
+   24.8
+  ],
+  "compare_other_platform": [
+   9,
+   2.9
+  ],
+  "reddit_forums": [
+   7,
+   2.2
+  ],
+  "youtube": [
+   6,
+   1.9
+  ],
+  "advisor": [
+   3,
+   1.0
+  ],
+  "google_search": [
+   3,
+   1.0
+  ],
+  "friends_family": [
+   3,
+   1.0
+  ]
+ },
+ "outside_app_all": {
+  "none": [
+   349,
+   19.7
+  ],
+  "youtube": [
+   60,
+   3.4
+  ],
+  "reddit_forums": [
+   48,
+   2.7
+  ],
+  "google_search": [
+   39,
+   2.2
+  ],
+  "compare_other_platform": [
+   23,
+   1.3
+  ],
+  "advisor": [
+   9,
+   0.5
+  ],
+  "friends_family": [
+   6,
+   0.3
+  ]
+ },
+ "what_they_check_all": {
+  "none": [
+   243,
+   13.7
+  ],
+  "current_value": [
+   93,
+   5.2
+  ],
+  "returns_percent": [
+   90,
+   5.1
+  ],
+  "statement": [
+   67,
+   3.8
+  ],
+  "sip_date_status": [
+   43,
+   2.4
+  ],
+  "xirr": [
+   17,
+   1.0
+  ],
+  "nav": [
+   17,
+   1.0
+  ],
+  "units": [
+   9,
+   0.5
+  ],
+  "market_news": [
+   3,
+   0.2
+  ]
+ },
+ "stage_among_drop": {
+  "established_12m_plus": [
+   131,
+   41.6
+  ],
+  "unclear": [
+   122,
+   38.7
+  ],
+  "considering": [
+   27,
+   8.6
+  ],
+  "early_3_12m": [
+   20,
+   6.3
+  ],
+  "started_0_3m": [
+   15,
+   4.8
+  ]
+ },
+ "income_among_drop_known": {
+  "fixed_salary": [
+   7,
+   58.3
+  ],
+  "irregular": [
+   3,
+   25.0
+  ],
+  "variable_pay": [
+   2,
+   16.7
+  ]
+ },
+ "influence_known": {
+  "self_research": [
+   293,
+   67.7
+  ],
+  "creator_social": [
+   79,
+   18.2
+  ],
+  "family": [
+   41,
+   9.5
+  ],
+  "friend_colleague": [
+   14,
+   3.2
+  ],
+  "workplace": [
+   4,
+   0.9
+  ],
+  "app_prompt": [
+   2,
+   0.5
+  ]
+ },
+ "months_since_start_drop": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  1,
+  1,
+  2,
+  2,
+  6,
+  12,
+  12,
+  12,
+  12,
+  13,
+  18,
+  20,
+  24,
+  24,
+  24,
+  24,
+  24,
+  36,
+  36,
+  36,
+  36,
+  36,
+  36,
+  36,
+  47,
+  48,
+  60,
+  60,
+  60,
+  60,
+  72,
+  120
+ ],
+ "trigger_x_event": {
+  "paused": {
+   "none": [
+    4,
+    26.7
+   ],
+   "cash_flow_pressure": [
+    3,
+    20.0
+   ],
+   "unclear": [
+    2,
+    13.3
+   ],
+   "low_or_negative_returns": [
+    2,
+    13.3
+   ],
+   "life_event": [
+    2,
+    13.3
+   ],
+   "app_issue": [
+    1,
+    6.7
+   ],
+   "better_alternative": [
+    1,
+    6.7
+   ]
+  },
+  "reduced": {
+   "cash_flow_pressure": [
+    4,
+    28.6
+   ],
+   "better_alternative": [
+    4,
+    28.6
+   ],
+   "unclear": [
+    2,
+    14.3
+   ],
+   "none": [
+    1,
+    7.1
+   ],
+   "life_event": [
+    1,
+    7.1
+   ],
+   "app_issue": [
+    1,
+    7.1
+   ],
+   "low_or_negative_returns": [
+    1,
+    7.1
+   ]
+  },
+  "stopped": {
+   "none": [
+    29,
+    26.1
+   ],
+   "low_or_negative_returns": [
+    15,
+    13.5
+   ],
+   "unclear": [
+    15,
+    13.5
+   ],
+   "app_issue": [
+    12,
+    10.8
+   ],
+   "confusion_about_numbers": [
+    9,
+    8.1
+   ],
+   "better_alternative": [
+    7,
+    6.3
+   ],
+   "life_event": [
+    7,
+    6.3
+   ],
+   "failed_payment_or_mandate": [
+    6,
+    5.4
+   ],
+   "cash_flow_pressure": [
+    4,
+    3.6
+   ],
+   "expectation_mismatch": [
+    4,
+    3.6
+   ],
+   "advice_from_others": [
+    3,
+    2.7
+   ]
+  },
+  "switched_platform": {
+   "better_alternative": [
+    27,
+    57.4
+   ],
+   "app_issue": [
+    7,
+    14.9
+   ],
+   "expectation_mismatch": [
+    4,
+    8.5
+   ],
+   "confusion_about_numbers": [
+    3,
+    6.4
+   ],
+   "none": [
+    3,
+    6.4
+   ],
+   "low_or_negative_returns": [
+    2,
+    4.3
+   ],
+   "unclear": [
+    1,
+    2.1
+   ]
+  },
+  "considering_stopping": {
+   "none": [
+    24,
+    26.4
+   ],
+   "unclear": [
+    19,
+    20.9
+   ],
+   "low_or_negative_returns": [
+    12,
+    13.2
+   ],
+   "better_alternative": [
+    8,
+    8.8
+   ],
+   "life_event": [
+    6,
+    6.6
+   ],
+   "cash_flow_pressure": [
+    5,
+    5.5
+   ],
+   "expectation_mismatch": [
+    5,
+    5.5
+   ],
+   "app_issue": [
+    4,
+    4.4
+   ],
+   "confusion_about_numbers": [
+    4,
+    4.4
+   ],
+   "failed_payment_or_mandate": [
+    2,
+    2.2
+   ],
+   "advice_from_others": [
+    2,
+    2.2
+   ]
+  },
+  "failed_instalment": {
+   "failed_payment_or_mandate": [
+    23,
+    62.2
+   ],
+   "app_issue": [
+    9,
+    24.3
+   ],
+   "cash_flow_pressure": [
+    4,
+    10.8
+   ],
+   "confusion_about_numbers": [
+    1,
+    2.7
+   ]
+  }
+ },
+ "quality": {
+  "quote_verbatim_rate": 99.3,
+  "mean_confidence": 4.87
+ },
+ "sample_quotes_by_trigger": {
+  "failed_payment_or_mandate": [
+   {
+    "uid": "playstore:b94b83bb-16e9-4b69-b9a5-c6ad6b52874b",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "auto payment fails in mutual fund sip and there is no retry done by the app."
+   },
+   {
+    "uid": "playstore:c3b92199-9372-4846-a64e-15bda53c9cac",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "even after activating Autopay sips gets cancelled. bank balance everything was there. not working."
+   },
+   {
+    "uid": "playstore:f5bff1c5-df8d-476f-8167-b9a5855573e3",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "once SIP payment is delayed by evening immediately they charged my bank charged NACH bounce charges of 350 . previously thr was no such charges.y shud i pay extra to Bank for such service.so i immediately closed my demat account"
+   },
+   {
+    "uid": "playstore:4abb04a9-f38e-4c03-a5cf-e0c35b00eb18",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "bahut kharab sip ke liye 472 ka penalty marta hai 100 ki sip miss hua to aur koi reminder ya usko pement ka option bhi baad me deta hai"
+   },
+   {
+    "uid": "playstore:5c747db6-70a8-4804-9c3f-97cc6f9523a0",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "after SIP canceled still take charge for SIP bounce."
+   },
+   {
+    "uid": "playstore:676115ef-bbd4-44a4-9674-c01e4d69329b",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "this month my SIP is not deducted and your coustomer service is very poor"
+   }
+  ],
+  "app_issue": [
+   {
+    "uid": "playstore:0931366b-c95f-4dc4-a720-17280293f85d",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "then i withdrawal all"
+   },
+   {
+    "uid": "playstore:d8ded882-1cf4-49b9-8f01-54b24751f3f8",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "they skipped this sip today even though I had set up everything and funds are there"
+   },
+   {
+    "uid": "playstore:370afd8b-f51f-47fa-a662-b51a6be2e0a8",
+    "source": "playstore",
+    "event": "considering_stopping",
+    "quote": "international funds currently not accepting new SIPs or lump-sum investments don’t even appear when searched in the app. This is very disappointing and frustrating."
+   },
+   {
+    "uid": "playstore:e3c2468c-c4ee-4559-b242-8efa093e226e",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "i invest in sip money debited but but didn't allotted and money is also not refund"
+   },
+   {
+    "uid": "playstore:2abb5638-377e-46ee-a7f6-8d008fb9dd9f",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "SIP का पैसा नही आया एकाउंट में GROWW ने अपने एकाउंट में ले लिया FAKE आप है GROWW isme koe sip mat karna"
+   },
+   {
+    "uid": "playstore:55a1df77-6d98-4109-8240-67254169c049",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "not getting a proper response from groww customer care regarding my 2nd SIP due date(not able to pay manually)"
+   }
+  ],
+  "cash_flow_pressure": [
+   {
+    "uid": "playstore:4b9a15df-0e1d-4104-b236-296344af258b",
+    "source": "playstore",
+    "event": "failed_instalment",
+    "quote": "As a result, my EMI and SIP payments cannot be processed, and I may not receive my salary. This has caused serious financial stress."
+   },
+   {
+    "uid": "reddit:1wqrxir",
+    "source": "reddit",
+    "event": "considering_stopping",
+    "quote": "Dilemma - should I get a personal loan or sell-off mutual fund?"
+   },
+   {
+    "uid": "reddit:1vf8sfh",
+    "source": "reddit",
+    "event": "failed_instalment",
+    "quote": "Missed two SIP installments due to low balance will it affect my investment?"
+   },
+   {
+    "uid": "reddit:1vcdrir",
+    "source": "reddit",
+    "event": "failed_instalment",
+    "quote": "Failed 4–5 SIP payments today due to low balance in my HDFC account."
+   },
+   {
+    "uid": "reddit:1vbmjv8",
+    "source": "reddit",
+    "event": "failed_instalment",
+    "quote": "Missed 2 SIP installments because of insufficient bank balance, wondering if that messes anything up."
+   },
+   {
+    "uid": "reddit:1tir0zp",
+    "source": "reddit",
+    "event": "stopped",
+    "quote": "i started investing 2 month ago, i can not do sip because i don't have fixed income every month"
+   }
+  ],
+  "low_or_negative_returns": [
+   {
+    "uid": "playstore:1708f62d-cbc8-4ce3-a1c3-acd17eac1079",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "My losses above 27 lakh. Preparing Demat Account means start to loose hard earned money without any hesitation. Post office and bank fix deposit is the Supreme work."
+   },
+   {
+    "uid": "playstore:17495c24-c070-4e40-bfe0-98c1937927ac",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "mai ek mutual fund 2 saal tak rakheya , jido oh negtive mai hor rupee add karda gya , jido 2 din to Positive ch aaya, mai mutual sell (redeam) karta"
+   },
+   {
+    "uid": "playstore:78e56036-8fd2-4855-aec8-9270e883054b",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "5 saal ki mehnat kharab kardi meri grow app ne"
+   },
+   {
+    "uid": "reddit:1veivwn",
+    "source": "reddit",
+    "event": "considering_stopping",
+    "quote": "my CAGR is in negative now should i change or keep it going for next 10 years"
+   },
+   {
+    "uid": "reddit:1tfonra",
+    "source": "reddit",
+    "event": "considering_stopping",
+    "quote": "Small Investor Here: Continue SIPs or Stop Everything?"
+   },
+   {
+    "uid": "reddit:1qpi3cz",
+    "source": "reddit",
+    "event": "considering_stopping",
+    "quote": "New investor here — SIPs in loss, confused if I should continue or stop."
+   }
+  ],
+  "life_event": [
+   {
+    "uid": "playstore:e10390c4-9c4e-4406-a83d-bda8dc96ce29",
+    "source": "playstore",
+    "event": "considering_stopping",
+    "quote": "I recently got operated on my knee and I'm not able to go for work due to which I'm facing financial issues and just need one month to get back on track and so tried to skip one installment"
+   },
+   {
+    "uid": "playstore:04578a6b-1c1e-4e95-91b6-38d3c8dae0e4",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "I was started sip in this app initially. then groww app without my permission shared my number to different SEBI registered agencies."
+   },
+   {
+    "uid": "reddit:1x4p2wy",
+    "source": "reddit",
+    "event": "considering_stopping",
+    "quote": "Should I pause my ₹30–35k monthly SIPs to build savings and help my dad buy a car?"
+   },
+   {
+    "uid": "reddit:1l7pm6d",
+    "source": "reddit",
+    "event": "considering_stopping",
+    "quote": "should I stop my SIPs until I do the KYC again."
+   },
+   {
+    "uid": "reddit:1k2h3j7",
+    "source": "reddit",
+    "event": "paused",
+    "quote": "I had paused them in 2021 after five years of consistent investing, due to a move to the US for grad school and work."
+   },
+   {
+    "uid": "reddit:1ifxapl",
+    "source": "reddit",
+    "event": "stopped",
+    "quote": "Mutual fund stopped due to regulatory funds limit funds with international stocks"
+   }
+  ],
+  "confusion_about_numbers": [
+   {
+    "uid": "playstore:92f72fda-ba3f-4f1c-8055-15fec25e5799",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "Started using Groww for mutual funds and stocks just 2 days ago, and already disappointed. There are hidden charges on small, small services that aren't clearly disclosed upfront"
+   },
+   {
+    "uid": "playstore:44e8654a-ffe5-457b-968e-b39640b3604f",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "When I will redeem my amount in this app show a different amount and the amount credited in account is a loose making a different amount."
+   },
+   {
+    "uid": "playstore:9e37f7a9-4cc4-485e-9c31-6a434cdd78a9",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "mere kai saare Mutual funds k paise nikaala liya h. upar se nahi customer care se baat ho rhi"
+   },
+   {
+    "uid": "playstore:f6c66a20-7a01-44f6-a296-590a997b1381",
+    "source": "playstore",
+    "event": "considering_stopping",
+    "quote": "I don't want to continue with this app anymore. Every now and then the app shows wrong data."
+   },
+   {
+    "uid": "playstore:8fd24ada-c029-4bef-b374-2e76af422869",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "I was investing for like 13 months in two SIP's and cancelled one of them today but after doing this my dashboard is showing less than 50% of my invested amount"
+   },
+   {
+    "uid": "playstore:8646bcda-4ae9-48d4-a011-7d4bd3a8d237",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "I have redeem my mutual fund. when i redeem that time it shows 74k when i receive that time only 58k i received."
+   }
+  ],
+  "better_alternative": [
+   {
+    "uid": "playstore:462b8a2b-80b6-46cf-9716-e87172f628a1",
+    "source": "playstore",
+    "event": "switched_platform",
+    "quote": "I am planning to reedem from grow and put in coin."
+   },
+   {
+    "uid": "playstore:a8619cac-feae-4cfd-be79-c223c6285e6f",
+    "source": "playstore",
+    "event": "switched_platform",
+    "quote": "Love the app but switching to Zerodha soon. Why? No SIP Calculator."
+   },
+   {
+    "uid": "playstore:1e6be24b-8d8f-4a3c-9eff-70f8a6676adc",
+    "source": "playstore",
+    "event": "stopped",
+    "quote": "now I am selling all my funds in this worst app"
+   },
+   {
+    "uid": "reddit:1wj2vr5",
+    "source": "reddit",
+    "event": "switched_platform",
+    "quote": "I shifted my SIPs from stock to bonds and returns are quite consistent"
+   },
+   {
+    "uid": "reddit:1ut86ib",
+    "source": "reddit",
+    "event": "switched_platform",
+    "quote": "Switch from regular to direct mutual funds and fire my distributor"
+   },
+   {
+    "uid": "reddit:1uotwd4",
+    "source": "reddit",
+    "event": "switched_platform",
+    "quote": "Switching from Regular to Direct mutual funds after investing for years"
+   }
+  ],
+  "expectation_mismatch": [
+   {
+    "uid": "playstore:a57434a1-65c6-4b3b-b8a9-9369893e22db",
+    "source": "playstore",
+    "event": "switched_platform",
+    "quote": "Trying to switch my MF SIP investment from an ELSS fund to another fund from the same MF house."
+   },
+   {
+    "uid": "playstore:9b6eaa41-fbe4-4bd1-ae86-47958e7c1613",
+    "source": "playstore",
+    "event": "switched_platform",
+    "quote": "I will never buy mutual funds from Groww again and will be looking for a more reliable platform"
+   },
+   {
+    "uid": "playstore:3b29f8f1-0795-4976-9562-485f6de37bfa",
+    "source": "playstore",
+    "event": "switched_platform",
+    "quote": "I am doing S.I.P in mutual fund through this app from last 4 years.. but today I shifted my SIP from Grow to Zerotha"
+   },
+   {
+    "uid": "reddit_comment:o51a23s",
+    "source": "reddit_comment",
+    "event": "switched_platform",
+    "quote": "I've faced the same frustration with Kuvera. new SIPs get spread across old goals/corpus proportionally, messing up separate tracking. I switched some fresh investments to tryliquid lately."
+   },
+   {
+    "uid": "reddit_comment:omg9v85",
+    "source": "reddit_comment",
+    "event": "stopped",
+    "quote": "I was only able invest 200Rs and they stopped taking customer fund."
+   },
+   {
+    "uid": "youtube:UgwkLOdAXpW7tkoPWFV4AaABAg",
+    "source": "youtube",
+    "event": "stopped",
+    "quote": "मैं sip तब बंद karta hu जब fund जायदा chadne लगता है"
+   }
+  ],
+  "unclear": [
+   {
+    "uid": "playstore:b00fadb5-ac47-4e52-ac02-91c0cce30e87",
+    "source": "playstore",
+    "event": "considering_stopping",
+    "quote": "I want to cancel sip"
+   },
+   {
+    "uid": "reddit:1uy4i0b",
+    "source": "reddit",
+    "event": "stopped",
+    "quote": "NRI + Groww + SIP cancellation."
+   },
+   {
+    "uid": "reddit:1uxytm2",
+    "source": "reddit",
+    "event": "paused",
+    "quote": "Should I resume my SIP for MO Midcap fund?"
+   },
+   {
+    "uid": "reddit:1kh54yc",
+    "source": "reddit",
+    "event": "reduced",
+    "quote": "How to reduce SIP in MF in Upstox?"
+   },
+   {
+    "uid": "reddit_comment:mv0b5pj",
+    "source": "reddit_comment",
+    "event": "reduced",
+    "quote": "I had started in PPF few years back. I had reduced investing after a while."
+   },
+   {
+    "uid": "reddit_comment:mqgunvw",
+    "source": "reddit_comment",
+    "event": "stopped",
+    "quote": "Have stopped my SIPs in direct funds."
+   }
+  ],
+  "none": [
+   {
+    "uid": "reddit:1l0u3ir",
+    "source": "reddit",
+    "event": "reduced",
+    "quote": "Just thinking to reduce my mutual funds and create 4-6 funds from current 12."
+   },
+   {
+    "uid": "reddit:1jpc2qx",
+    "source": "reddit",
+    "event": "stopped",
+    "quote": "Help with process of stopping NPS voluntarily contribution SIP."
+   },
+   {
+    "uid": "reddit_comment:njkrwkz",
+    "source": "reddit_comment",
+    "event": "paused",
+    "quote": "Owing to the suspension, your Zerodha SIP has been paused."
+   },
+   {
+    "uid": "reddit_comment:n76r5sf",
+    "source": "reddit_comment",
+    "event": "considering_stopping",
+    "quote": "I'm twenty-eight and I can invest 55k per month. My risk investment profile is moderate"
+   },
+   {
+    "uid": "reddit_comment:mzuq0k7",
+    "source": "reddit_comment",
+    "event": "considering_stopping",
+    "quote": "Seems like putting in SIP every month is also a good investment after pregnancy."
+   },
+   {
+    "uid": "youtube:UgywsDFc7J1uYWR3aV94AaABAg",
+    "source": "youtube",
+    "event": "considering_stopping",
+    "quote": "20 sal ki sip lene k bad , agr mene 10 sal bad close kar diya toh kya hoga"
+   }
+  ],
+  "advice_from_others": [
+   {
+    "uid": "reddit_comment:mz9ykhn",
+    "source": "reddit_comment",
+    "event": "stopped",
+    "quote": "i signed and money deducted, 50K first investment done. I came home, wrote an email to the customer care of the insurance company ( it was TATA AIA ) and requested to cancel the plan, it got cancelled"
+   },
+   {
+    "uid": "youtube:UgxiZf9tiQ55JrgMMW14AaABAg",
+    "source": "youtube",
+    "event": "considering_stopping",
+    "quote": "Sir maine Franklin Templeton elss me sip liya he ab stop karna chahta hu lekin agent bahana batata rahta he .Mere bank accounts me se sip kat jata he me kya karu?"
+   },
+   {
+    "uid": "youtube:UgwE64shdg9WP_XxM3V4AaABAg",
+    "source": "youtube",
+    "event": "considering_stopping",
+    "quote": "Sir maine kai logo se puchha tha to unhone kha tha ki sip band karne par intrest bhi milna band ho jata hai"
+   },
+   {
+    "uid": "reddit_comment:mr8mvzy",
+    "source": "reddit_comment",
+    "event": "stopped",
+    "quote": "Parents staying away from SIP : in that case opt for RD. The XIRR math is terrible if you look at ULIP."
+   },
+   {
+    "uid": "reddit_comment:mqhkrb6",
+    "source": "reddit_comment",
+    "event": "stopped",
+    "quote": "I tried to explain this as well to my father but ig he trusts his agent/older people more"
+   }
+  ]
+ }
+}

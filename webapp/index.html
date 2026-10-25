@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIP Discovery Engine</title>
+<meta name="description" content="AI discovery engine that studies why first-time Indian investors keep or drop their SIPs. Independent research project; not investment advice.">
+<style>
+:root{
+  --bg:#f7f8fa; --card:#ffffff; --ink:#14213d; --muted:#5b6678; --line:#dde2ea; --accent:#0072B2; --accent-ink:#ffffff;
+  --ok:#006d5b; --ok-bg:#e1f3ef; --warn:#8a5a00; --warn-bg:#fdf1d6; --bad:#a63a00; --bad-bg:#fbe6da; --chip:#eef2f7;
+  --c1:#0072B2; --c2:#E69F00; --c3:#009E73; --c4:#CC79A7; --c5:#56B4E9; --c6:#D55E00; --c7:#6b7280;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1624; --card:#17213a; --ink:#e8edf6; --muted:#9fb0c8; --line:#2a3858; --accent:#56B4E9; --accent-ink:#0a1220;
+    --ok:#6fe0c8; --ok-bg:#12332e; --warn:#f3c969; --warn-bg:#3a2e12; --bad:#ffa77a; --bad-bg:#3d2316; --chip:#202c4a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px 64px}
+header{padding:28px 0 8px}
+h1{font-size:clamp(1.5rem,4vw,2.1rem);line-height:1.2;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 4px;max-width:70ch}
+.disclaimer{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:999px;background:var(--warn-bg);color:var(--warn);font-size:.875rem}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 18px;border-bottom:1px solid var(--line);padding-bottom:10px}
+nav button{background:none;border:1px solid transparent;border-radius:8px;padding:8px 14px;font:inherit;color:var(--muted);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--card);border-color:var(--line);color:var(--ink);font-weight:600}
+nav button:focus-visible,button:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section.panel{display:none}section.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+h2{font-size:1.25rem;margin:0 0 4px}h3{font-size:1.05rem;margin:0 0 8px}
+.hint{color:var(--muted);font-size:.9rem;margin:0 0 12px}
+textarea{width:100%;min-height:130px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer}
+.btn[disabled]{opacity:.6;cursor:wait}
+.chip{background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.875rem;cursor:pointer}
+.count{margin-left:auto;color:var(--muted);font-size:.85rem}
+.banner{padding:12px 14px;border-radius:10px;margin:14px 0;font-weight:600}
+.banner.ok{background:var(--ok-bg);color:var(--ok)}.banner.uncertain{background:var(--warn-bg);color:var(--warn)}.banner.out{background:var(--bad-bg);color:var(--bad)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.kv{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kv b{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:2px}
+blockquote{margin:12px 0;padding:10px 14px;border-left:4px solid var(--accent);background:var(--bg);border-radius:0 8px 8px 0}
+.tag{display:inline-block;border-radius:6px;padding:2px 8px;font-size:.78rem;background:var(--chip);border:1px solid var(--line);margin-right:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat .n{font-size:1.5rem;font-weight:700}.stat .l{color:var(--muted);font-size:.82rem}
+.bar{display:grid;grid-template-columns:minmax(120px,38%) 1fr auto;gap:10px;align-items:center;margin:7px 0;font-size:.92rem}
+.bar .track{background:var(--chip);border-radius:6px;height:16px;overflow:hidden}
+.bar .fill{height:100%;border-radius:6px;background:var(--c1)}
+.bar .v{font-variant-numeric:tabular-nums;color:var(--muted);min-width:5.5em;text-align:right}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.seg button{background:var(--card);border:0;padding:6px 12px;font:inherit;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+select{max-width:100%;flex:1 1 150px;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.scroll{overflow-x:auto}
+.q{padding:10px 0;border-bottom:1px solid var(--line)}
+.callout{border-left:4px solid var(--c2);padding:10px 14px;background:var(--warn-bg);color:var(--ink);border-radius:0 8px 8px 0;margin:12px 0}
+ol.steps{padding-left:20px}ol.steps li{margin-bottom:8px}
+footer{color:var(--muted);font-size:.85rem;margin-top:28px}
+@media (max-width:560px){.bar{grid-template-columns:1fr auto}.bar .track{grid-column:1/3;order:3}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>SIP Discovery Engine</h1>
+  <p class="sub">An AI workflow that reads what first-time Indian investors write about their SIPs and shows where continuation breaks down, how often, and what they say they need.</p>
+  <span class="disclaimer">Independent research project. Not affiliated with Groww. Not investment advice.</span>
+  <nav role="tablist" aria-label="Sections">
+    <button role="tab" aria-selected="true" data-tab="try">Try the engine</button>
+    <button role="tab" aria-selected="false" data-tab="found">What it found</button>
+    <button role="tab" aria-selected="false" data-tab="opps">Opportunities</button>
+    <button role="tab" aria-selected="false" data-tab="how">How it works &amp; quality</button>
+  </nav>
+</header>
+
+<section class="panel on" id="try">
+  <div class="card">
+    <h2>Paste a post, review or comment about a mutual fund SIP</h2>
+    <p class="hint">The engine extracts what happened to the SIP, why, how the person feels, and what they seem to need, then checks its own answer before showing it. Please don't paste personal details (PAN, account numbers, phone numbers).</p>
+    <label for="inp" class="hint">Text to analyse (English, Hindi or Hinglish; 20 to 1500 characters)</label>
+    <textarea id="inp" maxlength="1500" placeholder="e.g. I started a SIP of 2000 six months ago and it's still showing -3%. Is this normal? Should I stop?"></textarea>
+    <div class="row">
+      <button class="btn" id="go">Analyse</button>
+      <span class="hint" style="margin:0">Examples written for this demo:</span>
+      <button class="chip" data-ex="0">Worried about a loss</button>
+      <button class="chip" data-ex="1">Irregular income</button>
+      <button class="chip" data-ex="2">Failed instalment</button>
+      <button class="chip" data-ex="3">Not about SIPs</button>
+      <span class="count" id="cnt">0 / 1500</span>
+    </div>
+    <div id="out" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="panel" id="found">
+  <div class="stats" id="stats"></div>
+  <div class="callout"><b>Read this first.</b> Public text over-represents experienced investors and under-represents people who quietly lapse. Counts below are signals to test in interviews, not population estimates. The share of "trigger not stated" is shown on purpose.</div>
+  <div class="card">
+    <h2>Where SIPs break</h2>
+    <p class="hint">Drop-off signals (paused, reduced, stopped, considering stopping, failed instalment), grouped by the branches of the 12-month continuation breakdown.</p>
+    <div class="seg" id="segBranch"><button aria-pressed="true" data-v="all">All investors</button><button aria-pressed="false" data-v="fy">First year only</button></div>
+    <div id="chBranch"></div>
+    <h3 style="margin-top:16px">Same signals, by source</h3>
+    <p class="hint">Different places surface different problems: app-reliability complaints live in Play Store reviews, "is this normal?" questions live on Reddit. Counts are drop-off signals, not percentages.</p>
+    <div class="scroll"><table id="tSrc"></table></div>
+  </div>
+  <div class="card">
+    <h2>What people say they need</h2>
+    <p class="hint">Most important unmet need in each post, grouped into opportunity areas.</p>
+    <div class="seg" id="segNeed"><button aria-pressed="true" data-v="fyall">First-year, all posts</button><button aria-pressed="false" data-v="fyd">First-year drop-offs</button><button aria-pressed="false" data-v="all">All drop-offs</button></div>
+    <div id="chNeed"></div>
+  </div>
+  <div class="card"><h2>Stated reasons</h2><p class="hint">Trigger the person gave, among drop-off signals.</p><div id="chTrig"></div></div>
+  <div class="card"><h2>How they feel, and where they go when unsure</h2><div class="grid"><div><h3>Emotion</h3><div id="chEmo"></div></div><div><h3>Outside the app</h3><div id="chOut"></div></div></div></div>
+  <div class="card">
+    <h2>Evidence browser</h2>
+    <p class="hint">Short verbatim excerpts from public posts (no usernames, no links). Filter to read the voices behind a number.</p>
+    <div class="row" style="margin:0 0 10px">
+      <select id="fBranch" aria-label="Branch"><option value="">All branches</option></select>
+      <select id="fSrc" aria-label="Source"><option value="">All sources</option><option value="playstore">Play Store</option><option value="reddit">Reddit post</option><option value="reddit_comment">Reddit comment</option><option value="youtube">YouTube</option></select>
+      <select id="fFy" aria-label="Stage"><option value="">Any stage</option><option value="1">First year only</option></select>
+      <span class="count" id="qcount"></span>
+    </div>
+    <div id="qlist"></div>
+  </div>
+</section>
+
+<section class="panel" id="opps">
+  <div class="card">
+    <h2>Candidate opportunity areas</h2>
+    <p class="hint">Scored 1 to 5 as hypotheses, using the engine's evidence plus judgement. Interviews will confirm or kill each one.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Opportunity</th><th>Branch</th><th>Evidence</th><th>Reach</th><th>Metric link</th><th>Fit with guardrails</th><th>AI value</th></tr></thead>
+      <tbody>
+        <tr><td><b>O1</b> Fix failed or missed instalments fast</td><td>S1 involuntary</td><td>4 (strong in Play Store)</td><td>3</td><td>5</td><td>5</td><td>2</td></tr>
+        <tr><td><b>O2</b> A middle path: pause, reduce or skip</td><td>S2a money/life</td><td>3</td><td>3</td><td>4</td><td>5</td><td>3</td></tr>
+        <tr><td><b>O3</b> Explain "what am I looking at, is this normal?"</td><td>S2b understanding</td><td>4</td><td>5</td><td>3</td><td>5</td><td>5</td></tr>
+        <tr><td><b>O4</b> Re-engage drifting investors without pressure</td><td>S3 silent</td><td>1 (invisible in public text)</td><td>?</td><td>4</td><td>3</td><td>3</td></tr>
+      </tbody></table></div>
+    <p class="hint" style="margin-top:10px">Guardrails: no fund or stock recommendations, no fear, FOMO or urgency nudges, never presented as investment advice.</p>
+  </div>
+</section>
+
+<section class="panel" id="how">
+  <div class="card">
+    <h2>How the engine works</h2>
+    <ol class="steps">
+      <li><b>Collect</b> public text: Play Store reviews, Reddit posts and comments from Indian investing communities, YouTube comments on SIP videos.</li>
+      <li><b>Clean and filter:</b> remove duplicates and very short text; keep items that mention SIPs or mutual funds.</li>
+      <li><b>Extract</b> with an LLM into a fixed schema: SIP event, stated trigger, emotion, months since start, what they check, where they go when unsure, segment hints, unmet need, plus a verbatim evidence quote.</li>
+      <li><b>Check</b> each output: the quote must appear word-for-word in the source, enum values must be valid, low confidence is flagged. Failing items are down-weighted or hidden.</li>
+      <li><b>Quantify</b> by mapping triggers to the branches of the 12-month continuation metric and needs to opportunity areas.</li>
+      <li><b>Validate</b> against a golden set of items labelled by hand.</li>
+    </ol>
+  </div>
+  <div class="card"><h2>Quality checks</h2><div id="qual"></div></div>
+  <div class="card">
+    <h2>Known limits</h2>
+    <ul>
+      <li>Silent lapsers do not write posts, so silent drift cannot be measured here.</li>
+      <li>First-year investors are a small share of public text; many posts do not state income, age or reasons.</li>
+      <li>Samples of the larger subreddits are random but partial; Play Store reviews mostly cover app bugs and trading.</li>
+      <li>The AI can mislabel Hinglish, sarcasm and mixed products (for example PPF or insurance). Known failure cases are in the Evidence Log.</li>
+    </ul>
+  </div>
+</section>
+<footer>Built as a product management graduation project. Data are public posts, shown as short excerpts without usernames. Mutual fund investments are subject to market risks. This tool does not recommend any fund.</footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const el = (t, p = {}, kids = []) => { const e = document.createElement(t); for (const [k, v] of Object.entries(p)) { if (k === "text") e.textContent = v; else if (k === "class") e.className = v; else e.setAttribute(k, v); } kids.forEach(c => e.append(c)); return e; };
+const STAGE = { considering: "considering a SIP", started_0_3m: "0 to 3 months in", early_3_12m: "3 to 12 months in", established_12m_plus: "12+ months in", unclear: "unclear" };
+const nice = s => STAGE[s] || String(s || "").replaceAll("_", " ");
+const BN = { S1: "S1 Involuntary: SIP broke", S2a: "S2a Voluntary: money / life", S2b: "S2b Voluntary: understanding & expectation", S2c: "S2c Voluntary: pulled elsewhere", S3: "S3 Silent drift", unstated: "Reason not stated" };
+const ON = { O1: "O1 Fix failed instalments", O2: "O2 Pause / reduce / skip", O3: "O3 Explain 'is this normal?'", O4: "O4 Trusted help / re-engage", none: "No clear need" };
+const COLORS = ["var(--c1)", "var(--c2)", "var(--c3)", "var(--c4)", "var(--c5)", "var(--c6)", "var(--c7)"];
+const SRC = { playstore: "Play Store", reddit: "Reddit post", reddit_comment: "Reddit comment", youtube: "YouTube" };
+
+// tabs
+$$("nav button").forEach(b => b.onclick = () => { $$("nav button").forEach(x => x.setAttribute("aria-selected", x === b)); $$("section.panel").forEach(s => s.classList.toggle("on", s.id === b.dataset.tab)); });
+
+// try-it
+const EX = [
+  "I started a SIP of 2000 six months ago and it's still showing minus 3%. I'm new and confused, is this normal? Should I stop it?",
+  "My income is not fixed, some months freelance work dries up. I cannot keep paying 5000 every month but I don't want to cancel the whole SIP. Is there any way to reduce or skip a month?",
+  "My SIP instalment failed this month even though there was balance in my account. Nobody told me, I found out only when I checked the app after 3 weeks.",
+  "Great app, very easy to buy IPOs and the interface is smooth. 5 stars."
+];
+const inp = $("#inp"); inp.oninput = () => $("#cnt").textContent = inp.value.length + " / 1500";
+$$("[data-ex]").forEach(b => b.onclick = () => { inp.value = EX[b.dataset.ex]; inp.oninput(); });
+function kv(label, val) { return el("div", { class: "kv" }, [el("b", { text: label }), el("span", { text: val || "—" })]); }
+$("#go").onclick = async () => {
+  const text = inp.value.trim(), out = $("#out"), btn = $("#go"); out.replaceChildren();
+  if (text.length < 20) { out.append(el("div", { class: "banner uncertain", text: "Please paste at least 20 characters." })); return; }
+  btn.disabled = true; btn.textContent = "Analysing…";
+  try {
+    const r = await fetch("/api/analyze", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+    const j = await r.json();
+    if (!r.ok) { out.append(el("div", { class: "banner uncertain", text: j.message || "Something went wrong. Please try again." })); return; }
+    const cls = j.status === "ok" ? "ok" : j.status === "uncertain" ? "uncertain" : "out";
+    const title = j.status === "ok" ? "Quality check passed" : j.status === "uncertain" ? "Low confidence: treat as a guess" : "Out of scope: nothing shown";
+    out.append(el("div", { class: "banner " + cls, text: title + (j.reason ? ". " + j.reason : "") }));
+    if (j.status !== "out_of_scope") {
+      const x = j.result;
+      out.append(el("div", { class: "grid" }, [
+        kv("What happened to the SIP", nice(x.sip_event)), kv("Stated reason", nice(x.trigger)), kv("Feeling", nice(x.emotion)),
+        kv("Investor stage", nice(x.investor_stage) + (x.months_since_start != null ? ` (${x.months_since_start} months)` : "")),
+        kv("Checks in the app", x.what_they_check.map(nice).join(", ") || "none"), kv("Goes to when unsure", x.outside_app.map(nice).join(", ") || "none"),
+        kv("Biggest unmet need", nice(x.unmet_need)), kv("Maps to metric branch", j.branch ? BN[j.branch] : "No branch"), kv("Maps to opportunity", j.opportunity ? ON[j.opportunity] : "None")]));
+      if (x.evidence_quote) out.append(el("blockquote", {}, [el("span", { text: "“" + x.evidence_quote + "” " }), el("span", { class: "tag", text: "✓ found word-for-word in your text" })]));
+      else out.append(el("p", { class: "hint", text: "No supporting quote could be verified, so none is shown." }));
+      out.append(el("p", { class: "hint", text: `Checks run: valid categories, quote found in text, confidence ${x.confidence}/5.` + (j.flags.length ? " Flags: " + j.flags.join(", ") : "") }));
+    }
+    out.append(el("p", { class: "hint", text: j.notice + " Model: " + j.model }));
+  } catch (e) { out.append(el("div", { class: "banner uncertain", text: "Could not reach the engine. Please check your connection and try again." })); }
+  finally { btn.disabled = false; btn.textContent = "Analyse"; }
+};
+
+// findings
+fetch("findings.json").then(r => r.json()).then(F => {
+  const fmt = n => n.toLocaleString("en-IN");
+  const S = [["Play Store reviews collected", F.collected.playstore_reviews], ["Reddit posts collected", F.collected.reddit_posts_sip_or_mf], ["Reddit comments collected", F.collected.reddit_comments], ["YouTube comments collected", F.collected.youtube_comments], ["Items analysed by the engine", F.analysed], ["Relevant mutual-fund SIP accounts", F.relevant], ["Drop-off signals", F.drop], ["First-year investors (all / drop-offs)", fmt(F.first_year) + " / " + F.first_year_drop]];
+  $("#stats").replaceChildren(...S.map(([l, n]) => el("div", { class: "stat" }, [el("div", { class: "n", text: typeof n === "number" ? fmt(n) : n }), el("div", { class: "l", text: l })])));
+  const bars = (target, rows, names, total, colorBy) => {
+    const t = total ?? rows.reduce((a, r) => a + r[1], 0), mx = Math.max(...rows.map(r => r[1]), 1);
+    $(target).replaceChildren(...rows.map(([k, v], i) => el("div", { class: "bar" }, [el("span", { text: (names && names[k]) || nice(k) }),
+      el("div", { class: "track" }, [Object.assign(el("div", { class: "fill" }), { style: `width:${100 * v / mx}%;background:${COLORS[colorBy ? i % 7 : 0]}` })]),
+      el("span", { class: "v", text: `${v} (${t ? Math.round(100 * v / t) : 0}%)` })])));
+  };
+  const segs = (id, fn) => $$(id + " button").forEach(b => b.onclick = () => { $$(id + " button").forEach(x => x.setAttribute("aria-pressed", x === b)); fn(b.dataset.v); });
+  const drawB = v => bars("#chBranch", v === "fy" ? F.branch_first_year_drop : F.branch_all_drop, BN, null, true);
+  const drawN = v => bars("#chNeed", v === "all" ? F.opp_all_drop : v === "fyd" ? F.opp_first_year_drop : F.opp_first_year_all, ON, null, true);
+  const cols = ["playstore", "reddit", "reddit_comment", "youtube"], keys = ["S1", "S2a", "S2b", "S2c", "S3", "unstated"];
+  $("#tSrc").replaceChildren(el("thead", {}, [el("tr", {}, [el("th", { text: "Branch" }), ...cols.map(c => el("th", { text: SRC[c] }))])]),
+    el("tbody", {}, keys.map((k, i) => el("tr", {}, [el("td", { text: BN[k] }), ...cols.map(c => el("td", { text: String((F.branch_by_source[c] || [])[i] ? F.branch_by_source[c][i][1] : 0) }))]))));
+  segs("#segBranch", drawB); segs("#segNeed", drawN); drawB("all"); drawN("fyall");
+  bars("#chTrig", F.trigger_drop, null, F.drop); bars("#chEmo", F.emotion_drop, null, F.drop); bars("#chOut", F.outside_drop.filter(r => r[0] !== "none"), null, F.drop);
+  // evidence browser
+  Object.entries(BN).forEach(([k, v]) => $("#fBranch").append(el("option", { value: k, text: v })));
+  const draw = () => {
+    const b = $("#fBranch").value, s = $("#fSrc").value, fy = $("#fFy").value;
+    const list = F.quotes.filter(q => (!b || q.br === b) && (!s || q.s === s) && (!fy || q.fy));
+    $("#qcount").textContent = list.length + " excerpts";
+    $("#qlist").replaceChildren(...list.slice(0, 40).map(q => el("div", { class: "q" }, [el("div", { text: "“" + q.q + "”" }),
+      el("div", {}, [el("span", { class: "tag", text: SRC[q.s] }), el("span", { class: "tag", text: nice(q.ev) }), el("span", { class: "tag", text: BN[q.br] }), el("span", { class: "tag", text: "needs: " + nice(q.need) })])])));
+  };
+  ["#fBranch", "#fSrc", "#fFy"].forEach(i => $(i).onchange = draw); draw();
+  // quality
+  const Q = [["Evidence quotes found verbatim in source text", F.quality.quote_verbatim_pct + "%"], ["Mean model confidence (1 to 5)", F.quality.mean_confidence]];
+  if (F.golden) F.golden.forEach(g => Q.push(g));
+  else Q.push(["Agreement with hand-labelled golden set", "Being finalised; results will be shown here and in the Evidence Log"]);
+  $("#qual").replaceChildren(el("div", { class: "grid" }, Q.map(([l, v]) => kv(l, String(v)))));
+}).catch(() => { $("#stats").replaceChildren(el("p", { text: "Could not load saved findings." })); });
+</script>
+</body>
+</html>
