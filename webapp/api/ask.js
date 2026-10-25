@@ -9,6 +9,8 @@ const BM = JSON.parse(fs.readFileSync(path.join(DIR, "rag_bm25.json"), "utf8"));
 const VIDS = fs.existsSync(path.join(DIR, "rag_vec_ids.json")) ? JSON.parse(fs.readFileSync(path.join(DIR, "rag_vec_ids.json"), "utf8")) : [];   // conversations that also have embeddings
 const VEC = VIDS.length ? new Int8Array(fs.readFileSync(path.join(DIR, "rag_vec.bin")).buffer.slice(0)) : new Int8Array(0);
 const QV = JSON.parse(fs.readFileSync(path.join(DIR, "rag_q.json"), "utf8"));                          // embeddings of the nine research questions
+const CACHE = fs.existsSync(path.join(DIR, "answer_cache.json")) ? JSON.parse(fs.readFileSync(path.join(DIR, "answer_cache.json"), "utf8")) : {};   // verified answers to the most likely questions
+const norm = s => s.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
 const DIM = 256, N = META.length;
 const GEN = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.5-flash"];
 const SRCN = { ps: "Play Store", rp: "Reddit post", rc: "Reddit comment", yt: "YouTube" };
@@ -124,6 +126,7 @@ module.exports = async (req, res) => {
   const question = String((req.body && req.body.question) || "").trim();
   if (question.length < 8 || question.length > 300) return res.status(400).json({ error: "length", message: "Please ask a question between 8 and 300 characters." });
   if (ADVICE_Q.test(question)) return res.status(200).json({ status: "declined", message: "This engine studies what investors say and do. It does not recommend funds or stocks, or tell anyone what to do with their money. Try a question about behaviour, for example: what makes first-year investors pause a SIP?" });
+  if (CACHE[norm(question)]) return res.status(200).json({ ...CACHE[norm(question)], notice: "Saved answer, verified when the engine was evaluated (no live AI call). Ask a different question to run the live engine. Research tool, not investment advice." });
   if (!process.env.GEMINI_API_KEY) return res.status(500).json({ error: "not_configured", message: "Server is missing its API key." });
   const ip = String(req.headers["x-forwarded-for"] || "anon").split(",")[0].trim();
   const lim = limited(ip, "ask", 20, 300);

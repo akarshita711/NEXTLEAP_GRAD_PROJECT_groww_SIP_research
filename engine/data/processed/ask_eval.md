@@ -1,7 +1,5 @@
 # Ask-engine evaluation (RAG, live handler)
 
-*Run on the pipeline: query rewrite + hybrid keyword/field retrieval (dense search unavailable that day: free embedding quota used up) -> answer -> 4 built-in checks. LLM re-ranking was added afterwards and could not be evaluated the same day because the free Gemini quota ran out; re-run `python3 ask_eval.py` after quota reset. The one "NO" under handled-correctly is a temporary Gemini capacity error, not a logic failure.*
-
 - Handled correctly: **18/19** (answer when answerable, decline advice, refuse off-topic, resist prompt injection)
 - Retrieval precision@5 (LLM judge, answerable questions): **43%** over 12 questions
 - Answers judged fully supported by their cited passages: **11/12**

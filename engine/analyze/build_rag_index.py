@@ -10,12 +10,14 @@ m.update({r["uid"]: r for r in load("../data/processed/extracted_v2.jsonl") if r
 p2 = {r["uid"]: r["p2"] for r in load("../data/processed/extracted_p2.jsonl") if r.get("p2")}
 rel = [r for r in m.values() if r["x"]["relevant"] and r["x"]["quote_verbatim"] and r["x"]["confidence"] >= 3]
 rel.sort(key=lambda r: r["uid"])
+class DailyCap(Exception): pass
 def embed(texts, task):
     for attempt in range(8):
         try:
             r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:batchEmbedContents", headers={"x-goog-api-key": KEY},
                 json={"requests": [{"model": f"models/{MODEL}", "content": {"parts": [{"text": t}]}, "taskType": task, "outputDimensionality": DIM} for t in texts]}, timeout=120)
             if r.status_code == 200: return [e["values"] for e in r.json()["embeddings"]]
+            if r.status_code == 429 and "PerDay" in r.text: raise DailyCap()
             print("retry", r.status_code, r.text[:120], file=sys.stderr)
         except Exception as e: print("retry", e, file=sys.stderr)
         time.sleep(min(2 ** attempt, 30))
@@ -30,21 +32,25 @@ if os.path.exists(CACHE):
     for l in open(CACHE):
         try: d = json.loads(l); cache[d["uid"]] = d["v"]
         except Exception: pass
-todo = [r for r in rel if r["uid"] not in cache]
+DROPS = {"paused", "reduced", "stopped", "failed_instalment", "considering_stopping"}
+def priority(r):                       # embed the most decision-relevant conversations first (free tier allows ~1,000 embeddings per day)
+    x = r["x"]; p = p2.get(r["uid"]) or {}
+    if x["sip_event"] in DROPS: return 0
+    if x["investor_stage"] in ("started_0_3m", "early_3_12m", "considering"): return 1
+    if p.get("motivation", "not_stated") != "not_stated" or p.get("expectation", "not_stated") != "not_stated" or any(a != "none" for a in p.get("app_confusion", [])): return 2
+    return 3
+todo = sorted([r for r in rel if r["uid"] not in cache], key=lambda r: (priority(r), r["uid"]))
 B = 30
+LIMIT = int(os.environ.get("EMBED_LIMIT", 900))        # leave a little daily quota for live questions
+done_today = 0
 with open(CACHE, "a") as cf:
     for i in range(0, len(todo), B):
+        if done_today >= LIMIT: print("daily budget reached"); break
         chunk = todo[i:i + B]
-        vs = embed([r["text"][:700] for r in chunk], "RETRIEVAL_DOCUMENT")
+        try: vs = embed([r["text"][:700] for r in chunk], "RETRIEVAL_DOCUMENT")
+        except DailyCap: print("free daily embedding quota reached; resume tomorrow"); break
+        done_today += len(chunk)
         for r, v in zip(chunk, vs): cache[r["uid"]] = q8(v); cf.write(json.dumps({"uid": r["uid"], "v": cache[r["uid"]]}) + "\n")
         cf.flush(); print(len(cache), "/", len(rel), flush=True); time.sleep(20)
-meta, vecs = [], bytearray()
-for r in rel:
-    x = r["x"]; p = p2.get(r["uid"]) or {}
-    t = r["text"]; t = t[:340] + ("…" if len(t) > 340 else "")
-    meta.append({"s": SRC[r["source"]], "st": x["investor_stage"], "ev": x["sip_event"], "tr": x["trigger"], "nd": x["unmet_need"], "em": x["emotion"],
-                 "mo": p.get("motivation", ""), "ex": p.get("expectation", ""), "ac": [a for a in p.get("app_confusion", []) if a != "none"], "t": t})
-    vecs += bytes(b & 0xFF for b in cache[r["uid"]])
-open("../../webapp/api/rag_meta.json", "w").write(json.dumps(meta, ensure_ascii=False, separators=(",", ":")))
-open("../../webapp/api/rag_vec.bin", "wb").write(bytes(vecs))
-print("done", len(meta), os.path.getsize("../../webapp/api/rag_meta.json") // 1024, "KB meta;", len(vecs) // 1024, "KB vectors")
+print("embedded so far:", len(cache), "of", len(rel))
+import subprocess; subprocess.run([sys.executable, "build_rag_files.py"], check=True)
