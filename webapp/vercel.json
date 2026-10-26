@@ -1,1 +1,1 @@
-{ "functions": { "api/ask.js": { "includeFiles": "api/*.json", "maxDuration": 30 }, "api/analyze.js": { "maxDuration": 30 } } }
+{ "functions": { "api/ask.js": { "includeFiles": "api/**", "maxDuration": 30 }, "api/analyze.js": { "maxDuration": 30 } } }
