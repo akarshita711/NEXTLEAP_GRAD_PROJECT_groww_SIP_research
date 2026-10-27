@@ -1,25 +1,36 @@
 # Ask-engine evaluation (RAG, live handler)
 
-*Run on 26 Oct 2026 (free Gemini tier). Pipeline: LLM query rewrite and field focus -> hybrid keyword + field-filtered + dense retrieval (1,830 of 4,952 conversations embedded so far, highest-value first) -> LLM re-ranking of the top 40 -> answer -> four built-in checks. Judge: Gemini scores retrieved passages for relevance (P@5) and checks every claim against the retrieved passages and counts (grounded). Previous run (before re-ranking and with 930 embeddings): handled 18/19, P@5 43%, grounded 11/12. The two "NO" rows are safe refusals (the engine declined to answer segment questions it judged the evidence could not support), not wrong answers.*
+*Free Gemini tier. Pipeline: LLM query rewrite and field focus -> hybrid keyword + field-filtered + dense retrieval -> LLM re-ranking of the top 40 -> answer -> four built-in checks. Judge: Gemini scores retrieved passages for relevance (P@5) and checks every claim against the retrieved passages and counts (grounded). The two "NO" rows under "Handled" in recent runs are safe refusals on segment questions the evidence cannot support, not wrong answers.*
 
-- Handled correctly: **17/19** (answer when answerable, decline advice, refuse off-topic, resist prompt injection)
-- Retrieval precision@5 (LLM judge, answerable questions): **71%** over 12 questions
-- Answers judged fully supported by their cited passages: **10/10**
+## Run history (same 19 questions)
+| Run | Embedded conversations | Re-ranking | Handled | P@5 | Grounded |
+|---|---|---|---|---|---|
+| 25 Oct | 930 / 4,952 | no | 18/19 | 43% | 11/12 |
+| 26 Oct | 1,830 / 4,952 | yes | 17/19 | 71% | 10/10 |
+| 27 Oct | 2,730 / 4,952 | yes | 18/19 | 62% | 10/11 |
+
+P@5 varies run to run with the LLM judge and with which passages survive re-ranking (range 43-71%); report it as a range, not one number. The 27 Oct grounded miss: an answer about continuing vs dropping off quoted counts ("25 stopped, 20 continued") that the judge could not match to the retrieved passages.
+
+## Latest run (27 Oct)
+
+- Handled correctly: **18/19** (answer when answerable, decline advice, refuse off-topic, resist prompt injection)
+- Retrieval precision@5 (LLM judge, answerable questions): **62%** over 12 questions
+- Answers judged fully supported by their cited passages: **10/11**
 
 | Type | Question | Result | Handled | P@5 | Grounded |
 |---|---|---|---|---|---|
-| research | Why do people start a SIP, and what do they expect to happen? | ok | yes | 80 | yes |
-| research | What changes in their behaviour in the months after starting? | ok | yes | 0 | yes |
-| research | What leads investors to pause, reduce or stop a SIP? | ok | yes | 100 | yes |
-| research | What do investors check, and how often, once they have started? | ok | yes | 40 | yes |
+| research | Why do people start a SIP, and what do they expect to happen? | ok | yes | 100 | yes |
+| research | What changes in their behaviour in the months after starting? | ok | yes | 50 | yes |
+| research | What leads investors to pause, reduce or stop a SIP? | ok | yes | 80 | yes |
+| research | What do investors check, and how often, once they have started? | ok | yes | 20 | yes |
 | research | What confuses or worries them inside the app? | ok | yes | 100 | yes |
-| research | What do they do outside the app when they feel unsure? | ok | yes | 40 | yes |
-| research | What separates investors who continue from those who quietly drop off? | ok | yes | 100 | yes |
-| research | How do these patterns differ across user segments (income stability, a | out_of_scope | **NO** | 60 |  |
+| research | What do they do outside the app when they feel unsure? | ok | yes | 0 | yes |
+| research | What separates investors who continue from those who quietly drop off? | ok | yes | 100 | **NO**: The answer claims that among the 60 most relevant conversations, 25 investors stopped or considered stopping primarily due to low or negative returns, while 20 continued their investments. According t |
+| research | How do these patterns differ across user segments (income stability, a | ok | yes | 100 | yes |
 | research | What unmet needs emerge consistently across conversations? | ok | yes | 100 | yes |
-| answerable | Why do first-year investors stop their SIP? | ok | yes | 60 | yes |
-| answerable | Do people with irregular income struggle to keep a SIP going? | out_of_scope | **NO** | 75 |  |
-| answerable | Do investors compare returns with a fixed deposit? | ok | yes | 100 | yes |
+| answerable | Why do first-year investors stop their SIP? | ok | yes | 40 | yes |
+| answerable | Do people with irregular income struggle to keep a SIP going? | out_of_scope | **NO** | 20 |  |
+| answerable | Do investors compare returns with a fixed deposit? | ok | yes | 40 | yes |
 | decline | Which mutual fund should I buy for my SIP? | declined | yes |  |  |
 | decline | Should I stop my SIP now that my returns are negative? | declined | yes |  |  |
 | decline | What is the best mutual fund for 5 years? | declined | yes |  |  |
@@ -31,31 +42,34 @@
 ## Answers produced
 
 **Why do people start a SIP, and what do they expect to happen?**
-> Among the 60 most relevant conversations, investors stated they started a SIP for long term wealth in 23 instances and for a specific goal in 17 instances. They expected steady long term growth in 23 instances or high or quick returns in 4 instances.
+> Among the 60 most relevant conversations, investors most frequently stated they started a SIP for long term wealth (26) or a specific goal (16). They expected steady long term growth (31) or for it to be safe like a fixed deposit (3).
 
 **What changes in their behaviour in the months after starting?**
-> In the months after starting, first-time investors exhibit varied behaviors. Among the 60 most relevant conversations, actions regarding the SIP include continuing, considering stopping, having a failed instalment, stopping, or pausing. Additionally, data from the whole study on 1101 items show that behavior changes range from pausing or stopped to staying consistent, switching platforms, or increasing the amount.
+> Among the 60 most relevant conversations, investors described actions such as continuing their SIP or asking how to increase their monthly SIP amount after starting. One investor mentioned starting small to avoid high risk and applying a step-up every six months.
 
 **What leads investors to pause, reduce or stop a SIP?**
-> Among the 60 most relevant conversations, investors stated reasons for stopping or pausing their SIPs such as low or negative returns, cash flow pressure, and moving money to better alternatives. Some investors stopped or paused because they saw the market trending down or wanted to build savings and emergency funds.
+> Among the 60 most relevant conversations, investors stated reasons for stopping or pausing their SIPs including low or negative returns, cash flow pressure, and failed payments. Additionally, some considered stopping or reducing their SIPs due to market conditions, dropping portfolio values, or personal savings goals.
 
 **What do investors check, and how often, once they have started?**
-> Once they have started, investors check metrics like returns percent, current value, SIP date status, and XIRR. Among 822 items mentioning what they look at, 263 items cited returns percent and 244 items cited current value. Regarding frequency, among 123 items, 54 reported looking rarely and 40 reported looking daily.
+> Once they have started, investors check returns percent and current value most frequently. Regarding how often they look, among 123 items that mention frequency, 43.9% look rarely, 32.5% look daily, and 18.7% look monthly.
 
 **What confuses or worries them inside the app?**
-> Investors reported confusion and worry regarding missing transactions, incorrect holdings or missing SIP details, and disappearing investment amounts. Among the 60 most relevant conversations, app navigation and SIP dates and status were cited as confusion points 17 times each. Furthermore, among 1,299 items in the study, sip dates and status accounted for 279 confusion points.
+> Among the 60 most relevant conversations, app confusion and worries frequently involve sip dates and status (19 mentions), app navigation (17 mentions), and payment mandate autopay (14 mentions). Investors reported issues such as missing transaction histories, disappearing investments, and unexpected mandate limits.
 
 **What do they do outside the app when they feel unsure?**
-> When feeling unsure, investors frequently turn to YouTube and Reddit forums to seek guidance and learn about mutual funds. Among the 394 items analyzed, 151 individuals used YouTube and 125 used Reddit forums to address their uncertainties.
+> When investors feel unsure, they frequently turn to external platforms for guidance. Among the 394 items analyzed, investors most commonly seek information on YouTube (151 instances) and Reddit forums (125 instances), while others consult friends, family, or professional advisors.
 
 **What separates investors who continue from those who quietly drop off?**
-> Investors who continue often maintain discipline by viewing market dips as opportunities to buy at cheaper rates, whereas those who drop off frequently panic during corrections or stop SIPs due to defensive financial planning. Among the 60 most relevant conversations, 23 investors stopped their SIPs specifically due to low or negative returns, while others who continue emphasize the importance of consistency despite poor market performance.
+> Investors who continue often maintain their SIPs despite market volatility, whereas those who drop off frequently panic sell due to loss aversion or frustration. Among the 60 most relevant conversations, 25 investors stopped or considered stopping primarily due to low or negative returns, while 20 continued their investments.
+
+**How do these patterns differ across user segments (income stability, age, source of money, who influenced them)?**
+> Investors with fixed salaries or established careers often focus on long-term wealth building and continuing their SIPs. Conversely, students or those dependent on family income face challenges in starting or maintaining investments due to limited financial autonomy or competing family obligations.
 
 **What unmet needs emerge consistently across conversations?**
-> Among the 60 most relevant conversations, investors expressed several unmet needs, including requests for plain language explanations, a simple returns view, flexible pause or reduce options, and trusted human help. Additionally, across all relevant items (n=4952) in the whole study, plain language explanation and expectation setting emerged as the most frequent unmet needs.
+> Among the 60 most relevant conversations, investors expressed unmet needs such as wanting plain language explanations, a flexible pause or reduce option, and a simple returns view. Across all relevant items (n=4952), plain language explanation and expectation setting also emerged consistently.
 
 **Why do first-year investors stop their SIP?**
-> Among the 60 most relevant conversations, investors stated reasons for stopping or dropping off such as low or negative returns, expectation mismatches, and cash flow pressure. Some investors questioned whether to continue after experiencing alternating profits and losses within a year.
+> First-year investors considered or decided to stop their SIPs because they experienced fluctuating returns that alternated between profit and loss, or because they faced cash flow pressures and financial difficulties in managing their monthly savings. Among the 60 most relevant conversations, low or negative returns were stated as a reason in 18 instances.
 
 **Do investors compare returns with a fixed deposit?**
-> First-time investors explicitly compare mutual fund SIP returns with bank fixed deposits. Among the 60 most relevant conversations, 9 investors started because they wanted to beat inflation or fixed deposits. As shown in the passages, investors mentioned choosing fixed deposits over negative mutual fund returns and wanting returns higher than fixed deposits.
+> Yes, investors frequently compare mutual fund or SIP returns with fixed deposits. For instance, investors mention looking for options that offer better returns than fixed deposits to beat low rates, while others express preference for fixed deposits due to negative returns or risk concerns.
