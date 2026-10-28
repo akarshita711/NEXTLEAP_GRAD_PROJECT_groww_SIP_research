@@ -53,5 +53,8 @@ for r in rows: md.append(f"| {r['kind']} | {r['q'][:70]} | {r['status']} | {'yes
 md += ["", "## Answers produced"]
 for r in rows:
     if r["answer"]: md += ["", f"**{r['q']}**", "> " + r["answer"]]
+HF = "../data/processed/ask_eval_history.md"
+hist = open(HF).read() if os.path.exists(HF) else ""
+md = [md[0], hist] + md[1:]                                    # keep the run history across runs (the script rewrites this file each time)
 open("../data/processed/ask_eval.md", "w").write("\n".join(md)); json.dump(rows, open("../data/processed/ask_eval.json", "w"), indent=1)
 print("\n".join(md[:30]))
