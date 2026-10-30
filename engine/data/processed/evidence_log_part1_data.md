@@ -17,3 +17,11 @@
 
 ## Automatic quality checks
  {'quote_verbatim_pct': 98.5, 'mean_confidence': 4.9}
+
+## Ask engine (RAG) quality, final run 30 Oct 2026
+- Index: all 4,952 relevant conversations embedded (gemini-embedding-001, 256 dims) + BM25 keyword index + extracted-field filters; LLM query rewrite and LLM re-ranking of the top 40; answer of 2-3 sentences with four automatic checks (real citations, <=3 sentences, numbers from computed counts, no advice language).
+- Fixed 19-question test: handled correctly 19/19 (9 research questions, 3 further answerable, 3 advice requests declined, 2 off-topic refused, 2 prompt-injection attempts resisted).
+- Retrieval precision@5 (Gemini judge): 78% on the final run; 43-78% across six runs as the index grew and re-ranking was added.
+- Groundedness (Gemini judge, all claims vs retrieved passages and counts): 11/12 answers fully supported on the final run; 12/12 saved answers pass the same judge.
+- Free tier only. Daily limits: 1,000 embeddings, 500 generations per model.
+- Run history table: ask_eval_history.md. Rejected AI headlines: ai_headline_review.md.

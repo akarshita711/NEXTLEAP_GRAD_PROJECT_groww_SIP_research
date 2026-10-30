@@ -8,7 +8,7 @@
   "p5": 1.0,
   "grounded": true,
   "note": "",
-  "answer": "Among the 60 most relevant conversations, investors stated they started a SIP for long term wealth and specific goals. They expected steady long term growth from their investments."
+  "answer": "Among the 60 most relevant conversations, investors stated they started SIPs mainly for long-term wealth or specific goals. They generally expected steady long-term growth from their investments."
  },
  {
   "kind": "research",
@@ -19,7 +19,7 @@
   "p5": 0.4,
   "grounded": true,
   "note": "",
-  "answer": "In the months after starting, first-time investors exhibit varied behaviours. Some investors continue their SIPs and plan to increase their amounts or add new funds over time, while others pause, reduce, or consider stopping their SIPs due to portfolio drops or life events."
+  "answer": "In the months after starting, investors describe continuing their SIPs, increasing their monthly investments, and occasionally pausing them or making changes to their portfolios. Some users also reported switching funds or platforms after gaining experience."
  },
  {
   "kind": "research",
@@ -30,7 +30,7 @@
   "p5": 1.0,
   "grounded": true,
   "note": "",
-  "answer": "Among the 60 most relevant conversations, investors stated reasons such as low or negative returns and cash flow pressure. For example, some investors stopped their SIPs due to market downturns or job loss, while others wanted to build savings or stated they lacked a flexible option to reduce amounts."
+  "answer": "Among the 60 most relevant conversations, investors stated reasons for stopping or pausing their SIPs included low or negative returns (17) and cash flow pressure (9). Some investors stopped or paused their SIPs when seeing down markets, portfolio drops, or to build savings and handle financial needs."
  },
  {
   "kind": "research",
@@ -41,7 +41,7 @@
   "p5": 1.0,
   "grounded": true,
   "note": "",
-  "answer": "Among the 822 items mentioning what is checked, investors look at returns percent and current value. Among the 123 items mentioning how often, investors look rarely or daily."
+  "answer": "Among the 822 items that say, investors check returns percent, current value, and SIP date status. Among the 123 items that say, they check rarely or daily."
  },
  {
   "kind": "research",
@@ -52,29 +52,29 @@
   "p5": 1.0,
   "grounded": true,
   "note": "",
-  "answer": "Among the 60 most relevant conversations, investors frequently experienced confusion regarding SIP dates and status in 20 instances. They also expressed worry when dashboard displays failed to show their active investments or transactions properly."
+  "answer": "First-time investors reported feeling confused and overwhelmed by app navigation, choosing which SIPs to invest in, and dealing with payment mandates or automated setup. Among the 60 most relevant conversations, app navigation was mentioned 18 times and payment mandate autopay 13 times. Additionally, among the 299 first-year items in the study, sip dates and status appeared 89 times."
  },
  {
   "kind": "research",
   "q": "What do they do outside the app when they feel unsure?",
   "status": "ok",
   "handled": true,
-  "strength": "strong",
-  "p5": 1.0,
+  "strength": "moderate",
+  "p5": 0.0,
   "grounded": true,
   "note": "",
-  "answer": "When feeling unsure, investors frequently turn to YouTube to gain insights, learn how to start SIPs, or analyze specific funds. Among the 394 items analyzed, 151 instances show investors using YouTube, while 125 instances show them using Reddit forums to seek guidance or clarify their financial decisions."
+  "answer": "When feeling unsure, investors often turn to external platforms for guidance. Among 394 items in the study, users frequently visited YouTube (151) and Reddit forums (125) when seeking answers."
  },
  {
   "kind": "research",
   "q": "What separates investors who continue from those who quietly drop off?",
   "status": "ok",
   "handled": true,
-  "strength": "moderate",
-  "p5": 0.4,
+  "strength": "weak",
+  "p5": 1.0,
   "grounded": false,
-  "note": "The answer mentions that 19 investors stopped their SIPs specifically due to low or negative returns, which is supported by the counts, but the text adds generalisations about maintaining a long-term ",
-  "answer": "Investors who continue often maintain a long-term perspective and resist panic selling during market volatility, whereas those who drop off frequently exit due to behavioral traps like loss aversion or unmet return expectations. Among the 60 most relevant conversations, 19 investors stopped their SIPs specifically due to low or negative returns, while others struggled with expectation mismatches."
+  "note": "The claim that among the 60 most relevant conversations, 16 investors stopped their SIPs specifically due to low or negative returns is unsupported because the counts show that 16 is the stated reason",
+  "answer": "Investors who continue often maintain a long-term perspective, acknowledging that market volatility is expected and that exiting during low sentiment can be counterproductive. In contrast, those who drop off often experience panic selling due to loss aversion or frustration when returns do not meet their initial expectations. Among the 60 most relevant conversations, 16 investors stopped their SIPs specifically due to low or negative returns."
  },
  {
   "kind": "research",
@@ -82,10 +82,10 @@
   "status": "ok",
   "handled": true,
   "strength": "moderate",
-  "p5": 0.0,
+  "p5": 0.4,
   "grounded": true,
   "note": "",
-  "answer": "Among the 60 most relevant conversations, investors with irregular income often struggle with SIP consistency, leading some to suggest sizing investments to their worst-performing month. Data across the study shows that those with irregular or variable pay exhibit higher drop-off signals compared to those with fixed salaries, while younger investors and those influenced by friends or family also show varying levels of investment continuity."
+  "answer": "Among the 60 most relevant conversations, investors with irregular income or fixed salaries face different pressures, with some reducing SIPs due to life events like marriage or medical costs. Younger investors, such as students or those in their first jobs, often balance family financial expectations against their own goals, while established investors focus on long-term wealth despite budget constraints."
  },
  {
   "kind": "research",
@@ -96,7 +96,7 @@
   "p5": 1.0,
   "grounded": true,
   "note": "",
-  "answer": "Across the 60 most relevant conversations, investors consistently express a need for better expectation setting and reassurance regarding normal market behavior. They also frequently seek plain language explanations and tools to view their progress toward specific financial goals."
+  "answer": "Among the 60 most relevant conversations, investors expressed unmet needs for plain language explanations (noted in 12 conversations) and a simple returns view (in 10 conversations). Passages show users wanting features like labels for specific goals, clear expense ratio calculations, and easier ways to track underperforming or well-performing mutual funds."
  },
  {
   "kind": "answerable",
@@ -104,21 +104,21 @@
   "status": "ok",
   "handled": true,
   "strength": "strong",
-  "p5": 0.4,
+  "p5": 1.0,
   "grounded": true,
   "note": "",
-  "answer": "Among the 60 most relevant conversations, first-year investors considered stopping or stopping their SIPs due to low or negative returns, cash flow pressure, expectation mismatches, failed payments, life events, or better alternatives. Some investors questioned whether stopping after a few months would cause a loss or how withdrawals work."
+  "answer": "Among the 60 most relevant conversations, first-year investors considered stopping or stopped their SIPs due to low or negative returns and cash flow pressure. For instance, investors noted having no benefit after one year due to fluctuating losses and gains, or struggled to manage monthly finances."
  },
  {
   "kind": "answerable",
   "q": "Do people with irregular income struggle to keep a SIP going?",
   "status": "ok",
   "handled": true,
-  "strength": "moderate",
-  "p5": 0.8,
+  "strength": "strong",
+  "p5": 0.5,
   "grounded": true,
   "note": "",
-  "answer": "Among the 60 most relevant conversations, investors mentioned facing cash flow pressure or financial situations like job and income uncertainty that led them to consider stopping, reducing, or stopping their SIPs. For example, some noted that stagnant salaries and other expenses made it necessary to reduce SIPs, while others asked how to skip payments temporarily when unable to pay for a couple of months."
+  "answer": "Among the 60 most relevant conversations, investors mentioned cash flow pressure as a reason for changing their SIP. Additionally, among established investors, some stated they had to reduce or stop their SIPs due to expenses or life situations like medical or employment changes."
  },
  {
   "kind": "answerable",
@@ -129,7 +129,7 @@
   "p5": 1.0,
   "grounded": true,
   "note": "",
-  "answer": "Among the 60 most relevant conversations, 17 investors stated they started their SIP to beat inflation or a fixed deposit. Additionally, conversations show investors discussing whether SIPs are safer than fixed deposits, preferring fixed deposits over negative returns, and wanting to earn an interest higher than fixed deposits."
+  "answer": "Yes, investors mention comparing mutual fund SIP returns with fixed deposits. Among the 60 most relevant conversations, 14 investors stated they started their SIP to beat inflation or fixed deposits. Additionally, individual investors discussed choosing SIPs to earn interest higher than fixed deposits or expressed a preference for fixed deposits due to negative SIP returns."
  },
  {
   "kind": "decline",

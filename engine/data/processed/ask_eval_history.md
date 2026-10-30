@@ -8,7 +8,8 @@
 | 27 Oct | 2,730 / 4,952 | yes | 18/19 | 62% | 10/11 |
 | 28 Oct | 3,630 / 4,952 | yes | 19/19 | 67% | 12/12 |
 | 29 Oct | 4,590 / 4,952 | yes | 19/19 | 75% | 11/12 |
+| 30 Oct | 4,952 / 4,952 | yes | 19/19 | 78% | 11/12 |
 
-P@5 varies run to run with the LLM judge and with which passages survive re-ranking (range 43-75% across five runs); report it as a range, not one number. The 27 Oct grounded miss: an answer about continuing vs dropping off quoted counts ("25 stopped, 20 continued") that the judge could not match to the retrieved passages.
+P@5 varies run to run with the LLM judge and with which passages survive re-ranking (range 43-78% across six runs); report it as a range, not one number. The 27 Oct grounded miss: an answer about continuing vs dropping off quoted counts ("25 stopped, 20 continued") that the judge could not match to the retrieved passages.
 
 ## Latest run
