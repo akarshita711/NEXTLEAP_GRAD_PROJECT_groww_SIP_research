@@ -1,0 +1,422 @@
+{
+ "G01": {
+  "uid": "reddit_comment:nwc2qm3",
+  "x": {
+   "idx": 7,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 4,
+   "evidence_quote": "Automated investments can only be skipped or stoppes when the investor either has no money in the bank or they want to stop the investment.",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "continuing",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "self_research",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G02": {
+  "uid": "reddit:1km4q71",
+  "x": {
+   "idx": 6,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "If I make payment using Zerodha’s UPI, what are the chances of they not forwarding my request to MF house. Do I need to track such payments more closely?",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "continuing",
+   "trigger": "confusion_about_numbers",
+   "emotion": "anxious",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "plain_language_explanation",
+   "what_they_check": [
+    "statement"
+   ],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G03": {
+  "uid": "reddit_comment:mo81704",
+  "x": {
+   "idx": 3,
+   "relevant": true,
+   "months_since_start": 36,
+   "confidence": 5,
+   "evidence_quote": "I was broke 3 years ago so I couldn't invest.",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "started",
+   "trigger": "cash_flow_pressure",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G04": {
+  "uid": "reddit_comment:n83q1fo",
+  "x": {
+   "idx": 10,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G05": {
+  "uid": "reddit_comment:n4nupj8",
+  "x": {
+   "idx": 2,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G06": {
+  "uid": "reddit_comment:nj0wjny",
+  "x": {
+   "idx": 1,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G07": {
+  "uid": "playstore:a70a7e7e-e2b7-47ef-8eba-40bad316181c",
+  "x": {
+   "idx": 7,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 4,
+   "evidence_quote": "Sometimes out of compulsion, I have to withdraw the amount of SIP",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "reduced",
+   "trigger": "cash_flow_pressure",
+   "emotion": "content",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "flexible_pause_or_reduce",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G08": {
+  "uid": "youtube:Ugxfm20vv_UVLVdlcwt4AaABAg",
+  "x": {
+   "idx": 1,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "SIP cancel karne k baad autopay automatically band ho jate hai kya?",
+   "investor_stage": "unclear",
+   "sip_event": "considering_stopping",
+   "trigger": "none",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "plain_language_explanation",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G09": {
+  "uid": "reddit:1l17t48",
+  "x": {
+   "idx": 9,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Why is there a massive discrepancy in returns between Direct and Regular Mutual Fund (Quant Small Cap), while the returns % is not much different.",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "continuing",
+   "trigger": "confusion_about_numbers",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "self_research",
+   "unmet_need": "plain_language_explanation",
+   "what_they_check": [
+    "returns_percent",
+    "statement"
+   ],
+   "outside_app": [
+    "google_search"
+   ],
+   "quote_verbatim": true
+  }
+ },
+ "G10": {
+  "uid": "reddit:1l3ab8e",
+  "x": {
+   "idx": 6,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "A fresh –15 k SIP will run every month",
+   "investor_stage": "started_0_3m",
+   "sip_event": "started",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "self_research",
+   "unmet_need": "trusted_human_help",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": false
+  }
+ },
+ "G11": {
+  "uid": "reddit:1m4l6zl",
+  "x": {
+   "idx": 11,
+   "relevant": true,
+   "months_since_start": 0,
+   "confidence": 4,
+   "evidence_quote": "I’m 18 and saved ₹1 lakh from freelancing... I’m just confused about what to do with the money. Should I invest it somewhere like mutual funds or stocks?",
+   "investor_stage": "considering",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "confused",
+   "income_stability": "irregular",
+   "who_influenced": "self_research",
+   "unmet_need": "trusted_human_help",
+   "what_they_check": [
+    "none"
+   ],
+   "outside_app": [
+    "none"
+   ],
+   "quote_verbatim": false
+  }
+ },
+ "G12": {
+  "uid": "playstore:4a16d02f-f219-4e8d-866b-762eed990af4",
+  "x": {
+   "idx": 8,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "App takes more Time in Showing Daily Gain/Loss of Mutual Funds. I have to keep another App just to track my Daily Gains/Losses of MFs.",
+   "investor_stage": "unclear",
+   "sip_event": "continuing",
+   "trigger": "none",
+   "emotion": "frustrated",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "simple_returns_view",
+   "what_they_check": [
+    "current_value",
+    "returns_percent"
+   ],
+   "outside_app": [
+    "compare_other_platform"
+   ],
+   "quote_verbatim": true
+  }
+ },
+ "G13": {
+  "uid": "playstore:06c9d176-aa36-47c2-963e-b927331638f0",
+  "x": {
+   "idx": 10,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Your Returns Calculator for Mid150 Index fund is showing wrong calculation.",
+   "investor_stage": "early_3_12m",
+   "sip_event": "continuing",
+   "trigger": "expectation_mismatch",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "expectation_setting",
+   "what_they_check": [
+    "returns_percent"
+   ],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G14": {
+  "uid": "playstore:b006a874-0ed5-4054-822c-e398f5390b1c",
+  "x": {
+   "idx": 10,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G15": {
+  "uid": "youtube:UgwUUwQUT4nkZ7ary-94AaABAg",
+  "x": {
+   "idx": 6,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Sir ky hum upstox app par SIP kar rahe hai to agar uska id ya password bhul gaye to koi dikkat to nahi hoga",
+   "investor_stage": "unclear",
+   "sip_event": "continuing",
+   "trigger": "none",
+   "emotion": "anxious",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G16": {
+  "uid": "reddit_comment:mozpm79",
+  "x": {
+   "idx": 10,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "I’m just now super confused as to what to do. Should I hire an advisor, a distributor or do it on my own.",
+   "investor_stage": "considering",
+   "sip_event": "none",
+   "trigger": "advice_from_others",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "creator_social",
+   "unmet_need": "trusted_human_help",
+   "what_they_check": [],
+   "outside_app": [
+    "reddit_forums"
+   ],
+   "quote_verbatim": true
+  }
+ },
+ "G17": {
+  "uid": "reddit_comment:oref8m7",
+  "x": {
+   "idx": 3,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G18": {
+  "uid": "reddit_comment:nkm5uat",
+  "x": {
+   "idx": 0,
+   "relevant": true,
+   "months_since_start": 24,
+   "confidence": 5,
+   "evidence_quote": "bought another in 83 about 2 years ago now the current evaluation of that land sits at 2.5cr",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "confident",
+   "income_stability": "unknown",
+   "who_influenced": "self_research",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G19": {
+  "uid": "youtube:UgxGDmsyh2atQvRZMMh4AaABAg",
+  "x": {
+   "idx": 3,
+   "relevant": true,
+   "months_since_start": 0,
+   "confidence": 5,
+   "evidence_quote": "maine insta se video dekhker 100 rs Ki sip start krdi",
+   "investor_stage": "started_0_3m",
+   "sip_event": "started",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "creator_social",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ },
+ "G20": {
+  "uid": "youtube:UgwRdqBSW8aOSZ5RKv14AaABAg",
+  "x": {
+   "idx": 2,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": [],
+   "quote_verbatim": true
+  }
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "v1": {
+  "name": "v1 prompt (used for first 4,860 items)",
+  "relevance_acc": 80,
+  "precision": 93,
+  "recall": 81,
+  "fields": {
+   "sip_event": 44,
+   "trigger": 19,
+   "unmet_need": 31,
+   "investor_stage": 56,
+   "emotion": 44
+  },
+  "n_relevant_human": 16
+ },
+ "v2": {
+  "name": "v2 prompt (scope fix; used by the web app)",
+  "relevance_acc": 80,
+  "precision": 100,
+  "recall": 75,
+  "fields": {
+   "sip_event": 44,
+   "trigger": 31,
+   "unmet_need": 12,
+   "investor_stage": 38,
+   "emotion": 25
+  },
+  "n_relevant_human": 16
+ }
+}

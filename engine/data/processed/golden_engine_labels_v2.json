@@ -1,0 +1,365 @@
+{
+ "model": "gemini-3.1-flash-lite",
+ "labels": {
+  "G01": {
+   "idx": 0,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G02": {
+   "idx": 1,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Why Zerodha uses different payment source for different mutual funds?. I have 5 MFs in my portfolio.",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "continuing",
+   "trigger": "confusion_about_numbers",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "plain_language_explanation",
+   "what_they_check": [
+    "sip_date_status"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G03": {
+   "idx": 2,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G04": {
+   "idx": 3,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "How does brokerage and taxes differ for daily vs monthly SIPs ?",
+   "investor_stage": "considering",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "plain_language_explanation",
+   "what_they_check": [],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G05": {
+   "idx": 4,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G06": {
+   "idx": 5,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G07": {
+   "idx": 6,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Sometimes out of compulsion, I have to withdraw the amount of SIP",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "reduced",
+   "trigger": "cash_flow_pressure",
+   "emotion": "content",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "flexible_pause_or_reduce",
+   "what_they_check": [
+    "none"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G08": {
+   "idx": 7,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "SIP cancel karne k baad autopay automatically band ho jate hai kya?",
+   "investor_stage": "considering",
+   "sip_event": "considering_stopping",
+   "trigger": "none",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "plain_language_explanation",
+   "what_they_check": [
+    "sip_date_status"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G09": {
+   "idx": 8,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Why is there a massive discrepancy in returns between Direct and Regular Mutual Fund",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "continuing",
+   "trigger": "confusion_about_numbers",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "self_research",
+   "unmet_need": "simple_returns_view",
+   "what_they_check": [
+    "returns_percent"
+   ],
+   "outside_app": [
+    "google_search"
+   ]
+  },
+  "G10": {
+   "idx": 9,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "A fresh ₹15 k SIP will run every month",
+   "investor_stage": "started_0_3m",
+   "sip_event": "started",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "reassurance_whats_normal",
+   "what_they_check": [
+    "none"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G11": {
+   "idx": 10,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "confused",
+   "income_stability": "irregular",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G12": {
+   "idx": 11,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "App takes more Time in Showing Daily Gain/Loss of Mutual Funds. I have to keep another App just to track my Daily Gains/Losses of MFs.",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "continuing",
+   "trigger": "app_issue",
+   "emotion": "frustrated",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "simple_returns_view",
+   "what_they_check": [
+    "current_value"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G13": {
+   "idx": 12,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Your Returns Calculator for Mid150 Index fund is showing wrong calculation.",
+   "investor_stage": "established_12m_plus",
+   "sip_event": "continuing",
+   "trigger": "confusion_about_numbers",
+   "emotion": "frustrated",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "simple_returns_view",
+   "what_they_check": [
+    "returns_percent"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G14": {
+   "idx": 13,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G15": {
+   "idx": 14,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Sir ky hum upstox app par SIP kar rahe hai to agar uska id ya password bhul gaye to koi dikkat to nahi hoga",
+   "investor_stage": "started_0_3m",
+   "sip_event": "started",
+   "trigger": "none",
+   "emotion": "anxious",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "reassurance_whats_normal",
+   "what_they_check": [
+    "none"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G16": {
+   "idx": 15,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "I’m just now super confused as to what to do. Should I hire an advisor, a distributor or do it on my own.",
+   "investor_stage": "considering",
+   "sip_event": "none",
+   "trigger": "expectation_mismatch",
+   "emotion": "confused",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "trusted_human_help",
+   "what_they_check": [],
+   "outside_app": [
+    "reddit_forums"
+   ]
+  },
+  "G17": {
+   "idx": 16,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G18": {
+   "idx": 17,
+   "relevant": false,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  },
+  "G19": {
+   "idx": 18,
+   "relevant": true,
+   "months_since_start": 0,
+   "confidence": 5,
+   "evidence_quote": "Sr maine insta se video dekhker 100 rs Ki sip start krdi",
+   "investor_stage": "started_0_3m",
+   "sip_event": "started",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "creator_social",
+   "unmet_need": "reassurance_whats_normal",
+   "what_they_check": [
+    "none"
+   ],
+   "outside_app": [
+    "none"
+   ]
+  },
+  "G20": {
+   "idx": 19,
+   "relevant": true,
+   "months_since_start": null,
+   "confidence": 5,
+   "evidence_quote": "Whoever told you to stop SIP block that person or double the Sip amount",
+   "investor_stage": "unclear",
+   "sip_event": "none",
+   "trigger": "none",
+   "emotion": "neutral",
+   "income_stability": "unknown",
+   "who_influenced": "unknown",
+   "unmet_need": "none",
+   "what_they_check": [],
+   "outside_app": []
+  }
+ }
+}
