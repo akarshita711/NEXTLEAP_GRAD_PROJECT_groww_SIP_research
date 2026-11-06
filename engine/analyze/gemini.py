@@ -2,7 +2,8 @@ import json, os, re, threading, time, requests
 KEY = os.environ.get("GEMINI_API_KEY")
 MODELS = os.environ.get("MODELS", "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.5-flash").split(",")   # primary first, then fallbacks
 RPM = 13                                                                          # free tier is 15 requests/min/model; stay under it
-_lock, _last, _dead = threading.Lock(), {}, set()   # _dead = models whose daily free quota is spent
+_lock, _last, _dead = threading.Lock(), {}, set()
+_rr = [0]                                                    # round-robin start index when ROTATE=1 (spreads load over free-tier models)   # _dead = models whose daily free quota is spent
 
 def _wait(model):
     """Per-model spacing so concurrent workers never exceed the free-tier RPM."""
@@ -17,7 +18,11 @@ def call(prompt, schema=None, models=MODELS, temperature=0.0, retries=8):
     for attempt in range(retries):
         live = [x for x in models if x not in _dead]
         if not live: raise RuntimeError("DAILY QUOTA exhausted on all models")
-        m = live[attempt % len(live)] if attempt else live[0]
+        if os.environ.get("ROTATE"):
+            with _lock: _rr[0] += 1; start = _rr[0]
+            m = live[(start + attempt) % len(live)]
+        else:
+            m = live[attempt % len(live)] if attempt else live[0]
         _wait(m)
         try:
             r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent",

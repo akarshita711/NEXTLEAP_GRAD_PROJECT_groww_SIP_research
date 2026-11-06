@@ -1,10 +1,10 @@
 """Batched structured extraction over corpus.jsonl -> extracted.jsonl (resumable, rate-limited)."""
 import json, sys, os, concurrent.futures as cf
-from schema import batch_schema, BATCH_PROMPT, BATCH_PROMPT_V2
+from schema import batch_schema, BATCH_PROMPT, BATCH_PROMPT_V2, BATCH_PROMPT_V3
 from gemini import call
 BATCH = int(os.environ.get("BATCH", 12))
 VER = os.environ.get("PROMPT_VER", "v2")
-TEMPLATE = BATCH_PROMPT_V2 if VER == "v2" else BATCH_PROMPT
+TEMPLATE = {"v1": BATCH_PROMPT, "v2": BATCH_PROMPT_V2, "v3": BATCH_PROMPT_V3}[VER]
 
 def run(inp, out, limit=None, workers=int(os.environ.get("WORKERS", 4))):
     done = set()

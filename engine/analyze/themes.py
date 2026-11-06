@@ -6,6 +6,7 @@ def load(p):
     except FileNotFoundError: return []
 merged = {r["uid"]: r for r in load(inp) if r.get("x")}                                   # v1, one record per item
 merged.update({r["uid"]: r for r in load("../data/processed/extracted_v2.jsonl") if r.get("x")})  # v2 overrides
+merged.update({r["uid"]: r for r in load("../data/processed/extracted_v3.jsonl") if r.get("x")})   # v3 (aligned with hand labels) overrides v1/v2
 rows = list(merged.values())
 ok = rows
 rel = [r for r in ok if r["x"]["relevant"] and r["x"]["quote_verbatim"] and r["x"]["confidence"] >= 3]

@@ -7,6 +7,7 @@ def load(p):
     except FileNotFoundError: return []
 merged = {r["uid"]: r for r in load("../data/processed/extracted.jsonl") if r.get("x")}
 merged.update({r["uid"]: r for r in load("../data/processed/extracted_v2.jsonl") if r.get("x")})
+merged.update({r["uid"]: r for r in load("../data/processed/extracted_v3.jsonl") if r.get("x")})   # v3 (aligned with hand labels) overrides v1/v2
 rel = [r for r in merged.values() if r["x"]["relevant"] and r["x"]["confidence"] >= 3]
 DROP = {"paused", "reduced", "stopped", "failed_instalment", "considering_stopping"}
 def pri(r):

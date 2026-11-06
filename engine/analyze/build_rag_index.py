@@ -7,6 +7,7 @@ def load(p):
     except FileNotFoundError: return []
 m = {r["uid"]: r for r in load("../data/processed/extracted.jsonl") if r.get("x")}
 m.update({r["uid"]: r for r in load("../data/processed/extracted_v2.jsonl") if r.get("x")})
+m.update({r["uid"]: r for r in load("../data/processed/extracted_v3.jsonl") if r.get("x")})   # v3 (aligned with hand labels) overrides v1/v2
 p2 = {r["uid"]: r["p2"] for r in load("../data/processed/extracted_p2.jsonl") if r.get("p2")}
 rel = [r for r in m.values() if r["x"]["relevant"] and r["x"]["quote_verbatim"] and r["x"]["confidence"] >= 3]
 rel.sort(key=lambda r: r["uid"])

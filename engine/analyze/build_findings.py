@@ -8,7 +8,8 @@ def load(p):
     except FileNotFoundError: return []
 v2 = {r["uid"]: r for r in load("../data/processed/extracted_v2.jsonl") if r.get("x")}
 v1 = {r["uid"]: r for r in load("../data/processed/extracted.jsonl") if r.get("x")}
-merged = {**v1, **v2}                      # one record per uid; v2 overrides v1 (earlier failed runs left duplicate error rows, which are ignored)
+v3 = {r["uid"]: r for r in load("../data/processed/extracted_v3.jsonl") if r.get("x")}
+merged = {**v1, **v2, **v3}                  # v3 (aligned with hand labels) overrides v2, which overrides v1                      # one record per uid; v2 overrides v1 (earlier failed runs left duplicate error rows, which are ignored)
 rows = list(merged.values())
 ok = [r for r in rows if r.get("x")]
 rel = [r for r in ok if r["x"]["relevant"] and r["x"]["quote_verbatim"] and r["x"]["confidence"] >= 3]
