@@ -1,0 +1,267 @@
+<style>
+  .phone { margin-bottom: 0; }
+  .hero.sm .hi { font-size: 16px; }
+  .body2.tight { gap: 8px; }
+  .body2.tight .card { padding: 11px 14px 12px; }
+  .pf .val { font-size: 27px; font-weight: 700; letter-spacing: -.5px; margin-top: 4px; }
+  .pf .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .pf .stats { display: flex; gap: 8px; margin-top: 9px; flex-wrap: wrap; }
+  .tag { font-size: 12.5px; font-weight: 600; border-radius: 8px; padding: 4px 8px; }
+  .down { color: #C2410C; } .up { color: #00875F; }
+  .tag.down { background: #FFF1E8; } .tag.up { background: #E6FAF5; } .tag.ok { background: var(--blue-soft); color: var(--blue); }
+  .frow { display: flex; justify-content: space-between; font-size: 13.5px; padding-top: 7px; margin-top: 7px; border-top: 1px dashed var(--line); color: var(--ink-2); }
+  .frow b { font-weight: 600; }
+  .mini { font-size: 13.5px; line-height: 1.42; color: #2A2B3D; margin-top: 6px; }
+  .h5 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 7px; }
+  .dotic { width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff; flex: none; }
+  .linky { font-size: 13px; color: var(--blue); font-weight: 600; margin-top: 7px; }
+  .choices { display: flex; gap: 10px; margin-top: 10px; }
+  .choice { flex: 1; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; background: #fff; }
+  .choice .r { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #B9BCC9; flex: none; }
+  .choice.sel { border-color: var(--blue); background: var(--blue-soft); }
+  .choice.sel .r { border: 5px solid var(--blue); }
+  .chips { display: flex; gap: 8px; margin-top: 10px; }
+  .chip { flex: 1; text-align: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 9px 0; font-size: 14px; font-weight: 600; background: #fff; }
+  .chip.sel { background: var(--green); border-color: var(--green); color: #fff; }
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+  .nactions { display: flex; gap: 8px; margin: 8px 12px 0; }
+  .nactions div { flex: 1; text-align: center; background: rgba(245,246,250,.93); color: var(--ink); border-radius: 16px; padding: 12px 0; font-weight: 600; font-size: 14.5px; }
+  .tl { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .tli { display: flex; gap: 10px; align-items: flex-start; }
+  .tli .dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 3px; flex: none; }
+  .tli .line { width: 2px; height: 22px; background: var(--line); margin: 2px 0 2px 6px; }
+  .tli .d { font-size: 14px; font-weight: 700; } .tli .s { font-size: 12.5px; color: var(--muted); }
+  .bigok { text-align: center; padding-top: 14px; }
+  .bigok h2 { font-size: 21px; font-weight: 700; margin-top: 6px; }
+  .bigok p { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+  .ticks { margin-top: 4px; }
+  .ticks div { display: flex; gap: 8px; font-size: 13.5px; line-height: 1.4; margin-top: 7px; color: #2A2B3D; }
+  .ticks svg { flex: none; margin-top: 2px; }
+</style>
+
+<!-- ======================= SET 1: weekly portfolio check-in ======================= -->
+
+<!-- A0: lock-screen weekly check-in notification (no amounts on the lock screen) -->
+<div class="phone" id="a0"><div class="screen lock">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14" style="color:#fff"><use href="#sig"/></svg></span></div>
+  <div class="lock-date">Saturday, 7 November</div>
+  <div class="lock-time">9:41</div>
+  <div class="notif" style="margin-top:200px">
+    <svg width="40" height="40" style="flex:none"><use href="#sipal-mini"/></svg>
+    <div>
+      <div class="meta"><span class="t">SIPal: Your weekly SIP check-in is ready 🌿</span><span class="when">now</span></div>
+      <div class="b">See how your funds did this week, why the market moved, and whether it's normal. Takes about a minute.</div>
+    </div>
+  </div>
+  <div class="nactions"><div>See my check-in</div><div>Not now</div></div>
+  <div class="lock-foot"><div></div><div></div></div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- A1: Explore tab, SIPal entry above Popular Funds -->
+<div class="phone" id="a1"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="mf-head">
+    <div class="mf-logo"></div>
+    <div class="mf-title">Mutual Funds</div>
+    <svg class="ic" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" stroke="#1B1C2E" stroke-width="2" fill="none"/><path d="M16 16 L21 21" stroke="#1B1C2E" stroke-width="2" stroke-linecap="round"/></svg>
+    <div class="avatar">A</div>
+  </div>
+  <div class="tabs"><span class="on">Explore</span><span>Dashboard</span><span>SIPs</span><span>Watchlist</span></div>
+  <div class="sipal-entry">
+    <svg width="46" height="46"><use href="#sipal-mini"/></svg>
+    <div class="txt">
+      <div class="name">SIPal <span class="pill">NEW</span></div>
+      <div class="sub">Your weekly SIP check-in is ready: how your funds did and why</div>
+      <span class="entry-dot">Week of 2 to 6 Nov</span>
+    </div>
+    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 5 L16 12 L9 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="sec-head"><h3>Popular Funds</h3><span>View all &rsaquo;</span></div>
+  <div class="grid">
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:9px"></div><div class="sk" style="height:12px;width:85%"></div><div class="sk" style="height:12px;width:60%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:50%"></div><div class="sk" style="height:12px;width:80%"></div><div class="sk" style="height:12px;width:50%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:9px"></div><div class="sk" style="height:12px;width:75%"></div><div class="sk" style="height:12px;width:40%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:9px"></div><div class="sk" style="height:12px;width:85%"></div><div class="sk" style="height:12px;width:65%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+  </div>
+  <div class="sec-head"><h3>Collections</h3></div>
+  <div style="display:flex;gap:12px;padding:0 16px">
+    <div class="sk" style="flex:1;height:64px;border-radius:14px"></div><div class="sk" style="flex:1;height:64px;border-radius:14px"></div><div class="sk" style="flex:1;height:64px;border-radius:14px"></div>
+  </div>
+  <div class="bnav">
+    <div><span class="b"></span>Stocks</div><div><span class="b"></span>F&amp;O</div>
+    <div class="on"><span class="b" style="border-radius:50%"></span>Mutual Funds</div><div><span class="b"></span>Loans</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- A2: weekly check-in, down week -->
+<div class="phone" id="a2"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2 tight">
+    <div class="hero sm">
+      <svg width="56" height="56"><use href="#sipal-char"/></svg>
+      <div><div class="hi">Your weekly check-in</div><div class="hs">2 to 6 Nov &middot; SIP running for 11 months</div></div>
+    </div>
+    <div class="card pf">
+      <div class="lbl">YOUR SIP PORTFOLIO</div>
+      <div class="val">&#8377;52,400</div>
+      <div class="sub">Invested &#8377;55,000</div>
+      <div class="stats"><span class="tag down">&#9660; &minus;1.8% this week</span><span class="tag down">&#9660; &minus;&#8377;2,600 overall</span></div>
+      <div class="frow"><span>Flexi cap fund</span><b class="down">&#9660; &minus;1.6%</b></div>
+      <div class="frow"><span>Nifty 50 index fund</span><b class="down">&#9660; &minus;2.1%</b></div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--blue)">?</span>Why did it fall?</div>
+      <div class="mini">Indian shares fell this week (Nifty 50 down 2.1%) as global markets dropped. Your funds own many of these companies, so they dipped too.</div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--green)">&#10003;</span>Is this normal?</div>
+      <div class="mini">Yes. Dips like this are common in a SIP's first year. While prices are lower, each instalment buys more units.</div>
+      <div class="linky">Why returns go up and down &rsaquo;</div>
+    </div>
+    <div class="card">
+      <div class="h5">What can you do?</div>
+      <div class="mini">No action needed. Your next &#8377;5,000 instalment is on 5 Dec.</div>
+    </div>
+    <div class="ask"><span class="q">Ask SIPal about your funds&hellip;</span><span class="send"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <div class="checked"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Checked against your SIP data &middot; Not investment advice</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- A3: weekly check-in, up week -->
+<div class="phone" id="a3"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2 tight">
+    <div class="hero sm">
+      <svg width="56" height="56"><use href="#sipal-char"/></svg>
+      <div><div class="hi">Your weekly check-in</div><div class="hs">9 to 13 Nov &middot; SIP running for 11 months</div></div>
+    </div>
+    <div class="card pf">
+      <div class="lbl">YOUR SIP PORTFOLIO</div>
+      <div class="val">&#8377;57,900</div>
+      <div class="sub">Invested &#8377;55,000</div>
+      <div class="stats"><span class="tag up">&#9650; +1.6% this week</span><span class="tag up">&#9650; +&#8377;2,900 overall</span></div>
+      <div class="frow"><span>Flexi cap fund</span><b class="up">&#9650; +1.4%</b></div>
+      <div class="frow"><span>Nifty 50 index fund</span><b class="up">&#9650; +1.9%</b></div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--blue)">?</span>Why did it rise?</div>
+      <div class="mini">Indian shares rose this week (Nifty 50 up 1.9%) as company results beat estimates. Your funds own many of these companies, so they rose too.</div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--green)">&#10003;</span>Good to know</div>
+      <div class="mini">Returns move with the market, up and down. One good week says little about the years ahead.</div>
+      <div class="linky">Absolute return vs XIRR: what's my real return? &rsaquo;</div>
+    </div>
+    <div class="card">
+      <div class="h5">What can you do?</div>
+      <div class="mini">No action needed. Your next &#8377;5,000 instalment is on 5 Dec.</div>
+    </div>
+    <div class="ask"><span class="q">Ask SIPal about your funds&hellip;</span><span class="send"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <div class="checked"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Checked against your SIP data &middot; Not investment advice</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- ======================= SET 2: reminder before the next debit ======================= -->
+
+<!-- B1: lock-screen reminder, 3 days before the debit -->
+<div class="phone" id="b1"><div class="screen lock">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14" style="color:#fff"><use href="#sig"/></svg></span></div>
+  <div class="lock-date">Monday, 2 November</div>
+  <div class="lock-time">9:41</div>
+  <div class="notif" style="margin-top:200px">
+    <svg width="40" height="40" style="flex:none"><use href="#sipal-mini"/></svg>
+    <div>
+      <div class="meta"><span class="t">SIPal: Your SIP is due on Thursday 🌿</span><span class="when">now</span></div>
+      <div class="b">&#8377;5,000 goes to your mutual funds on 5 Nov. Is this month OK for that amount? If money is tight, you can pay less just this once. Your SIP stays on.</div>
+    </div>
+  </div>
+  <div class="nactions"><div>Yes, all set</div><div>Pay less this month</div></div>
+  <div class="lock-foot"><div></div><div></div></div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- B2: can you pay? reduce this month's amount -->
+<div class="phone" id="b2"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2">
+    <div class="hero sm">
+      <svg width="64" height="64"><use href="#sipal-char"/></svg>
+      <div><div class="hi">Your next SIP</div><div class="hs">&#8377;5,000 on Thu, 5 Nov &middot; bank a/c &bull;&bull;4821</div></div>
+    </div>
+    <div class="card">
+      <div class="h5">Can you pay &#8377;5,000 this month?</div>
+      <div class="choices"><div class="choice"><span class="r"></span>Yes, all set</div><div class="choice sel"><span class="r"></span>Not this month</div></div>
+    </div>
+    <div class="card">
+      <div class="h5">Pay a smaller amount, just for November</div>
+      <div class="chips"><div class="chip">&#8377;1,000</div><div class="chip sel">&#8377;2,000</div><div class="chip">&#8377;3,000</div><div class="chip">Other</div></div>
+      <div class="note">December goes back to &#8377;5,000 on its own.</div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--green)">&#10003;</span>What changes?</div>
+      <div class="mini">Your SIP stays active and there is no penalty. You buy fewer units this month; nothing else changes.</div>
+    </div>
+    <div class="cta">
+      <div class="btn pri">Pay &#8377;2,000 for November</div>
+      <div class="more">Other options: skip November &middot; move the date</div>
+    </div>
+    <div class="checked"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Checked against your SIP data &middot; Not investment advice</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- B3: confirmation -->
+<div class="phone" id="b3"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2">
+    <div class="bigok">
+      <svg width="104" height="104"><use href="#sipal-char"/></svg>
+      <h2>Done! November is set to &#8377;2,000</h2>
+      <p>Your SIP keeps running. Nothing else to do.</p>
+    </div>
+    <div class="card">
+      <div class="h5">What happens next</div>
+      <div class="tl">
+        <div class="tli"><span class="dot" style="background:var(--green)"></span><div><div class="d">5 Nov &middot; &#8377;2,000</div><div class="s">This month only</div></div></div>
+        <div class="tli"><span class="line"></span></div>
+        <div class="tli"><span class="dot" style="background:var(--blue)"></span><div><div class="d">5 Dec &middot; &#8377;5,000</div><div class="s">Back to your usual amount, automatically</div></div></div>
+      </div>
+    </div>
+    <div class="card ticks">
+      <div><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>No penalty, and your SIP stays active</div>
+      <div><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>You can change this until 3 Nov</div>
+    </div>
+    <div class="cta">
+      <div class="btn pri">Back to my SIPs</div>
+      <div class="btn sec">Ask SIPal a question</div>
+    </div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>

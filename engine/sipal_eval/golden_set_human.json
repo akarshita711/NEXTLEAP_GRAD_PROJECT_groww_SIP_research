@@ -1,0 +1,222 @@
+[
+ {
+  "id": "G01",
+  "source": "reddit_comment",
+  "text": "[Thread: The New Year is coming and I want to share a strong investment tip I practiced in 2025 and learnt from. Try following this in 2026.] I understand the sentiment and your passion behind the post. But again, I fail to understand the difference and strong way to be disciplined by your methodology. Also, automated SIPs tend to remove the manual emotional part from the investment equation. Automated investments can only be skipped or stoppes when the investor either has no money in the bank or they want to stop the investment. And that can happen while using your strategy too. In fact, making investments automated would help invest the planned amount. As per my gathered experience, manual intervention often defeats the purpose. With all due respect to your efforts, I am just trying to understand whether there is a difference between what you are posting and what is the general process.",
+  "relevant": "Y",
+  "sip_event": "continuing",
+  "trigger": "better_alternative",
+  "unmet_need": "none",
+  "investor_stage": "established_12m_plus",
+  "emotion": "confident"
+ },
+ {
+  "id": "G02",
+  "source": "reddit",
+  "text": "Why Zerodha uses different payment source for different mutual funds?. I have 5 MFs in my portfolio. I’ve observed that for some MFs, I need to make payment towards zerodha’s UPI account and for the remaining once directly to BSE. Why different source is used for different MFs? If I make payment using Zerodha’s UPI, what are the chances of they not forwarding my request to MF house. Do I need to track such payments more closely? Pls see attached images",
+  "relevant": "Y",
+  "sip_event": "switched_platform",
+  "trigger": "expectation_mismatch",
+  "unmet_need": "trusted_human_help",
+  "investor_stage": "unclear",
+  "emotion": "anxious"
+ },
+ {
+  "id": "G03",
+  "source": "reddit_comment",
+  "text": "[Thread: Is 10 mutual fund in a portfolio a lot? Total expense ratio is around 0.52. please review and any feedback is appreciated.] No. I was broke 3 years ago so I couldn't invest.",
+  "relevant": "Y",
+  "sip_event": "continuing",
+  "trigger": "none",
+  "unmet_need": "trusted_human_help",
+  "investor_stage": "unclear",
+  "emotion": "neutral"
+ },
+ {
+  "id": "G04",
+  "source": "reddit_comment",
+  "text": "[Thread: Daily VS Weekly VS Monthly S.I.P] How does brokerage and taxes differ for daily vs monthly SIPs ?",
+  "relevant": "Y",
+  "sip_event": "started",
+  "trigger": "confusion_about_numbers",
+  "unmet_need": "trusted_human_help",
+  "investor_stage": "considering",
+  "emotion": "confused"
+ },
+ {
+  "id": "G05",
+  "source": "reddit_comment",
+  "text": "[Thread: Is my ULIP performing well ?] will take help of online calculator , have any links which i can refer do share",
+  "relevant": "N",
+  "sip_event": "",
+  "trigger": "",
+  "unmet_need": "",
+  "investor_stage": "",
+  "emotion": ""
+ },
+ {
+  "id": "G06",
+  "source": "reddit_comment",
+  "text": "[Thread: A dummies' guide for investments outside India] Rganesan: I was able to add my US bank account as “external bank” to my Morgan Stanley Stock plan account and get funds moved to my US bank thru ACH. And then I used to pull funds from this US bank account to IBKR. I appreciate you may not have a US bank account but can’t you use WISE (Transferwise) dollar account like a bank account ? After all it does have a US routing number and account number. I’ve also read that you can link IBKR to WISE altho I haven’t tried it. Fortunately I have a US bank account from the days I worked there.",
+  "relevant": "N",
+  "sip_event": "",
+  "trigger": "",
+  "unmet_need": "",
+  "investor_stage": "",
+  "emotion": ""
+ },
+ {
+  "id": "G07",
+  "source": "playstore",
+  "text": "If you want to save money, this is the right place. Through this platform, you can invest your money very well and earn money. This is the right platform, it is right for you and there is no cheating or fraud issue here. I too have been doing this for many years. Sometimes out of compulsion, I have to withdraw the amount of SIP but till now I have not seen any fraud or fraud. It is a very good platform, you all can do it too,And customer service is also very good.",
+  "relevant": "Y",
+  "sip_event": "continuing",
+  "trigger": "none",
+  "unmet_need": "none",
+  "investor_stage": "established_12m_plus",
+  "emotion": "confident"
+ },
+ {
+  "id": "G08",
+  "source": "youtube",
+  "text": "SIP cancel karne k baad autopay automatically band ho jate hai kya?",
+  "relevant": "Y",
+  "sip_event": "stopped",
+  "trigger": "unclear",
+  "unmet_need": "flexible_pause_or_reduce",
+  "investor_stage": "unclear",
+  "emotion": "confused"
+ },
+ {
+  "id": "G09",
+  "source": "reddit",
+  "text": "Why is there a massive discrepancy in returns between Direct and Regular Mutual Fund (Quant Small Cap), while the returns % is not much different.. https://preview.redd.it/n1ag37vnmf4f1.png?width=1293&format=png&auto=webp&s=2db06802b121d6c88011be299e3a565ddacd6b41 Found this in the fact sheet of Quant Mutual Funds, [Factsheet - May 2025.pdf](https://quantmutual.com/Admin/Factsheet/Factsheet%20-%20May%202025.pdf) Page 13, quant Small Cap fund. I am not inclined to believe there will be a mistake in the fact sheet. What am I missing?",
+  "relevant": "Y",
+  "sip_event": "continuing",
+  "trigger": "confusion_about_numbers",
+  "unmet_need": "trusted_human_help",
+  "investor_stage": "unclear",
+  "emotion": "anxious"
+ },
+ {
+  "id": "G10",
+  "source": "reddit",
+  "text": "Review my mutual fund mix – What to keep, trim, or switch?. Hey folks, I’m 23, have a long-term horizon (\\~15 yrs+), and a fairly high risk appetite. The screenshot shows my current mutual-fund mix. * I have **₹6 L** sitting idle that I want to invest soon. * A fresh **₹15 k SIP** will run every month (separate from the lump-sum). # Would love your thoughts on: 1. **Gut check on each fund** in the screenshot—keep, trim, or switch? 2. Already holding one small-cap: add a second or keep things simple? 3. Large-cap coverage: Nifty 50 alone vs adding Nifty Next 50 / Nifty 100? 4. Smartest way to stagger that ₹6 L—12-month STP or some other plan? 5. Any obvious overlaps, high expense ratios, or blind spots in diversification? 6. Equity tilt vs emergency fund (4 months): reasonable for my age? Beginner here—would really appreciate clear, friendly feedback. Thanks in advance! 🙏",
+  "relevant": "Y",
+  "sip_event": "started",
+  "trigger": "advice_from_others",
+  "unmet_need": "trusted_human_help",
+  "investor_stage": "started_0_3m",
+  "emotion": "confident"
+ },
+ {
+  "id": "G11",
+  "source": "reddit",
+  "text": "I’m 18 and saved ₹1 lakh from freelancing, what should I do with it?. Hey, I’m a first year law student. I’ve saved up around ₹1 lakh through freelancing (mostly online gigs). I don’t have any big expenses right now, staying in hostel, college is covered, etc. I’m just confused about what to do with the money. Should I invest it somewhere like mutual funds or stocks? Or should I reinvest it into learning new skills or buying better equipment to level up my freelancing? I’ve also been thinking about trying a small business or something online, but I’m not sure if that’s a good idea right now. Any advice would really help and I'm open to learning. I just don’t want to waste this money on random stuff. Thanks!",
+  "relevant": "Y",
+  "sip_event": "none",
+  "trigger": "advice_from_others",
+  "unmet_need": "trusted_human_help",
+  "investor_stage": "considering",
+  "emotion": "confused"
+ },
+ {
+  "id": "G12",
+  "source": "playstore",
+  "text": "User interface is excellent, but App takes more Time in Showing Daily Gain/Loss of Mutual Funds. I have to keep another App just to track my Daily Gains/Losses of MFs.",
+  "relevant": "Y",
+  "sip_event": "switched_platform",
+  "trigger": "app_issue",
+  "unmet_need": "expectation_setting",
+  "investor_stage": "unclear",
+  "emotion": "disappointed"
+ },
+ {
+  "id": "G13",
+  "source": "playstore",
+  "text": "Your Returns Calculator for Mid150 Index fund is showing wrong calculation. While it is showing +40% in ETF in 3 years It is showing only +9% in all Mid150 Index mutual funds For SIP",
+  "relevant": "Y",
+  "sip_event": "continuing",
+  "trigger": "confusion_about_numbers",
+  "unmet_need": "reassurance_whats_normal",
+  "investor_stage": "unclear",
+  "emotion": "anxious"
+ },
+ {
+  "id": "G14",
+  "source": "playstore",
+  "text": "The Groww app is an exceptional choice for Gen Z, millennials, and first-time retail investors looking to build passive wealth through mutual funds and long-term equity. While ultra-active intraday traders might hit a ceiling with its feature set, its unmatched ease of use, transparent pricing, and zero-AMC model make it a premier financial application in the market today.",
+  "relevant": "Y",
+  "sip_event": "continuing",
+  "trigger": "none",
+  "unmet_need": "none",
+  "investor_stage": "unclear",
+  "emotion": "content"
+ },
+ {
+  "id": "G15",
+  "source": "youtube",
+  "text": "Sir ky hum upstox app par SIP kar rahe hai to agar uska id ya password bhul gaye to koi dikkat to nahi hoga",
+  "relevant": "Y",
+  "sip_event": "started",
+  "trigger": "better_alternative",
+  "unmet_need": "plain_language_explanation",
+  "investor_stage": "unclear",
+  "emotion": "anxious"
+ },
+ {
+  "id": "G16",
+  "source": "reddit_comment",
+  "text": "[Thread: Advice on Mutual Fund Portfolio and Education Loan Repayment] I’ve been reading all over Reddit and the internet that do your own research and invest in direct mutual funds. But here, everybody is telling me to get an advisor. I’m just now super confused as to what to do. Should I hire an advisor, a distributor or do it on my own. Tough questions indeed.",
+  "relevant": "Y",
+  "sip_event": "none",
+  "trigger": "advice_from_others",
+  "unmet_need": "trusted_human_help",
+  "investor_stage": "considering",
+  "emotion": "confused"
+ },
+ {
+  "id": "G17",
+  "source": "reddit_comment",
+  "text": "[Thread: NRIs: Are You Still Investing in India or Moving New Investments to Global Markets?] India is a milking economy - All bellwether IT companies milk cheap labor arbitrage. Manufacturing, retail etc make profits and give dividends on cheap labor at scale. That's all there is to it. Yes some few make innovative solutions, but majority is milking business. Govt also milks taxes from common man at scale. So, what is great about the economy that we have to invest in India? If you remove homeland sentiment, the #'s don't lie. It is a waste of NRI savings to invest in India. Just invest in S&P 500 and you will come ahead by at least twice in returns l, currency savings and tax savings.",
+  "relevant": "N",
+  "sip_event": "",
+  "trigger": "",
+  "unmet_need": "",
+  "investor_stage": "",
+  "emotion": ""
+ },
+ {
+  "id": "G18",
+  "source": "reddit_comment",
+  "text": "[Thread: Father sold apartment, now don't know where to invest the amount.] Fk everything find a piece of land i made the best investments got 80 laks selling a piece of land bought another in 83 about 2 years ago now the current evaluation of that land sits at 2.5cr",
+  "relevant": "N",
+  "sip_event": "",
+  "trigger": "",
+  "unmet_need": "",
+  "investor_stage": "",
+  "emotion": ""
+ },
+ {
+  "id": "G19",
+  "source": "youtube",
+  "text": "Sr maine insta se video dekhker 100 rs Ki sip start krdi",
+  "relevant": "Y",
+  "sip_event": "started",
+  "trigger": "none",
+  "unmet_need": "none",
+  "investor_stage": "started_0_3m",
+  "emotion": "neutral"
+ },
+ {
+  "id": "G20",
+  "source": "youtube",
+  "text": "Whoever told you to stop SIP block that person or double the Sip amount",
+  "relevant": "Y",
+  "sip_event": "none",
+  "trigger": "none",
+  "unmet_need": "none",
+  "investor_stage": "unclear",
+  "emotion": "confident"
+ }
+]

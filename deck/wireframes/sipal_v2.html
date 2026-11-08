@@ -1,0 +1,408 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>SIPal wireframes v2</title>
+<style>
+  :root {
+    --green: #00D09C; --green-dark: #00A97F; --green-soft: #E6FAF5;
+    --blue: #5367F5; --blue-soft: #ECEEFE; --navy: #0B0B21;
+    --ink: #1B1C2E; --ink-2: #44475B; --muted: #7C7E8C; --line: #E8E9EE; --skel: #EEEFF3;
+    --amber: #F5B700;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Inter", "Liberation Sans", sans-serif; background: transparent; display: flex; gap: 40px; padding: 30px; color: var(--ink); }
+  .phone { width: 412px; height: 866px; border-radius: 54px; background: #23233A; padding: 11px; box-shadow: 0 0 0 1.5px #6E6F94; flex: none; }
+  .screen { width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #fff; display: flex; flex-direction: column; }
+  .status { height: 47px; display: flex; align-items: center; justify-content: space-between; padding: 6px 30px 0 34px; font-weight: 600; font-size: 16px; flex: none; }
+  .status .icons { display: flex; gap: 6px; align-items: center; }
+  .island { position: absolute; top: 11px; left: 50%; transform: translateX(-50%); width: 120px; height: 34px; border-radius: 20px; background: #000; }
+  .home-ind { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: #1B1C2E; }
+
+  /* Screen 0: Explore */
+  .mf-head { display: flex; align-items: center; gap: 12px; padding: 14px 20px 8px; }
+  .mf-logo { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(160deg, #C9CBD6, #E6E7EE); }
+  .mf-title { font-size: 21px; font-weight: 600; flex: 1; }
+  .ic { width: 26px; height: 26px; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: #3E4A57; color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 16px; }
+  .tabs { display: flex; gap: 26px; padding: 12px 20px 0; border-bottom: 1px solid var(--line); font-size: 16px; color: var(--muted); font-weight: 500; }
+  .tabs span { padding-bottom: 11px; }
+  .tabs .on { color: var(--ink); border-bottom: 3px solid var(--ink); }
+  .sipal-entry { margin: 14px 16px 4px; border-radius: 16px; background: var(--green-soft); border: 1.5px solid var(--green); padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
+  .sipal-entry .txt { flex: 1; }
+  .sipal-entry .name { font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+  .pill { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; color: #fff; background: var(--blue); border-radius: 10px; padding: 2px 7px; }
+  .sipal-entry .sub { font-size: 13px; color: var(--ink-2); margin-top: 3px; line-height: 1.35; }
+  .entry-dot { font-size: 11.5px; font-weight: 600; color: var(--blue); background: var(--blue-soft); border-radius: 10px; padding: 3px 8px; display: inline-block; margin-top: 6px; }
+  .sec-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px 10px; }
+  .sec-head h3 { font-size: 19px; font-weight: 600; }
+  .sec-head span { color: var(--muted); font-size: 15px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px; }
+  .fcard { border: 1px solid var(--line); border-radius: 16px; padding: 14px; height: 150px; display: flex; flex-direction: column; gap: 10px; }
+  .sk { background: var(--skel); border-radius: 6px; }
+  .bnav { margin-top: auto; border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 9px 6px 26px; font-size: 12px; color: var(--muted); }
+  .bnav div { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bnav .on { color: var(--blue); font-weight: 600; }
+  .bnav .b { width: 24px; height: 24px; border-radius: 6px; border: 2px solid currentColor; }
+
+  /* Screen 1: lock screen */
+  .lock { background: radial-gradient(120% 70% at 50% 18%, #1C2060 0%, var(--navy) 62%), var(--navy); color: #fff; }
+  .lock .status { color: #fff; }
+  .lock-date { text-align: center; margin-top: 30px; font-size: 19px; font-weight: 500; opacity: .9; }
+  .lock-time { text-align: center; font-size: 86px; font-weight: 600; letter-spacing: -2px; line-height: 1.05; }
+  .notif { margin: 230px 12px 0; background: rgba(245,246,250,.93); color: var(--ink); border-radius: 24px; padding: 14px 15px 15px; display: flex; gap: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.35); }
+  .notif .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .notif .t { font-weight: 700; font-size: 15px; }
+  .notif .when { font-size: 13px; color: var(--muted); flex: none; }
+  .notif .b { font-size: 14.5px; line-height: 1.38; margin-top: 3px; color: #2A2B3D; }
+  .lock-foot { position: absolute; bottom: 44px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 46px; }
+  .lock-foot div { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,.16); }
+  .lock .home-ind { background: #fff; }
+
+  /* Screen 2: SIPal Assistant */
+  .nav { height: 46px; display: flex; align-items: center; padding: 0 14px; border-bottom: 1px solid var(--line); flex: none; }
+  .nav .ttl { flex: 1; text-align: center; font-weight: 600; font-size: 17px; margin-right: 26px; }
+  .body2 { padding: 0 16px; display: flex; flex-direction: column; gap: 11px; background: #F7F8FA; flex: 1; }
+  .hero { display: flex; align-items: center; gap: 10px; padding-top: 6px; }
+  .hero .hi { font-size: 17px; font-weight: 700; }
+  .hero .hs { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .card { background: #fff; border-radius: 18px; padding: 13px 14px 14px; border: 1px solid var(--line); }
+  .card .row { display: flex; justify-content: space-between; align-items: center; }
+  .card h4 { font-size: 16px; font-weight: 700; }
+  .card .lbl { font-size: 11.5px; font-weight: 600; color: var(--muted); margin-top: 2px; }
+  .card p { font-size: 14px; line-height: 1.42; color: #2A2B3D; margin-top: 7px; }
+  .anim { position: relative; }
+  .anim small { position: absolute; right: -2px; bottom: -4px; font-size: 9.5px; color: var(--muted); }
+  .cta h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .btn { height: 48px; border-radius: 12px; display: grid; place-items: center; font-weight: 700; font-size: 16px; }
+  .btn.pri { background: var(--green); color: #fff; }
+  .btn.sec { margin-top: 9px; border: 1.5px solid var(--green); color: var(--green-dark); height: 44px; font-size: 15px; }
+  .more { text-align: center; font-size: 13px; color: var(--blue); font-weight: 600; margin-top: 9px; }
+  .ask { background: #fff; border: 1px solid var(--line); border-radius: 24px; height: 44px; display: flex; align-items: center; padding: 0 6px 0 16px; font-size: 14px; color: var(--muted); }
+  .ask .q { flex: 1; }
+  .ask .send { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; }
+  .checked { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11.5px; color: var(--ink-2); padding-bottom: 26px; }
+</style>
+</head><body style="flex-wrap:wrap;width:1500px">
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- SIPal mini logo: green tile, white sprout with a smiling seed face -->
+    <symbol id="sipal-mini" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="11" fill="#00D09C"/>
+      <path d="M24 22 C24 17 24 14 24 12" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      <path d="M24 15 C18 15 14 11 13 6 C19 6 23 9 24 15Z" fill="#fff"/>
+      <path d="M24 13 C29 13 33 9 35 4 C29 4 25 7 24 13Z" fill="#E6FAF5"/>
+      <ellipse cx="24" cy="31" rx="12" ry="11" fill="#fff"/>
+      <circle cx="20" cy="29.5" r="1.7" fill="#0B0B21"/><circle cx="28" cy="29.5" r="1.7" fill="#0B0B21"/>
+      <path d="M19.5 34 Q24 38 28.5 34" stroke="#0B0B21" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <!-- SIPal character: calm sprout with a waving leaf-arm -->
+    <symbol id="sipal-char" viewBox="0 0 120 120">
+      <path d="M58 46 C58 38 58 32 58 26" stroke="#00A97F" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M58 32 C47 32 39 25 37 15 C48 15 56 21 58 32Z" fill="#00D09C"/>
+      <path d="M58 29 C68 29 76 22 79 12 C68 12 60 18 58 29Z" fill="#3FE0B8"/>
+      <ellipse cx="58" cy="76" rx="32" ry="30" fill="#00D09C"/>
+      <ellipse cx="50" cy="66" rx="11" ry="7" fill="#3FE0B8" opacity=".55"/>
+      <circle cx="47" cy="74" r="4" fill="#0B0B21"/><circle cx="69" cy="74" r="4" fill="#0B0B21"/>
+      <circle cx="48.3" cy="72.6" r="1.3" fill="#fff"/><circle cx="70.3" cy="72.6" r="1.3" fill="#fff"/>
+      <path d="M49 85 Q58 93 67 85" stroke="#0B0B21" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="40" cy="83" rx="4.5" ry="2.6" fill="#FF9DB5" opacity=".7"/><ellipse cx="76" cy="83" rx="4.5" ry="2.6" fill="#FF9DB5" opacity=".7"/>
+      <path d="M88 70 C96 62 99 52 97 44 C92 49 88 58 86 66Z" fill="#00A97F"/>
+      <path d="M101 40 Q106 46 104 54" stroke="#5367F5" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M107 36 Q114 45 111 57" stroke="#5367F5" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".6"/>
+      <path d="M28 70 C22 74 20 80 22 86 C27 83 30 78 30 72Z" fill="#00A97F"/>
+    </symbol>
+    <!-- Bank vault with caution mark -->
+    <symbol id="vault" viewBox="0 0 76 64">
+      <rect x="6" y="8" width="52" height="50" rx="9" fill="#ECEEFE" stroke="#5367F5" stroke-width="2.5"/>
+      <circle cx="32" cy="33" r="14" fill="#fff" stroke="#5367F5" stroke-width="2.5"/>
+      <circle cx="32" cy="33" r="3.5" fill="#5367F5"/>
+      <path d="M32 19 V25 M32 41 V47 M18 33 H24 M40 33 H46" stroke="#5367F5" stroke-width="2.5" stroke-linecap="round"/>
+      <rect x="52" y="27" width="5" height="12" rx="2" fill="#5367F5"/>
+      <path d="M60 3 L74 27 H46 Z" fill="#F5B700" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M60 11 V19" stroke="#1B1C2E" stroke-width="2.8" stroke-linecap="round"/><circle cx="60" cy="23.3" r="1.6" fill="#1B1C2E"/>
+      <path d="M2 18 Q-1 33 2 48" stroke="#B9BCC9" stroke-width="2" fill="none" stroke-dasharray="3 4" stroke-linecap="round"/>
+    </symbol>
+    <!-- Stable baseline with a green check -->
+    <symbol id="steady" viewBox="0 0 76 64">
+      <rect x="2" y="6" width="72" height="54" rx="10" fill="#E6FAF5"/>
+      <path d="M8 44 L20 40 L30 43 L40 38 L50 40 L60 37 V54 H8 Z" fill="#00D09C" opacity=".22"/>
+      <path d="M8 44 L20 40 L30 43 L40 38 L50 40 L60 37" stroke="#00A97F" stroke-width="2.6" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M8 47 H66" stroke="#00A97F" stroke-width="1.2" stroke-dasharray="3 3" opacity=".6"/>
+      <circle cx="58" cy="20" r="11" fill="#00D09C"/>
+      <path d="M52.5 20 L56.5 24 L63.5 16.5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="sig" viewBox="0 0 54 14">
+      <rect x="0" y="9" width="3.5" height="5" rx="1" fill="currentColor"/><rect x="5.5" y="6" width="3.5" height="8" rx="1" fill="currentColor"/>
+      <rect x="11" y="3" width="3.5" height="11" rx="1" fill="currentColor"/><rect x="16.5" y="0" width="3.5" height="14" rx="1" fill="currentColor"/>
+      <path d="M24 5 Q30 0 36 5 M26.5 8 Q30 5 33.5 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="30" cy="11.5" r="1.8" fill="currentColor"/>
+      <rect x="40" y="2" width="12" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="42" y="4" width="7" height="6" rx="1" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<style>
+  .phone { margin-bottom: 0; }
+  .hero.sm .hi { font-size: 16px; }
+  .body2.tight { gap: 8px; }
+  .body2.tight .card { padding: 11px 14px 12px; }
+  .pf .val { font-size: 27px; font-weight: 700; letter-spacing: -.5px; margin-top: 4px; }
+  .pf .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .pf .stats { display: flex; gap: 8px; margin-top: 9px; flex-wrap: wrap; }
+  .tag { font-size: 12.5px; font-weight: 600; border-radius: 8px; padding: 4px 8px; }
+  .down { color: #C2410C; } .up { color: #00875F; }
+  .tag.down { background: #FFF1E8; } .tag.up { background: #E6FAF5; } .tag.ok { background: var(--blue-soft); color: var(--blue); }
+  .frow { display: flex; justify-content: space-between; font-size: 13.5px; padding-top: 7px; margin-top: 7px; border-top: 1px dashed var(--line); color: var(--ink-2); }
+  .frow b { font-weight: 600; }
+  .mini { font-size: 13.5px; line-height: 1.42; color: #2A2B3D; margin-top: 6px; }
+  .h5 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 7px; }
+  .dotic { width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff; flex: none; }
+  .linky { font-size: 13px; color: var(--blue); font-weight: 600; margin-top: 7px; }
+  .choices { display: flex; gap: 10px; margin-top: 10px; }
+  .choice { flex: 1; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; background: #fff; }
+  .choice .r { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #B9BCC9; flex: none; }
+  .choice.sel { border-color: var(--blue); background: var(--blue-soft); }
+  .choice.sel .r { border: 5px solid var(--blue); }
+  .chips { display: flex; gap: 8px; margin-top: 10px; }
+  .chip { flex: 1; text-align: center; border: 1.5px solid var(--line); border-radius: 10px; padding: 9px 0; font-size: 14px; font-weight: 600; background: #fff; }
+  .chip.sel { background: var(--green); border-color: var(--green); color: #fff; }
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+  .nactions { display: flex; gap: 8px; margin: 8px 12px 0; }
+  .nactions div { flex: 1; text-align: center; background: rgba(245,246,250,.93); color: var(--ink); border-radius: 16px; padding: 12px 0; font-weight: 600; font-size: 14.5px; }
+  .tl { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .tli { display: flex; gap: 10px; align-items: flex-start; }
+  .tli .dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 3px; flex: none; }
+  .tli .line { width: 2px; height: 22px; background: var(--line); margin: 2px 0 2px 6px; }
+  .tli .d { font-size: 14px; font-weight: 700; } .tli .s { font-size: 12.5px; color: var(--muted); }
+  .bigok { text-align: center; padding-top: 14px; }
+  .bigok h2 { font-size: 21px; font-weight: 700; margin-top: 6px; }
+  .bigok p { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+  .ticks { margin-top: 4px; }
+  .ticks div { display: flex; gap: 8px; font-size: 13.5px; line-height: 1.4; margin-top: 7px; color: #2A2B3D; }
+  .ticks svg { flex: none; margin-top: 2px; }
+</style>
+
+<!-- ======================= SET 1: weekly portfolio check-in ======================= -->
+
+<!-- A0: lock-screen weekly check-in notification (no amounts on the lock screen) -->
+<div class="phone" id="a0"><div class="screen lock">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14" style="color:#fff"><use href="#sig"/></svg></span></div>
+  <div class="lock-date">Saturday, 7 November</div>
+  <div class="lock-time">9:41</div>
+  <div class="notif" style="margin-top:200px">
+    <svg width="40" height="40" style="flex:none"><use href="#sipal-mini"/></svg>
+    <div>
+      <div class="meta"><span class="t">SIPal: Your weekly SIP check-in is ready 🌿</span><span class="when">now</span></div>
+      <div class="b">See how your funds did this week, why the market moved, and whether it's normal. Takes about a minute.</div>
+    </div>
+  </div>
+  <div class="nactions"><div>See my check-in</div><div>Not now</div></div>
+  <div class="lock-foot"><div></div><div></div></div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- A1: Explore tab, SIPal entry above Popular Funds -->
+<div class="phone" id="a1"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="mf-head">
+    <div class="mf-logo"></div>
+    <div class="mf-title">Mutual Funds</div>
+    <svg class="ic" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" stroke="#1B1C2E" stroke-width="2" fill="none"/><path d="M16 16 L21 21" stroke="#1B1C2E" stroke-width="2" stroke-linecap="round"/></svg>
+    <div class="avatar">A</div>
+  </div>
+  <div class="tabs"><span class="on">Explore</span><span>Dashboard</span><span>SIPs</span><span>Watchlist</span></div>
+  <div class="sipal-entry">
+    <svg width="46" height="46"><use href="#sipal-mini"/></svg>
+    <div class="txt">
+      <div class="name">SIPal <span class="pill">NEW</span></div>
+      <div class="sub">Your weekly SIP check-in is ready: how your funds did and why</div>
+      <span class="entry-dot">Week of 2 to 6 Nov</span>
+    </div>
+    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 5 L16 12 L9 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="sec-head"><h3>Popular Funds</h3><span>View all &rsaquo;</span></div>
+  <div class="grid">
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:9px"></div><div class="sk" style="height:12px;width:85%"></div><div class="sk" style="height:12px;width:60%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:50%"></div><div class="sk" style="height:12px;width:80%"></div><div class="sk" style="height:12px;width:50%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:9px"></div><div class="sk" style="height:12px;width:75%"></div><div class="sk" style="height:12px;width:40%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+    <div class="fcard"><div class="sk" style="width:34px;height:34px;border-radius:9px"></div><div class="sk" style="height:12px;width:85%"></div><div class="sk" style="height:12px;width:65%"></div><div class="sk" style="height:14px;width:45%;margin-top:auto"></div></div>
+  </div>
+  <div class="sec-head"><h3>Collections</h3></div>
+  <div style="display:flex;gap:12px;padding:0 16px">
+    <div class="sk" style="flex:1;height:64px;border-radius:14px"></div><div class="sk" style="flex:1;height:64px;border-radius:14px"></div><div class="sk" style="flex:1;height:64px;border-radius:14px"></div>
+  </div>
+  <div class="bnav">
+    <div><span class="b"></span>Stocks</div><div><span class="b"></span>F&amp;O</div>
+    <div class="on"><span class="b" style="border-radius:50%"></span>Mutual Funds</div><div><span class="b"></span>Loans</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- A2: weekly check-in, down week -->
+<div class="phone" id="a2"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2 tight">
+    <div class="hero sm">
+      <svg width="56" height="56"><use href="#sipal-char"/></svg>
+      <div><div class="hi">Your weekly check-in</div><div class="hs">2 to 6 Nov &middot; SIP running for 11 months</div></div>
+    </div>
+    <div class="card pf">
+      <div class="lbl">YOUR SIP PORTFOLIO</div>
+      <div class="val">&#8377;52,400</div>
+      <div class="sub">Invested &#8377;55,000</div>
+      <div class="stats"><span class="tag down">&#9660; &minus;1.8% this week</span><span class="tag down">&#9660; &minus;&#8377;2,600 overall</span></div>
+      <div class="frow"><span>Flexi cap fund</span><b class="down">&#9660; &minus;1.6%</b></div>
+      <div class="frow"><span>Nifty 50 index fund</span><b class="down">&#9660; &minus;2.1%</b></div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--blue)">?</span>Why did it fall?</div>
+      <div class="mini">Indian shares fell this week (Nifty 50 down 2.1%) as global markets dropped. Your funds own many of these companies, so they dipped too.</div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--green)">&#10003;</span>Is this normal?</div>
+      <div class="mini">Yes. Dips like this are common in a SIP's first year. While prices are lower, each instalment buys more units.</div>
+      <div class="linky">Why returns go up and down &rsaquo;</div>
+    </div>
+    <div class="card">
+      <div class="h5">What can you do?</div>
+      <div class="mini">No action needed. Your next &#8377;5,000 instalment is on 5 Dec.</div>
+    </div>
+    <div class="ask"><span class="q">Ask SIPal about your funds&hellip;</span><span class="send"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <div class="checked"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Checked against your SIP data &middot; Not investment advice</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- A3: weekly check-in, up week -->
+<div class="phone" id="a3"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2 tight">
+    <div class="hero sm">
+      <svg width="56" height="56"><use href="#sipal-char"/></svg>
+      <div><div class="hi">Your weekly check-in</div><div class="hs">9 to 13 Nov &middot; SIP running for 11 months</div></div>
+    </div>
+    <div class="card pf">
+      <div class="lbl">YOUR SIP PORTFOLIO</div>
+      <div class="val">&#8377;57,900</div>
+      <div class="sub">Invested &#8377;55,000</div>
+      <div class="stats"><span class="tag up">&#9650; +1.6% this week</span><span class="tag up">&#9650; +&#8377;2,900 overall</span></div>
+      <div class="frow"><span>Flexi cap fund</span><b class="up">&#9650; +1.4%</b></div>
+      <div class="frow"><span>Nifty 50 index fund</span><b class="up">&#9650; +1.9%</b></div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--blue)">?</span>Why did it rise?</div>
+      <div class="mini">Indian shares rose this week (Nifty 50 up 1.9%) as company results beat estimates. Your funds own many of these companies, so they rose too.</div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--green)">&#10003;</span>Good to know</div>
+      <div class="mini">Returns move with the market, up and down. One good week says little about the years ahead.</div>
+      <div class="linky">Absolute return vs XIRR: what's my real return? &rsaquo;</div>
+    </div>
+    <div class="card">
+      <div class="h5">What can you do?</div>
+      <div class="mini">No action needed. Your next &#8377;5,000 instalment is on 5 Dec.</div>
+    </div>
+    <div class="ask"><span class="q">Ask SIPal about your funds&hellip;</span><span class="send"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <div class="checked"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Checked against your SIP data &middot; Not investment advice</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- ======================= SET 2: reminder before the next debit ======================= -->
+
+<!-- B1: lock-screen reminder, 3 days before the debit -->
+<div class="phone" id="b1"><div class="screen lock">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14" style="color:#fff"><use href="#sig"/></svg></span></div>
+  <div class="lock-date">Monday, 2 November</div>
+  <div class="lock-time">9:41</div>
+  <div class="notif" style="margin-top:200px">
+    <svg width="40" height="40" style="flex:none"><use href="#sipal-mini"/></svg>
+    <div>
+      <div class="meta"><span class="t">SIPal: Your SIP is due on Thursday 🌿</span><span class="when">now</span></div>
+      <div class="b">&#8377;5,000 goes to your mutual funds on 5 Nov. Is this month OK for that amount? If money is tight, you can pay less just this once. Your SIP stays on.</div>
+    </div>
+  </div>
+  <div class="nactions"><div>Yes, all set</div><div>Pay less this month</div></div>
+  <div class="lock-foot"><div></div><div></div></div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- B2: can you pay? reduce this month's amount -->
+<div class="phone" id="b2"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2">
+    <div class="hero sm">
+      <svg width="64" height="64"><use href="#sipal-char"/></svg>
+      <div><div class="hi">Your next SIP</div><div class="hs">&#8377;5,000 on Thu, 5 Nov &middot; bank a/c &bull;&bull;4821</div></div>
+    </div>
+    <div class="card">
+      <div class="h5">Can you pay &#8377;5,000 this month?</div>
+      <div class="choices"><div class="choice"><span class="r"></span>Yes, all set</div><div class="choice sel"><span class="r"></span>Not this month</div></div>
+    </div>
+    <div class="card">
+      <div class="h5">Pay a smaller amount, just for November</div>
+      <div class="chips"><div class="chip">&#8377;1,000</div><div class="chip sel">&#8377;2,000</div><div class="chip">&#8377;3,000</div><div class="chip">Other</div></div>
+      <div class="note">December goes back to &#8377;5,000 on its own.</div>
+    </div>
+    <div class="card">
+      <div class="h5"><span class="dotic" style="background:var(--green)">&#10003;</span>What changes?</div>
+      <div class="mini">Your SIP stays active and there is no penalty. You buy fewer units this month; nothing else changes.</div>
+    </div>
+    <div class="cta">
+      <div class="btn pri">Pay &#8377;2,000 for November</div>
+      <div class="more">Other options: skip November &middot; move the date</div>
+    </div>
+    <div class="checked"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Checked against your SIP data &middot; Not investment advice</div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+<!-- B3: confirmation -->
+<div class="phone" id="b3"><div class="screen">
+  <div class="island"></div>
+  <div class="status"><span>9:41</span><span class="icons"><svg width="54" height="14"><use href="#sig"/></svg></span></div>
+  <div class="nav">
+    <svg width="26" height="26" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ttl">SIPal Assistant</div>
+  </div>
+  <div class="body2">
+    <div class="bigok">
+      <svg width="104" height="104"><use href="#sipal-char"/></svg>
+      <h2>Done! November is set to &#8377;2,000</h2>
+      <p>Your SIP keeps running. Nothing else to do.</p>
+    </div>
+    <div class="card">
+      <div class="h5">What happens next</div>
+      <div class="tl">
+        <div class="tli"><span class="dot" style="background:var(--green)"></span><div><div class="d">5 Nov &middot; &#8377;2,000</div><div class="s">This month only</div></div></div>
+        <div class="tli"><span class="line"></span></div>
+        <div class="tli"><span class="dot" style="background:var(--blue)"></span><div><div class="d">5 Dec &middot; &#8377;5,000</div><div class="s">Back to your usual amount, automatically</div></div></div>
+      </div>
+    </div>
+    <div class="card ticks">
+      <div><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>No penalty, and your SIP stays active</div>
+      <div><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#00D09C"/><path d="M7 12.5 L10.5 16 L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>You can change this until 3 Nov</div>
+    </div>
+    <div class="cta">
+      <div class="btn pri">Back to my SIPs</div>
+      <div class="btn sec">Ask SIPal a question</div>
+    </div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+
+</body></html>
