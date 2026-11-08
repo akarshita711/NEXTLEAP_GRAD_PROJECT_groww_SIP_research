@@ -123,12 +123,12 @@
 </style>
 </head>
 <body>
-<div class="topbar"><span><b>SIPal</b> demo for first-time SIP investors</span><span>&middot; Sample data, no login</span><span>&middot; <b>Not investment advice</b></span></div>
+<div class="topbar"><span><b>SIPal</b> demo for first-time SIP investors in Groww app</span><span>&middot; Sample data, no login</span><span>&middot; <b>Not investment advice</b></span></div>
 <div class="wrap">
   <aside class="guide">
     <h1><svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><use href="#mini"/></svg>Try SIPal</h1>
     <p>SIPal explains your SIP in plain words at the two moments when first-timers often stop: a week when returns dip, and a month when paying the SIP is hard. It explains; it never recommends funds or tells you what to do with your money.</p>
-    <div class="task"><h3>Task 1: your SIP fell this week</h3><p>Open the weekly check-in, find out why your SIP fell and whether that is normal, then ask SIPal one follow-up question of your own.</p><button class="go" onclick="start('weekly')">Start task 1</button></div>
+    <div class="task"><h3>Task 1: your SIP fell this week</h3><p>Open the weekly check-in, find out why your SIP fell and whether that is normal, then ask SIPal one follow-up question of your own.</p><button class="go" onclick="start('weekly')">Start task 1</button> <button class="go alt" style="background:#fff;color:var(--green-d);border:1.5px solid var(--green)" onclick="start('weekly', 'up')">Or see an up week</button><p class="small" style="margin-top:8px">Each test picks a new pair of sample funds.</p></div>
     <div class="task"><h3>Task 2: money is tight this month</h3><p>Your SIP is due in 3 days. Use SIPal to pay a smaller amount this month only, and check what changes.</p><button class="go alt" onclick="start('due')">Start task 2</button></div>
     <div class="task"><h3>Task 3 (optional): try to get advice</h3><p>Ask SIPal which fund to buy, or whether to stop. See how it responds.</p></div>
     <details><summary>Change the sample SIP</summary>
@@ -170,8 +170,15 @@ function scn(extra = {}) {
   const amount = Math.max(100, Math.round((+$("#f-amount").value || 5000) / 100) * 100), months = Math.min(12, Math.max(1, Math.round(+$("#f-months").value || 11)));
   const weekPct = Math.round((+$("#f-week").value || -1.8) * 10) / 10, overallPct = Math.round((+$("#f-overall").value || (weekPct < 0 ? -4.7 : 5.3)) * 10) / 10;
   const invested = amount * months, current = Math.round(invested * (1 + overallPct / 100) / 100) * 100;
-  return { amount, months, weekPct, overallPct, invested, current, diff: current - invested, ...extra };
+  return { amount, months, weekPct, overallPct, invested, current, diff: current - invested, funds, ...extra };
 }
+const FLEXI = ["Parag Parikh Flexi Cap Fund", "HDFC Flexi Cap Fund", "Kotak Flexicap Fund", "UTI Flexi Cap Fund", "SBI Flexicap Fund",
+  "Franklin India Flexi Cap Fund", "Aditya Birla Sun Life Flexi Cap Fund", "Canara Robeco Flexicap Fund", "DSP Flexi Cap Fund", "ICICI Prudential Flexicap Fund"];
+const INDEX = ["UTI Nifty 50 Index Fund", "HDFC Nifty 50 Index Fund", "ICICI Prudential Nifty 50 Index Fund", "SBI Nifty Index Fund", "Nippon India Index Fund Nifty 50 Plan",
+  "Navi Nifty 50 Index Fund", "Tata Nifty 50 Index Fund", "Motilal Oswal Nifty 50 Index Fund", "Bandhan Nifty 50 Index Fund", "Kotak Nifty 50 Index Fund"];
+let funds = [0, 0];
+function newFunds() { let f; do { f = [Math.floor(Math.random() * FLEXI.length), Math.floor(Math.random() * INDEX.length)]; } while (f[0] === funds[0] && f[1] === funds[1]); funds = f; }
+newFunds();
 const state = { screen: "explore", choice: null, newAmount: null, chat: [], ctx: "SIPal home" };
 
 async function api(body) {
@@ -243,7 +250,8 @@ const SCREENS = {
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your weekly check-in</div><div class="hs">${d.week} &middot; SIP running for ${s.months} month${s.months > 1 ? "s" : ""}</div></div></div>
       <div class="card"><div class="lbl">YOUR SIP PORTFOLIO (SAMPLE)</div><div class="val">${inr(s.current)}</div><div class="sub">Invested ${inr(s.invested)}</div>
         <div class="tags"><span class="tag ${dir}">${dir === "down" ? "&#9660;" : "&#9650;"} ${pct(s.weekPct)} this week</span><span class="tag ${s.diff < 0 ? "down" : "up"}">${s.diff < 0 ? "&#9660; −" : "&#9650; +"}${inr(s.diff)} overall</span></div>
-        <div class="frow"><span>Flexi cap fund</span><b class="${f1 < 0 ? "down" : "up"}">${pct(f1)}</b></div><div class="frow"><span>Nifty 50 index fund</span><b class="${f2 < 0 ? "down" : "up"}">${pct(f2)}</b></div></div>
+        <div class="frow"><span>${FLEXI[funds[0]]}</span><b class="${f1 < 0 ? "down" : "up"}">${pct(f1)}</b></div><div class="frow"><span>${INDEX[funds[1]]}</span><b class="${f2 < 0 ? "down" : "up"}">${pct(f2)}</b></div>
+        <div class="sub" style="margin-top:8px;font-size:12px">Sample holdings and returns for this demo, not real fund performance.</div></div>
       <div class="card"><div class="h5"><span class="dot" style="background:var(--blue)">?</span>Why did it ${dir === "down" ? "fall" : "rise"}?</div><div class="txt" id="c-why"><div class="skel"></div><div class="skel" style="width:70%"></div></div></div>
       <div class="card"><div class="h5"><span class="dot" style="background:var(--green)">&#10003;</span>Is this normal?</div><div class="txt" id="c-normal"><div class="skel"></div><div class="skel" style="width:60%"></div></div></div>
       <div class="card"><div class="h5">What can you do?</div><div class="txt" id="c-todo"><div class="skel" style="width:80%"></div></div></div>
@@ -297,7 +305,9 @@ function go(name) {
   state.screen = name; $("#screen").innerHTML = SCREENS[name]();
   const b = $("#screen .body"); if (b && name !== "chat") b.scrollTop = 0;
 }
-function start(which) { state.choice = null; state.newAmount = null; state.chat = []; go(which === "weekly" ? "lockWeekly" : "lockDue");
+function start(which, dir) { state.choice = null; state.newAmount = null; state.chat = []; newFunds();
+  if (which === "weekly") { $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; }
+  go(which === "weekly" ? "lockWeekly" : "lockDue");
   if (window.innerWidth < 920) $(".phone").scrollIntoView({ behavior: "smooth" }); }
 
 async function loadCheckin() {
