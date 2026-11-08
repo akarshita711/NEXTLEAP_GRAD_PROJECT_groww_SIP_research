@@ -60,14 +60,14 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   T(s, "NextLeap graduation project  |  Growth PM case: Groww", { x: 1.5, y: 0.61, w: 6.2, h: 0.5, fontSize: 16, bold: true, color: BLUE, align: "center", valign: "middle" });
   T(s, "Helping first-time Groww investors stay invested through year one", { x: 0.7, y: 1.45, w: 7.1, h: 2.1, fontFace: HEAD, fontSize: 40, bold: true, valign: "top", color: GREEN, keepGreen: true });
   s.addShape(pres.shapes.RECTANGLE, { x: 0.72, y: 3.62, w: 1.4, h: 0.09, fill: { color: BLUE }, line: { color: BLUE }, objectName: "title-underline" });
-  T(s, "Why early-career salaried investors wobble in months 2 to 12, and an AI check-in that steadies them without giving advice", { x: 0.7, y: 3.85, w: 7.1, h: 0.95, fontSize: 19 });
+  T(s, "Why first-time investors stop their SIPs in year one, and SIPal: an in-app guide that explains each moment without giving advice", { x: 0.7, y: 3.85, w: 7.1, h: 0.95, fontSize: 19 });
   s.addImage({ path: ART + "cover_art.png", x: 7.95, y: 0.55, w: 4.9, h: 4.0, altText: "Art: a SIPal sprout on a stack of rupee coins beside a rising green line, green and blue candles and a dashed blue line that falls and recovers" });
   card(s, 0.7, 4.95, 12.13, 0.95, PURE, GREEN, "north-star");
   T(s, [{ text: "North-star metric: ", options: { bold: true, color: BLUE } }, { text: "percentage of first-time mutual fund investors who still have an active SIP 12 months after starting their first one." }], { x: 0.95, y: 4.98, w: 11.6, h: 0.9, fontSize: 19, valign: "middle" });
-  T(s, [{ text: "11,711", options: { bold: true, color: BLUE } }, { text: " conversations analysed   |   " }, { text: "4,952", options: { bold: true, color: BLUE } }, { text: " about real SIP journeys   |   " },
-        { text: "18", options: { bold: true, color: BLUE } }, { text: "-person survey   |   " }, link("Try the live AI discovery engine", ENGINE, BLUE)], { x: 0.7, y: 6.12, w: 12, h: 0.4, fontSize: 16 });
+  T(s, [{ text: "11,711", options: { bold: true, color: BLUE } }, { text: " conversations analysed  |  " }, { text: "8,871", options: { bold: true, color: BLUE } }, { text: " about real SIP journeys  |  " },
+        { text: "19", options: { bold: true, color: BLUE } }, { text: "-person survey  |  " }, { text: "4", options: { bold: true, color: BLUE } }, { text: " interviews  |  " }, link("Discovery engine", ENGINE, BLUE), { text: "  |  " }, link("SIPal MVP", "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/", BLUE)], { x: 0.7, y: 6.12, w: 12.1, h: 0.4, fontSize: 15 });
   T(s, "Independent study. Not affiliated with Groww; Groww logo shown for identification only. Not investment advice. Mutual fund investments are subject to market risks.", { x: 0.7, y: 6.62, w: 12.1, h: 0.5, fontSize: 14 });
-  s.addNotes("Title slide. North-star metric as given in the brief. Numbers: 11,711 conversations analysed by the discovery engine, 4,952 judged relevant to a person's own mutual fund SIP; survey n=18. Name of the fellow intentionally not shown.");
+  s.addNotes("Title slide. North-star metric as given in the brief. Numbers: 11,711 conversations analysed by the discovery engine, 8,871 judged relevant to a person's own mutual fund SIP (v3 labelling prompt); survey of 19 unique respondents; 4 interviews. Name of the fellow intentionally not shown.");
 }
 
 // =====================================================================================================================
@@ -80,10 +80,56 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 3. IMPACT MAPPING + SEGMENTS
+// 3. DISCOVERY ENGINE FINDINGS + USER RESEARCH INSIGHTS
 // =====================================================================================================================
 {
-  const s = newSlide("Impact mapping: of about 2 to 3 million first-time Groww SIP investors a year, early-career salaried 22 to 30 are the largest group");
+  const s = newSlide("Discovery and user research: 8,871 real SIP conversations show SIPs break at a missed payment or a low-returns month");
+  wm(s, "wm_rise.png", 0.6, 1.5, 12.2, 5.2);
+  const SIPAL = "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/";
+  // left: how the engine works
+  card(s, 0.5, 1.45, 3.95, 5.72, PURE, BLUE, "engine");
+  T(s, "How the AI discovery engine works", { x: 0.68, y: 1.53, w: 3.6, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  const steps = [["110K", "public reviews, Reddit posts and comments, YouTube comments collected"], ["21,073", "kept after removing spam, ads and duplicates"],
+    ["11,711", "read and labelled by Gemini: what happened, why, feeling, need"], ["8,871", "about a real person's own mutual fund SIP"], ["334", "show a SIP stopping, pausing or failing; 230 say why"]];
+  steps.forEach((st, i) => {
+    const y = 1.98 + i * 0.74;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.68, y, w: 1.05, h: 0.6, rectRadius: 0.08, fill: { color: i === 4 ? GREEN : PURE }, line: { color: GREEN, width: 1.5 }, objectName: "funnel-step" });
+    T(s, st[0], { x: 0.68, y, w: 1.05, h: 0.6, fontSize: 15, bold: true, align: "center", valign: "middle", color: BLACK });
+    T(s, st[1], { x: 1.83, y: y - 0.02, w: 2.5, h: 0.66, fontSize: 14, valign: "middle" });
+  });
+  T(s, [{ text: "Checked: ", options: { bold: true, color: BLUE } }, { text: "97.8% of quotes word for word; a 20-post golden set labelled by hand. " }, link("Ask the live engine", ENGINE, BLUE)],
+    { x: 0.68, y: 5.72, w: 3.6, h: 1.38, fontSize: 14 });
+  // middle: where SIPs break
+  card(s, 4.6, 1.45, 4.05, 5.72, PURE, GREEN, "where-break");
+  T(s, "Why SIPs stop: 230 stated reasons", { x: 4.78, y: 1.53, w: 3.7, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  const bars = [["Low returns, wrong expectations or confusing numbers", 33], ["A missed or failed instalment (payment, autopay, app)", 24], ["Money pressure or a life event (loan, job, move)", 23], ["A better option elsewhere or others' advice", 19]];
+  bars.forEach((b, i) => {
+    const y = 2.0 + i * 0.98;
+    T(s, b[0], { x: 4.78, y, w: 3.7, h: 0.48, fontSize: 14 });
+    s.addShape(pres.shapes.RECTANGLE, { x: 4.78, y: y + 0.5, w: 2.9 * b[1] / 33, h: 0.32, fill: { color: i < 2 ? GREEN : PURE }, line: { color: GREEN, width: 1.5 }, objectName: "bar-" + i });
+    T(s, b[1] + "%", { x: 4.82 + 2.9 * b[1] / 33, y: y + 0.47, w: 0.7, h: 0.38, fontSize: 15, bold: true, valign: "middle" });
+  });
+  T(s, [{ text: "57% ", options: { bold: true, color: BLUE } }, { text: "of stated reasons sit at two moments: a missed SIP and a low-returns month (solid bars)." }],
+    { x: 4.78, y: 5.98, w: 3.72, h: 1.1, fontSize: 14 });
+  // right: insights with real quotes
+  card(s, 8.8, 1.45, 4.03, 5.72, PURE, BLUE, "insights");
+  T(s, "What investors are telling us", { x: 8.98, y: 1.53, w: 3.7, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  T(s, [
+    { text: "1  A dip reads as a loss", options: { bold: true, color: BLUE, breakLine: true } }, { text: "“Sip band kar do kyun ki market aur gire ga.”", options: { italic: true, breakLine: true } },
+    { text: "2  A missed debit is a mystery", options: { bold: true, color: BLUE, breakLine: true } }, { text: "“Missed two SIP installments due to low balance will it affect my investment?”", options: { italic: true, breakLine: true } },
+    { text: "3  Tight months need a middle path", options: { bold: true, color: BLUE, breakLine: true } }, { text: "“…whether to pause the SIP and focus on clearing the loan instead.”", options: { italic: true, breakLine: true } },
+    { text: "4  They want a trusted answer", options: { bold: true, color: BLUE, breakLine: true } }, { text: "It is the top need in 54% of first-year posts; answers come from YouTube and Reddit, not the app." }],
+    { x: 8.98, y: 1.95, w: 3.7, h: 5.15, fontSize: 14, paraSpaceAfter: 3 });
+  s.addNotes("Discovery engine (v3 labelling prompt): collected 40,000 Play Store reviews, 38,517 Reddit posts, 15,862 Reddit comments and 15,799 YouTube comments; 21,073 kept after cleaning and seeded sampling; 11,711 analysed; 8,871 relevant to a person's own mutual fund SIP; 334 drop-off signals, 230 with a stated reason. " +
+    "Stated reasons: low or negative returns 37, failed payment or mandate 34, cash-flow pressure 32, better alternative 25, app issue 22, expectation mismatch 22, life event 21, others' advice 19, confusion about numbers 18. Grouped: low returns, expectations or confusing numbers 33%; missed or failed instalment (payment, mandate, app) 24%; money pressure or life event 23%; better option or advice 19%. " +
+    "First-year posts: trusted help is the main need in 421 of 774 (54%). Quotes are real public excerpts, shown without usernames. Golden set: 20 posts labelled by hand; label agreement 63 to 67 of 100 after prompt fixes (in-sample).");
+}
+
+// =====================================================================================================================
+// 4. IMPACT MAPPING + SEGMENTS
+// =====================================================================================================================
+{
+  const s = newSlide("Chosen target segment: of about 2 to 3 million first-time Groww SIP investors a year, we choose salaried 22 to 30, the largest group");
   wm(s, "wm_rise.png", 0.4, 1.5, 8.6, 3.7);
   const rows = [
     ["India's population", "~1.4 billion", "", S],
@@ -110,11 +156,11 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   segs.forEach(([key, name, col], i) => {
     const x = sx0 + i * (sw + sg), hot = key === top[0], sh_ = SEGN.share[key];
     line(x + sw / 2, busY, 0, sy - busY);
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: sy, w: sw, h: sh, rectRadius: 0.12, fill: { color: hot ? CARD2 : CARD }, line: { color: hot ? Y : col, width: hot ? 3.5 : 1.75 }, objectName: "segment-" + key });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: sy, w: sw, h: sh, rectRadius: 0.12, fill: { color: hot ? GREEN : CARD }, line: { color: hot ? BLACK : col, width: hot ? 2 : 1.75 }, objectName: "segment-" + key });
     const amt = v => (v >= 1e6 ? `${(v / 1e6).toFixed(1)}M` : `${Math.round(v / 1e4) * 10}K`);
     const size = `~${amt(sh_ * 2e4)}-${amt(sh_ * 3e4)} a year`;
-    T(s, (hot ? [{ text: "Largest group", options: { bold: true, color: Y, fontSize: 14, breakLine: true } }] : []).concat([
-        { text: name, options: { bold: true, fontSize: 14, breakLine: true } }, { text: `${sh_}% of first-timers`, options: { color: hot ? Y : col, bold: true, fontSize: 14, breakLine: true } },
+    T(s, (hot ? [{ text: "Chosen segment", options: { bold: true, color: BLACK, fontSize: 14, breakLine: true } }] : []).concat([
+        { text: name, options: { bold: true, fontSize: 14, breakLine: true } }, { text: `${sh_}% of first-timers`, options: { color: hot ? BLACK : col, bold: true, fontSize: 14, breakLine: true } },
         { text: size, options: { color: SOFT, fontSize: 14 } }]),
       { x: x + 0.1, y: sy + 0.03, w: sw - 0.2, h: sh - 0.06, valign: "middle", align: "center", fontSize: 14 });
   });
@@ -135,42 +181,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 4. HOW THE EVIDENCE WAS BUILT (moved from the end)
-// =====================================================================================================================
-{
-  const s = newSlide("How the evidence was built: an AI discovery engine reads 11,711 real conversations and is tested against a golden set");
-  wm(s, "wm_rise.png", 0.6, 1.5, 12.2, 4.4);
-  const st = [
-    ["Collect", "40,000 Play Store reviews, 38.5K Reddit posts and 15.9K comments, 15.8K YouTube comments. Public data only; no personal or account data.", S],
-    ["Filter and sample", "Remove duplicates, keep SIP and mutual-fund talk, seeded sampling: 21,073 items. Spam and ads removed so each voice counts once.", O],
-    ["AI extraction", "Gemini codes each item: what happened, why, feeling, needs, why started, confusion, age. 11,711 analysed, 4,952 relevant", P],
-    ["Check", "Quotes must appear word for word (98.5%). A stricter prompt removed 28% false 'relevant' items such as ULIP and PPF", G],
-    ["Answer (RAG)", "Question, search terms, keyword and meaning search, AI re-rank, 2 to 3 sentence answer, four self-checks. Answers that fail a check are hidden.", Y],
-    ["Evaluate", "19/19 tricky questions handled; precision@5 43 to 78%; 11/12 answers grounded; hand-labelled golden set to score extraction", S],
-  ];
-  st.forEach((c, i) => {
-    const x = 0.5 + (i % 3) * 4.18, y = 1.5 + Math.floor(i / 3) * 2.2, w = 3.98, h = 2.05;
-    card(s, x, y, w, h, CARD, c[2], "pipeline-" + (i + 1));
-    badge(s, i + 1, x + 0.15, y + 0.13, c[2], 0.44);
-    T(s, c[0], { x: x + 0.72, y: y + 0.1, w: w - 0.85, h: 0.5, fontSize: 16, bold: true, color: c[2], valign: "middle" });
-    T(s, c[1], { x: x + 0.2, y: y + 0.66, w: w - 0.4, h: h - 0.72, fontSize: 15 });
-  });
-  card(s, 0.5, 5.98, 12.33, 0.72, CARD2, Y, "next-steps");
-  T(s, [{ text: "Next: ", options: { bold: true, color: Y } }, { text: "4 interviews with salaried first-time investors then tested what the public data showed: personas and hypothesis follow. " }, link("Try the live engine", ENGINE)], { x: 0.7, y: 5.98, w: 11.9, h: 0.72, fontSize: 16, valign: "middle" });
-  T(s, "Free-tier stack: Gemini models, Vercel hosting. Data: public reviews, posts and comments shown as short excerpts without usernames.", { x: 0.5, y: 6.82, w: 12.3, h: 0.45, fontSize: 14, color: SOFT });
-  s.addNotes("One-slide explanation of the discovery engine, as required. Collected: Play Store 40,000; Reddit posts 38,517 and comments 15,862; YouTube comments 15,799. After filters and seeded sampling the corpus is 21,073; 11,711 items analysed by Gemini in two passes; 4,952 judged relevant to a person's own mutual fund SIP. First prompt over-counted relevant items (ULIP, PPF, insurance): 510 of 1,804 flipped under the stricter prompt. Golden-set agreement numbers to be added once the hand-labelled set is scored.");
-}
-
-// =====================================================================================================================
-// 5. PERSONAS (two interviewees, answers as given)
-// =====================================================================================================================
-{
-  const s = newSlide("Personas: one missed SIPs, one faced low returns and a layoff; neither had guidance on what to do next");
-  require("./persona_slide.js")(pres, s, { CARD, SOFT, WHITE, DARK, S, O, Y, HEAD, BODY });
-}
-
-// =====================================================================================================================
-// 6. HYPOTHESIS (validated with 4 interviews)
+// 5. HYPOTHESIS (validated with 4 interviews)
 // =====================================================================================================================
 {
   const s = newSlide("Validated hypothesis: SIPs stop because first-timers get no proper guidance when they miss a SIP or returns are low");
@@ -219,6 +230,55 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
+// 6. SURVEY + INTERVIEWS + PERSONAS
+// =====================================================================================================================
+{
+  const s = newSlide("Survey and interviews: 10 of 19 thought of stopping, 9 did nothing next, and none of 4 interviewees knew what a missed SIP leads to");
+  const SV = require("./survey_numbers.json");
+  const thought = (SV.q7_thought_stop.Yes || 0) + (SV.q7_thought_stop.Maybe || 0);
+  card(s, 0.5, 1.45, 6.1, 2.75, PURE, GREEN, "survey");
+  T(s, `Survey snapshot (n=${SV.n})`, { x: 0.68, y: 1.52, w: 5.7, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  const tiles = [[`${thought} of ${SV.n}`, `thought of stopping or pausing (${SV.q7_thought_stop.Yes} yes, ${SV.q7_thought_stop.Maybe} maybe)`],
+    [`${SV.q9_next["I did nothing"]} of ${SV.n}`, `did nothing next; ${SV.q9_next["Discussed with a friend"]} asked a friend, ${Object.entries(SV.q9_next).find(([k]) => k.startsWith("Looked for"))[1]} followed influencers`],
+    [`${SV.q8_reason["I needed money"]} and ${SV.q8_reason["News about the market falling"]}`, "said they needed money, or saw news of the market falling"],
+    [`${SV.q5_happened["I've missed an instalment"]} and ${SV.q5_happened["I've paused or cancelled an SIP"]}`, "missed an instalment, or paused or cancelled a SIP"]];
+  tiles.forEach((t, i) => {
+    const x = 0.68 + (i % 2) * 2.92, y = 1.95 + Math.floor(i / 2) * 1.1;
+    T(s, [{ text: t[0], options: { bold: true, fontSize: 20, color: BLUE, breakLine: true } }, { text: t[1], options: { fontSize: 14 } }], { x, y, w: 2.8, h: 1.05 });
+  });
+  card(s, 6.75, 1.45, 6.08, 2.75, PURE, BLUE, "interviews");
+  T(s, "Interview findings (4 salaried SIP investors)", { x: 6.93, y: 1.52, w: 5.7, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  T(s, [
+    { text: "0 of 4 knew what several missed instalments lead to", options: { bullet: true, breakLine: true } },
+    { text: "4 of 4 named a gentler path: move the date, pay less, skip a month", options: { bullet: true, breakLine: true } },
+    { text: "2 of 4 thought of quitting over low returns or jargon", options: { bullet: true, breakLine: true } },
+    { text: "3 of 4 started because a friend or sibling did", options: { bullet: true, breakLine: true } },
+    { text: "All 4 want help as a notification, in plain words", options: { bullet: true } }],
+    { x: 6.93, y: 1.95, w: 5.75, h: 2.2, fontSize: 14.5, paraSpaceAfter: 2 });
+  const P2 = [
+    { x: 0.5, col: BLUE, ini: "A", name: "Akshata, 26", tag: "Missed it, never meant to stop", rows: [
+      ["Demographics", "salaried, salary on the 1st; first-ever SIP in 2025, Rs 1,000 a month"],
+      ["App usage", "opens Groww only when the SIP is due; paid by hand, then autopay"],
+      ["Key goals", "long-term returns of 15%+; keep the SIP going without remembering it"],
+      ["Core friction", "forgot to pay, missed 2 to 3 instalments; reminder lost in other alerts"]] },
+    { x: 6.75, col: GREEN, ini: "P", name: "Praveen, 34", tag: "Laid off, nearly quit", rows: [
+      ["Demographics", "salaried; first-ever SIP about 4 months ago, mid-month date"],
+      ["App usage", "checks the graph every morning; has used skip and lowered the amount"],
+      ["Key goals", "make money, at least 10% a year; understand the portfolio"],
+      ["Core friction", "laid off and needed money; low returns made quitting tempting"]] }];
+  P2.forEach((p, i) => {
+    card(s, p.x, 4.35, i ? 6.08 : 6.1, 2.85, PURE, p.col, "persona-" + (i + 1));
+    s.addShape(pres.shapes.OVAL, { x: p.x + 0.18, y: 4.47, w: 0.56, h: 0.56, fill: { color: p.col }, line: { color: p.col }, objectName: "avatar-" + (i + 1) });
+    T(s, p.ini, { x: p.x + 0.18, y: 4.47, w: 0.56, h: 0.56, fontSize: 18, bold: true, align: "center", valign: "middle", color: p.col === BLUE ? PURE : BLACK });
+    T(s, [{ text: p.name, options: { bold: true, color: BLUE } }, { text: "  ·  " + p.tag, options: { bold: true } }], { x: p.x + 0.86, y: 4.5, w: 5.0, h: 0.46, fontSize: 16, valign: "middle" });
+    T(s, p.rows.flatMap((r, k) => [{ text: r[0] + ": ", options: { bold: true, color: BLUE } }, { text: r[1], options: { breakLine: k < 3 } }]), { x: p.x + 0.2, y: 5.1, w: 5.7, h: 2.02, fontSize: 14, paraSpaceAfter: 3 });
+  });
+  s.addNotes(`Survey: ${SV.n} unique respondents (one duplicate removed, latest answer kept); 18 have started a SIP. Thought of stopping or pausing: ${SV.q7_thought_stop.Yes} yes, ${SV.q7_thought_stop.Maybe} maybe. Reasons (multi-select): needed money ${SV.q8_reason["I needed money"]}, market-fall news ${SV.q8_reason["News about the market falling"]}, low profit ${SV.q8_reason["The profit was low"] || 0}, other funds better ${SV.q8_reason["Other funds are doing better"] || 0}. ` +
+    `What next: did nothing ${SV.q9_next["I did nothing"]}, friend ${SV.q9_next["Discussed with a friend"]}, influencers 3, Google ${SV.q9_next["Searched in Google"] || 0}, family ${SV.q9_next["Asked a family member"] || 0}. First platform: Groww ${SV.q4_platform.Groww} of ${SV.n}. ` +
+    "Interviews: Sudhanva, Darshan, Praveen, Akshata (all salaried); answers as given. Personas are two of the interviewees: Akshata (missed instalments by forgetting) and Praveen (layoff and low returns).");
+}
+
+// =====================================================================================================================
 // 7. PROBLEM FRAMING CANVAS (aligned to the validated hypothesis)
 // =====================================================================================================================
 {
@@ -257,86 +317,100 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 8-9. MVP: SIPal, two flows with wireframes
-// =====================================================================================================================
-function sipalSlide(title, left, shots, caps, notes, opt = {}) {
-  const s = newSlide(title);
-  wm(s, "wm_sprout.png", 0.55, 5.3, 1.7, 1.7);
-  const LW = opt.leftW || 4.25;
-  let y = 1.45;
-  left.forEach((c, i) => {
-    card(s, 0.5, y, LW, c.h, i === 0 ? CARD2 : CARD, c.color, "sipal-left-" + (i + 1));
-    T(s, [{ text: c.head, options: { bold: true, color: c.color, fontSize: 16, breakLine: true } }, ...c.body],
-      { x: 0.68, y: y + 0.08, w: LW - 0.33, h: c.h - 0.14, fontSize: 14 });
-    y += c.h + 0.12;
-  });
-  const PH_H = opt.phH || 5.2, PH_W = PH_H * 412 / 866, X0 = 0.5 + LW + 0.2, n = shots.length;
-  const GAP = n > 1 ? Math.min(0.22, (12.83 - X0 - n * PH_W) / (n - 1)) : 0, PY = opt.phY || 1.42;
-  shots.forEach((f, i) => {
-    const x = X0 + i * (PH_W + GAP);
-    s.addImage({ path: `wireframes/${f}.png`, x, y: PY, w: PH_W, h: PH_H, altText: "Wireframe: " + caps[i][2] });
-    T(s, [{ text: caps[i][0] + "  ", options: { bold: true, color: caps[i][3] } }, { text: caps[i][1], options: { bold: true } }], { x: x - 0.1, y: PY + PH_H + 0.06, w: PH_W + 0.2, h: 0.34, fontSize: 14, align: "center", valign: "middle" });
-    if (caps[i][4]) T(s, caps[i][4], { x: x + 0.02, y: PY + PH_H + 0.4, w: PH_W - 0.04, h: 0.52, fontSize: 14, align: "center", valign: "top" });
-  });
-  s.addNotes(notes);
-}
-const bl = (t, last) => ({ text: t, options: last ? { bullet: true } : { bullet: true, breakLine: true, paraSpaceAfter: 3 } });
-const it = (t) => ({ text: t, options: { italic: true, breakLine: true } });
-
-// 8. Flow 1: weekly portfolio check-in
-sipalSlide("SIPal flow 1: a weekly check-in shows how the SIP did and why the market moved, in a good week or a bad one",
-  [ { head: "The pitch", color: Y, h: 2.32, body: [{ text: "“A calm guide that comes to you every week, when your SIP misses a payment or your returns dip, and tells you what happened, whether it's normal, and what you can do.”", options: { italic: true } }] },
-    { head: "How it works", color: S, h: 3.13, body: [bl("A weekly notification or the Explore entry opens it"), bl("Own numbers, why the market moved, is it normal"), bl("AI words facts from data; checked, or a safe fallback"), { text: "Numbers in the screens are illustrative.", options: { color: SOFT } }] } ],
-  ["set1_1_weekly_notification", "set1_2_explore_entry", "set1_3_checkin_down_week", "set1_4_checkin_up_week"],
-  [["1", "Weekly notification", "lock-screen notification that the weekly SIP check-in is ready, with no amounts shown", S, "No amounts on the lock screen"], ["2", "Or: Explore entry", "Mutual Funds Explore tab with the SIPal entry above Popular Funds", O, "Open it from Explore, any time"], ["3", "Down week", "weekly check-in in a down week, with why the market fell", P, "Own funds, why, and is it normal"], ["4", "Up week", "weekly check-in in an up week, with why the market rose", G, "Same calm story on a rise"]],
-  "Flow 1, weekly check-in. Two ways in: a weekly lock-screen notification (no amounts on the lock screen, for privacy) or the SIPal entry in the Mutual Funds Explore tab above Popular Funds. The check-in shows the investor's own SIP value, invested amount, change this week and overall, and each fund by category (no fund names). " +
-  "'Why did it fall/rise' explains the market move in one sentence (index move plus the main driver) and links it to the investor's funds. 'Is this normal' gives year-one context without predicting returns. 'What can you do' says when no action is needed. " +
-  "All numbers and market reasons in the screens are illustrative. Weekly, not daily, because frequent return checks raise loss-focused behaviour (myopic loss aversion). Evidence link: Praveen thought of quitting over low returns; Darshan found notification wording too technical.",
-  { leftW: 2.75, phH: 4.75, phY: 1.5 });
-
-// 9. Flow 2: reminder before the next debit
-sipalSlide("SIPal flow 2: three days before the debit, SIPal asks if this month is OK and lets them pay less just once",
-  [ { head: "Fixes the missed-SIP moment", color: P, h: 1.95, body: [bl("A reminder 3 days ahead, while a change can still go through"), bl("Pay less this month only; next month goes back on its own"), bl("Says what changes: SIP stays active, no penalty", true)] },
-    { head: "Built from what users asked for", color: O, h: 1.72, body: [it("“A proper reminder a day before the due date” (Akshata)"), it("“Pay less and postpone the SIP” (Praveen)"), { text: "“Prior notification… to manage money better” (Sudhanva)", options: { italic: true } }] },
-    { head: "Calm, not pushy", color: Y, h: 1.66, body: [bl("One reminder per instalment, no countdowns or red alerts"), bl("“Yes, all set” closes it in one tap"), bl("Skip and cancel stay visible and easy", true)] } ],
-  ["set2_1_due_reminder", "set2_2_pay_less_this_month", "set2_3_confirmed"],
-  [["1", "Reminder, 3 days before", "lock-screen reminder three days before the SIP debit with two actions", S, "Early enough for a change to go through"], ["2", "Pay less this month", "asks if the investor can pay this month and offers a smaller amount for November only", P, "A smaller amount, for this month only"], ["3", "Confirmed", "confirmation that November is set to a lower amount and December returns to the usual amount", G, "Next month goes back to the usual amount"]],
-  "Flow 2, before the next debit. Three days ahead, a reminder asks whether this month is OK for the usual amount, with two actions: 'Yes, all set' or 'Pay less this month'. The SIPal screen offers a smaller amount for this month only (or skip, or move the date), explains what changes (SIP stays active, no penalty, fewer units bought), and confirms that the next month goes back to the usual amount. " +
-  "Feasibility: a one-month lower amount is a proposed feature; it needs the change to reach the fund house before its cut-off (hence 3 days ahead) and works within the existing auto-debit mandate. Evidence link: Akshata missed instalments by forgetting and asked for a reminder the day before; Praveen would have paid less and postponed; Sudhanva wanted a notice before the SIP date. Numbers are illustrative.", { phH: 4.75, phY: 1.5 });
-
-// =====================================================================================================================
-// 10. MVP RISKS AND MITIGATION (with the success target on top)
+// 8. SOLUTION RATIONALE (three ideas scored with RICE)
 // =====================================================================================================================
 {
-  const s = newSlide("Risks: SIPal's main risks are advice drift, wrong explanations and pushy nudges, and each has a built-in safeguard");
-  wm(s, "wm_risefall.png", 0.5, 2.15, 12.33, 4.6);
-  const SIPAL = "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/";
-  card(s, 0.5, 1.45, 12.33, 0.62, CARD2, Y, "success-strip");
-  T(s, [{ text: "Success: ", options: { bold: true, color: Y } }, { text: "+2 to +4 points on the 12-month active SIP rate (estimate), tracked by first-try debit success and the stop-to-adjust rate." }],
-    { x: 0.7, y: 1.45, w: 10.6, h: 0.62, fontSize: 15, valign: "middle" });
-  s.addImage({ path: ART + "icon_rise.png", x: 11.4, y: 1.52, w: 0.72, h: 0.48, altText: "Rising graph in green" });
-  s.addImage({ path: ART + "icon_fall.png", x: 12.08, y: 1.52, w: 0.72, h: 0.48, altText: "Falling graph in red" });
-  const R = [
-    ["Read as investment advice", S, "Advice and prediction requests get a fixed decline and a pointer to a SEBI-registered adviser. No fund names; “not investment advice” on every screen.", "17/17 safety tests; 20/20 golden answers advice-free"],
-    ["Wrong or invented explanations", O, "The AI only words the facts and rules it is given. Every number must match them; a failed check shows the standard text instead.", "Gap: checks numbers and phrases, not every paraphrase"],
-    ["Too cautious to be useful", P, "If unsure, SIPal points to an official source instead of guessing. Fallback rate is tracked; the golden set is re-run after every prompt change.", "19/20 golden-set match; one tip wrongly declined"],
-    ["Pushy or too many alerts", G, "Weekly, not daily. One reminder per instalment, “Not now” and mute. Urgency words are blocked; skip and cancel are never hidden.", "Guardrail: mute rate and time to cancel"],
-    ["Demo data, not real accounts", Y, "SIP numbers and market moves are labelled sample data. Launch needs Groww's portfolio data, a vetted market feed and fund-house support for paying less.", "Next: pilot on real data, behind a flag"],
-    ["Privacy and free-tier limits", S, "No login and no PAN; personal details are refused and nothing is stored. Rate limits, caching and fixed fallback text keep it working if the AI is down.", "PAN test refused; fallback works if the AI is down"],
-  ];
-  R.forEach((r, i) => {
-    const x = 0.5 + (i % 3) * 4.18, y = 2.18 + Math.floor(i / 3) * 2.32, w = 3.98, h = 2.24;
-    card(s, x, y, w, h, CARD, r[1], "risk-" + (i + 1));
-    badge(s, i + 1, x + 0.15, y + 0.13, r[1], 0.44);
-    T(s, r[0], { x: x + 0.72, y: y + 0.08, w: w - 0.85, h: 0.55, fontSize: 16, bold: true, color: r[1], valign: "middle" });
-    T(s, [{ text: "Mitigation: ", options: { bold: true } }, { text: r[2], options: { color: WHITE, breakLine: true } }, { text: r[3], options: { color: SOFT, italic: true } }],
-      { x: x + 0.2, y: y + 0.68, w: w - 0.4, h: h - 0.74, fontSize: 14, paraSpaceAfter: 4 });
+  const s = newSlide("Solution rationale: of three ideas, moment-based alerts score highest on RICE and fix the root cause, so SIPal builds on them");
+  const hdr = ["Idea", "Reach", "Impact", "Confidence", "Effort", "RICE", "Fixes the root cause at the moment?"].map(t => ({ text: t, options: { bold: true, color: PURE, fill: { color: BLUE }, align: "center", valign: "middle" } }));
+  const row = (cells, chosen) => cells.map((t, i) => ({ text: t, options: { fill: { color: chosen ? GREEN : PURE }, color: BLACK, bold: chosen && i === 0, align: i === 0 || i === 6 ? "left" : "center", valign: "middle" } }));
+  const rows = [hdr,
+    row(["1  Alerts with a calm guide: what happened, is it normal, what you can do", "90%", "2", "80%", "3", "48", "Yes: reaches investors at the missed-SIP and low-returns moments"], true),
+    row(["2  AI voice bot in the Dashboards tab", "10%", "1", "30%", "4", "0.8", "No: the investor has to go and ask"], false),
+    row(["3  SIPal guidebook with AI videos in Explore", "20%", "0.5", "50%", "5", "1.0", "Partly: general learning, not their moment"], false)];
+  s.addTable(rows, { x: 0.5, y: 1.45, w: 12.33, colW: [3.75, 0.95, 0.95, 1.25, 0.95, 0.95, 3.53], fontFace: BODY, fontSize: 14, border: { type: "solid", pt: 1, color: BLACK }, rowH: [0.42, 0.72, 0.6, 0.6] });
+  T(s, "RICE = Reach x Impact x Confidence / Effort. Reach: share of the target segment touched in a quarter. Impact: 0.5 low to 3 massive. Effort: person-months. All values are estimates.",
+    { x: 0.5, y: 3.88, w: 12.33, h: 0.5, fontSize: 14 });
+  const C3 = [
+    ["Why idea 1 wins", GREEN, "It is the only idea that comes to the investor at the moment. All 4 interviewees asked for a notification, and 57% of stated drop-off reasons sit at these two moments. It builds on what Groww already has: push notifications, each debit date and the portfolio. It also scores far higher on RICE: 48, against 1.0 and 0.8."],
+    ["How it was refined", BLUE, "Weekly and 3 days before a debit, not daily: frequent return checks raise worry, and too many alerts get ignored. It explains with the investor's own funds and the week's economic reasons, offers gentler options (pay less, skip, move the date) and never gives advice. Every answer passes a quality check before it shows."],
+    ["What it borrows", BLUE, "The name SIPal and the Explore entry come from idea 3, so the guide is also there whenever someone looks for it. A “Listen” button from idea 2 can come later for investors who prefer voice. The AI videos are dropped for now: they are costly to make, hard to check for accuracy, and general lessons are already free on YouTube."]];
+  C3.forEach((c, i) => {
+    const x = 0.5 + i * 4.18;
+    card(s, x, 4.48, 3.98, 2.72, PURE, c[1], "why-" + i);
+    T(s, [{ text: c[0], options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } }, { text: c[2] }], { x: x + 0.18, y: 4.56, w: 3.62, h: 2.58, fontSize: 14.5 });
   });
-  T(s, [{ text: "Live MVP: ", options: { bold: true, color: Y } }, link("Try SIPal", SIPAL, S), { text: "   Release gate: golden-set match 80%+, every shown answer advice-free, every advice request declined.", options: { color: SOFT } }],
-    { x: 0.5, y: 6.82, w: 12.33, h: 0.4, fontSize: 14 });
-  s.addNotes("Risks of the SIPal MVP and how each is handled. Evaluation (engine/sipal_eval): the 20 hand-labelled golden-set posts from the Evidence Log were sent to Ask SIPal; expected behaviour came from the hand labels. First run 16/20; after two general prompt fixes (do not treat a forgotten password as personal data; point to support, scheme documents or an adviser on tax, charge and own-case questions) 19/20, measured on the same set, so in-sample. " +
-    "20/20 shown answers advice-free; 7/7 advice-seeking posts referred to an adviser or official source; 4/4 off-topic posts declined. 17/17 safety tests (advice and prediction traps, an instruction to break the rules, a pasted PAN, rule questions, own numbers, Hinglish, off-topic). " +
-    "A rejected draft example: an up-week check-in was blocked because the advice check read 'returns are not guaranteed' as a guarantee; the check was fixed to allow negations. Success target and metrics follow the KPI tree on slide 2.");
+  s.addNotes("Three ideas proposed by the Fellow: (1) performance alerts that open one calm screen (what happened, is it normal, what you can do, returns, why the amount moved, how the market is doing); (2) an AI voice bot in the Dashboards tab; (3) a SIPal guidebook icon in Explore with AI-generated animated videos. " +
+    "RICE inputs (estimates): reach as the share of salaried 22-30 first-timers touched per quarter (push alerts reach almost everyone with an active SIP; voice and guidebook rely on the investor going to look); impact on the 12-month active rate; confidence from evidence (interviews 4/4 want notifications; nobody asked for voice; one interviewee asked for a guide); effort in person-months (videos need generation and compliance review). " +
+    "Refinements: weekly rather than daily because frequent return checks raise loss-focused behaviour (myopic loss aversion) and notifications get lost; numbers and reasons come from data; fund names only for the investor's own holdings.");
+}
+
+// =====================================================================================================================
+// 9. MVP AND USER TESTING
+// =====================================================================================================================
+{
+  const s = newSlide("MVP and user testing: SIPal is live, every AI answer is checked before it shows, and three users test it on two real tasks");
+  const SIPAL = "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/";
+  card(s, 0.5, 1.45, 4.25, 1.9, PURE, GREEN, "what");
+  T(s, [{ text: "What SIPal is", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
+        { text: "An in-app guide for first-time SIP investors at two moments: a weekly check-in (how my funds did, why the market moved, is it normal) and a reminder 3 days before the debit (pay less this month, skip, move the date)." }],
+    { x: 0.68, y: 1.52, w: 3.92, h: 1.8, fontSize: 14 });
+  card(s, 0.5, 3.45, 4.25, 2.42, PURE, BLUE, "gate");
+  T(s, [{ text: "AI with a quality gate", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
+        { text: "AI only words the facts it is given. Each answer is checked (numbers, no advice, no fund tips, calm tone, a source), or a safe fallback shows. Golden set 19/20; advice-free 20/20; safety tests 17/17.", options: { breakLine: true } },
+        { text: "Where AI earns its place: ", options: { bold: true } }, { text: "answering each investor's own question, in their own words." }],
+    { x: 0.68, y: 3.51, w: 3.92, h: 2.32, fontSize: 14 });
+  card(s, 0.5, 5.97, 4.25, 1.23, PURE, GREEN, "link");
+  T(s, [{ text: "Try it live: ", options: { bold: true, color: BLUE } }, link("SIPal MVP", SIPAL, BLUE), { text: "\nnextleapgradprojectgrowwsipresearch.vercel.app/sipal", options: { fontSize: 14 } },
+        { text: "\nSample data, no login. Not investment advice.", options: { fontSize: 14 } }], { x: 0.68, y: 6.0, w: 3.95, h: 1.16, fontSize: 15 });
+  const shots = [["set1_1_weekly_notification", "Weekly alert"], ["set1_3_checkin_down_week", "Why it fell"], ["set2_2_pay_less_this_month", "Pay less"], ["set3_ask_sipal_quality_check", "Advice declined"]];
+  const PH_H = 3.45, PH_W = PH_H * 412 / 842;
+  shots.forEach((sh, i) => {
+    const x = 4.95 + i * (PH_W + 0.3);
+    s.addImage({ path: "wireframes/" + sh[0] + ".png", x, y: 1.45, w: PH_W, h: PH_H, altText: "SIPal screen: " + sh[1] });
+    T(s, [{ text: (i + 1) + "  ", options: { bold: true, color: BLUE } }, { text: sh[1], options: { bold: true } }], { x: x - 0.12, y: 4.94, w: PH_W + 0.24, h: 0.34, fontSize: 14, align: "center", valign: "middle" });
+  });
+  T(s, "User testing with 3 first-time investors (fill in after the sessions)", { x: 4.95, y: 5.33, w: 7.9, h: 0.34, fontSize: 15, bold: true, color: BLUE });
+  const th = ["Tester", "Task 1: weekly check-in", "Task 2: pay less", "Task 3: ask for advice", "What they said / what we changed"].map(t => ({ text: t, options: { bold: true, color: PURE, fill: { color: BLUE }, align: "center", valign: "middle" } }));
+  const blank = n => ["Tester " + n, "", "", "", ""].map(t => ({ text: t, options: { color: BLACK, valign: "middle" } }));
+  s.addTable([th, blank(1), blank(2), blank(3)], { x: 4.95, y: 5.7, w: 7.88, colW: [0.95, 1.55, 1.3, 1.6, 2.48], fontFace: BODY, fontSize: 14, border: { type: "solid", pt: 1, color: BLACK }, rowH: [0.42, 0.34, 0.34, 0.34] });
+  s.addNotes("SIPal MVP, live at " + SIPAL + ". Screens are captured from the live app. Tasks for testers: (1) open the weekly check-in, find why the SIP rose or fell and whether that is normal, ask one follow-up; (2) the SIP is due in 3 days and money is tight: pay a smaller amount this month and check what changes; (3) try to get SIPal to recommend a fund. " +
+    "Record for each tester: finished each task (yes/no), time taken, any confusion, whether the advice request was declined, and one quote. The results table is left empty on purpose until the sessions are run; no results are invented. " +
+    "Evaluation: the 20 hand-labelled golden-set posts from the Evidence Log 19/20 (first run 16/20, two general prompt fixes, in-sample); every shown answer advice-free 20/20; safety tests 17/17. What a non-AI version would miss: a fixed FAQ cannot answer questions phrased in unplanned ways or in Hinglish, and cannot tell an explanation request from an advice request.");
+}
+
+// =====================================================================================================================
+// 10. SUCCESS METRICS + RISKS AND LIMITATIONS
+// =====================================================================================================================
+{
+  const s = newSlide("Success and risks: SIPal aims for +2 to +4 points on 12-month active SIPs, and each risk and limitation has a safeguard");
+  wm(s, "wm_risefall.png", 0.5, 3.9, 12.33, 3.3);
+  const top = [
+    ["North star and target", GREEN, [["Metric: ", "% of first-time investors with an active SIP 12 months after starting"], ["Target: ", "+2 to +4 points for salaried 22-30 first-timers vs a control group (estimate)"]]],
+    ["Product metrics that move it", BLUE, [["First-try debit success: ", "successful debits / debits tried"], ["Stop-to-adjust rate: ", "skip, lower or new date / opened stop"], ["Check-in reach: ", "share opening the weekly check-in"]]],
+    ["Guardrails", BLUE, [["No pressure: ", "cancel stays one tap; time to cancel not worse"], ["No nagging: ", "one reminder per instalment; mute rate watched"], ["AI gate: ", "95%+ grounded, 0 advice phrases"]]]];
+  top.forEach((c, i) => {
+    const x = 0.5 + i * 4.18;
+    card(s, x, 1.45, 3.98, 2.3, PURE, c[1], "success-" + i);
+    T(s, [{ text: c[0], options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } }, ...c[2].flatMap((m, k) => [{ text: m[0], options: { bold: true } }, { text: m[1], options: { breakLine: k < c[2].length - 1 } }])],
+      { x: x + 0.18, y: 1.52, w: 3.65, h: 2.18, fontSize: 14, paraSpaceAfter: 3 });
+  });
+  T(s, "Risks and limitations", { x: 0.5, y: 3.86, w: 6, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  s.addImage({ path: ART + "icon_rise.png", x: 3.0, y: 3.82, w: 0.66, h: 0.44, altText: "Rising graph in green" });
+  s.addImage({ path: ART + "icon_fall.png", x: 3.75, y: 3.82, w: 0.66, h: 0.44, altText: "Falling graph in red" });
+  const R = [
+    ["Read as investment advice", "Fixed decline and a SEBI-adviser pointer; no fund tips; “not advice” on every screen. 17/17 safety tests."],
+    ["Wrong explanations", "AI only words given facts; numbers checked; failed check shows standard text. Gap: paraphrases are not checked."],
+    ["Pushy or too many alerts", "Weekly, not daily; one reminder per instalment; mute; urgency words blocked; skip and cancel never hidden."],
+    ["Demo data (limitation)", "Sample SIP and market data. Launch needs Groww's portfolio data, a vetted market feed and fund-house support."],
+    ["Small samples (limitation)", "4 interviews, 19 survey answers, a 20-post golden set scored in-sample; public posts lean to vocal users."],
+    ["Privacy and free-tier limits", "No login or PAN; nothing stored. Rate limits, caching and a fallback keep it working if the AI is down."]];
+  R.forEach((r, i) => {
+    const x = 0.5 + (i % 3) * 4.18, y = 4.28 + Math.floor(i / 3) * 1.48, w = 3.98, h = 1.38;
+    card(s, x, y, w, h, PURE, i % 2 ? GREEN : BLUE, "risk-" + (i + 1));
+    T(s, [{ text: (i + 1) + "  " + r[0], options: { bold: true, color: BLUE, breakLine: true } }, { text: r[1] }], { x: x + 0.15, y: y + 0.06, w: w - 0.3, h: h - 0.1, fontSize: 14 });
+  });
+  s.addNotes("Success: business metric as given in the brief. Uplift estimate: about 1.2 million salaried 22-30 first-timers a year; about half hit a missed-SIP or low-returns moment; assume 40% of those would stop without help and SIPal turns 10 to 20% of them to pay less, skip or continue: 24,000 to 48,000 more investors active at month 12, +2 to +4 points. " +
+    "Product metrics follow the KPI tree (slide 2). Risks and limitations: evaluation on the hand-labelled golden set is in-sample after prompt fixes; research samples are small; market reasons in the demo are sample data.");
 }
 
 pres.writeFile({ fileName: "NL_Groww.pptx" }).then(f => console.log("written", f));

@@ -1,0 +1,51 @@
+{
+ "n": 19,
+ "q1_started": {
+  "Yes": 18,
+  "No": 1
+ },
+ "q2_when": {
+  "More than 12 months ago": 11,
+  "4–6 months ago": 5,
+  "Within the last 3 months": 2,
+  "I don't remember": 1
+ },
+ "q3_first": {
+  "No, that was my first-ever SIP": 16,
+  "I'm not sure": 2,
+  "Yes": 1
+ },
+ "q4_platform": {
+  "Groww": 8,
+  "Another Platform": 6,
+  "Zerodha Coin": 3,
+  "I don't remember": 1,
+  "INDmoney": 1
+ },
+ "q5_happened": {
+  "I've continued without any major issues": 10,
+  "I've missed an instalment": 3,
+  "I've paused or cancelled an SIP": 3,
+  "I'm not sure": 2,
+  "More than one of these": 1
+ },
+ "q7_thought_stop": {
+  "No": 9,
+  "Yes": 6,
+  "Maybe": 4
+ },
+ "q8_reason": {
+  "(blank)": 6,
+  "I needed money": 5,
+  "News about the market falling": 5,
+  "The profit was low": 2,
+  "Other funds are doing better": 1
+ },
+ "q9_next": {
+  "I did nothing": 9,
+  "Discussed with a friend": 4,
+  "Looked for Influencers suggestion (Youtube, Instagram, Other Social media platform)": 3,
+  "Searched in Google": 2,
+  "Asked a family member": 1
+ }
+}
