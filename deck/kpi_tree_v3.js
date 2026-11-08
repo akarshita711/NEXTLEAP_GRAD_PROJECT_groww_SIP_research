@@ -34,7 +34,7 @@ module.exports = function addKpiTreeV3(pres, s, C) {
 
   // column headers
   ["Business metric", "Definition", "Product outcomes", "Monthly product metrics", "Input metrics"].forEach((t, i) =>
-    s.addText(t, { x: COL[i][0], y: 1.36, w: COL[i][1], h: 0.32, fontFace: BODY, fontSize: 14, bold: true, color: SOFT, align: "center", valign: "middle", margin: 0 }));
+    s.addText(t, { x: COL[i][0], y: 1.36, w: COL[i][1], h: 0.32, fontFace: BODY, fontSize: 14, bold: true, color: "5367F5", align: "center", valign: "middle", margin: 0 }));
 
   // input metrics (column 5): three pairs
   const H = 0.6, G = 0.22, Y0 = 1.78;
@@ -68,12 +68,13 @@ module.exports = function addKpiTreeV3(pres, s, C) {
   link(A, [B1, B2], "÷");
 
   // the pick
-  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.5, y: 6.62, w: 12.33, h: 0.66, rectRadius: 0.1, fill: { color: CARD2 }, line: { color: Y, width: 2 }, objectName: "pick" });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.5, y: 6.5, w: 12.33, h: 0.76, rectRadius: 0.1, fill: { color: CARD2 }, line: { color: Y, width: 2 }, objectName: "pick" });
   s.addText([
     { text: "Steady SIP continuity can be increased by ", options: { bold: true } },
     { text: "the first-try debit success rate ", options: { bold: true, color: Y } }, { text: "and ", options: { bold: true } },
-    { text: "the stop-to-adjust rate.", options: { bold: true, color: Y } }],
-    { x: 0.7, y: 6.62, w: 11.93, h: 0.66, fontFace: BODY, fontSize: 17, color: WHITE, valign: "middle", margin: 0 });
+    { text: "the stop-to-adjust rate.", options: { bold: true, color: Y, breakLine: true } },
+    { text: "The first keeps money flowing every month with no effort from the investor; the second turns a decision to leave into a smaller step.", options: { fontSize: 14 } }],
+    { x: 0.7, y: 6.52, w: 11.93, h: 0.72, fontFace: BODY, fontSize: 16, color: WHITE, valign: "middle", margin: 0 });
   s.addNotes(
     "Business metric: 12-month active SIP rate = first-timers active at month 12 (at least one successful instalment in the last 30 days) / first-timers who started a first SIP. " +
     "Active at month 12 = first-timers whose first instalment was paid x the monthly continuation rate, multiplied over months 2 to 12. " +

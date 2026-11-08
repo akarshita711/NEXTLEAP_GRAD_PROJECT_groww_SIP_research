@@ -8,7 +8,7 @@ pres.title = "First-time SIP retention on Groww: problem framing, MVP and succes
 
 // ---------- palette: Groww brand, four colours only: white, Caribbean Green, Groww Blue, black ----------
 // Green is used for shapes and lines (too light for text on white); text is black, headings and links blue.
-const GREEN = "00D09C", BLUE = "5367F5", BLACK = "000000", PURE = "FFFFFF";
+const GREEN = "00D09C", BLUE = "5367F5", BLACK = "000000", PURE = "FFFFFF", RED = "EB5B3C";   // red only for falling-graph art
 const BG = PURE, CARD = PURE, CARD2 = PURE, WHITE = BLACK, SOFT = BLACK, DARK = BLACK;   // old names kept so slide code is unchanged
 const Y = GREEN, O = GREEN, S = BLUE, G = GREEN, P = BLUE;
 const ART = "art/";
@@ -17,7 +17,8 @@ const _addSlide = pres.addSlide.bind(pres);
 const txt = c => (c === GREEN ? BLUE : c);
 const fixRuns = r => { if (Array.isArray(r)) r.forEach(x => { if (x && x.options) { if (x.options.color) x.options.color = txt(x.options.color); if (x.options.underline && x.options.underline.color) x.options.underline.color = txt(x.options.underline.color); } }); };
 pres.addSlide = (...a) => { const s = _addSlide(...a); const at = s.addText.bind(s);
-  s.addText = (t, o = {}) => { fixRuns(t); if (o.color) o.color = txt(o.color); return at(t, o); }; return s; };
+  s.addText = (t, o = {}) => { if (o.keepGreen) delete o.keepGreen; else { fixRuns(t); if (o.color) o.color = txt(o.color); } return at(t, o); }; return s; };
+const wm = (s, file, x, y, w, h) => s.addImage({ path: ART + file, x, y, w, h, altText: "Watermark art" });   // faint background art
 const HEAD = "Arial", BODY = "Calibri";
 const ENGINE = "https://nextleapgradprojectgrowwsipresearch.vercel.app/";
 
@@ -29,7 +30,7 @@ const BRAND = [
 ];
 pres.defineSlideMaster({
   title: "CONTENT", background: { color: BG },
-  objects: [...BRAND, { placeholder: { options: { name: "title", type: "title", x: 0.5, y: 0.28, w: 12.33, h: 1.05, fontFace: HEAD, fontSize: 27, bold: true, color: BLACK, valign: "middle", margin: 0 }, text: "" } }],
+  objects: [...BRAND, { placeholder: { options: { name: "title", type: "title", x: 0.5, y: 0.28, w: 12.33, h: 1.05, fontFace: HEAD, fontSize: 27, bold: true, color: GREEN, valign: "middle", margin: 0 }, text: "" } }],
 });
 pres.defineSlideMaster({ title: "COVER", background: { color: BG }, objects: BRAND.slice(0, 3) });
 
@@ -41,7 +42,7 @@ function newSlide(title) {
   return s;
 }
 const card = (s, x, y, w, h, fill = CARD, line = null, name = "card") =>
-  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.18, fill: { color: fill }, line: line ? { color: line, width: 2 } : { color: BLACK, width: 1 }, objectName: name });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.18, fill: { color: fill, transparency: fill === PURE ? 100 : 0 }, line: line ? { color: line, width: 2 } : { color: BLACK, width: 1 }, objectName: name });
 const badge = (s, n, x, y, color, d = 0.5) => {
   s.addShape(pres.shapes.OVAL, { x, y, w: d, h: d, fill: { color }, line: { color }, objectName: "badge-" + n });
   s.addText(String(n), { x, y, w: d, h: d, align: "center", valign: "middle", fontFace: HEAD, fontSize: 18, bold: true, color: color === BLUE ? PURE : BLACK, margin: 0, isTextBox: true });
@@ -57,8 +58,8 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   s.addImage({ path: ART + "groww_logo.png", x: 0.7, y: 0.55, w: 0.62, h: 0.62, altText: "Groww logo" });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.5, y: 0.61, w: 6.2, h: 0.5, rectRadius: 0.25, fill: { color: PURE }, line: { color: BLUE, width: 1.5 }, objectName: "kicker" });
   T(s, "NextLeap graduation project  |  Growth PM case: Groww", { x: 1.5, y: 0.61, w: 6.2, h: 0.5, fontSize: 16, bold: true, color: BLUE, align: "center", valign: "middle" });
-  T(s, "Helping first-time Groww investors stay invested through year one", { x: 0.7, y: 1.45, w: 7.1, h: 2.1, fontFace: HEAD, fontSize: 40, bold: true, valign: "top" });
-  s.addShape(pres.shapes.RECTANGLE, { x: 0.72, y: 3.62, w: 1.4, h: 0.09, fill: { color: GREEN }, line: { color: GREEN }, objectName: "title-underline" });
+  T(s, "Helping first-time Groww investors stay invested through year one", { x: 0.7, y: 1.45, w: 7.1, h: 2.1, fontFace: HEAD, fontSize: 40, bold: true, valign: "top", color: GREEN, keepGreen: true });
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.72, y: 3.62, w: 1.4, h: 0.09, fill: { color: BLUE }, line: { color: BLUE }, objectName: "title-underline" });
   T(s, "Why early-career salaried investors wobble in months 2 to 12, and an AI check-in that steadies them without giving advice", { x: 0.7, y: 3.85, w: 7.1, h: 0.95, fontSize: 19 });
   s.addImage({ path: ART + "cover_art.png", x: 7.95, y: 0.55, w: 4.9, h: 4.0, altText: "Art: a SIPal sprout on a stack of rupee coins beside a rising green line, green and blue candles and a dashed blue line that falls and recovers" });
   card(s, 0.7, 4.95, 12.13, 0.95, PURE, GREEN, "north-star");
@@ -74,6 +75,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // =====================================================================================================================
 {
   const s = newSlide("KPI tree: the 12-month active SIP rate comes down to whether each monthly instalment is paid, adjusted or recovered");
+  wm(s, "wm_rise.png", 3.2, 1.7, 9.6, 4.1);
   require("./kpi_tree_v3.js")(pres, s, { CARD, CARD2, WHITE, SOFT, DARK, Y, O, BODY });
 }
 
@@ -82,6 +84,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // =====================================================================================================================
 {
   const s = newSlide("Impact mapping: of about 2 to 3 million first-time Groww SIP investors a year, early-career salaried 22 to 30 are the largest group");
+  wm(s, "wm_rise.png", 0.4, 1.5, 8.6, 3.7);
   const rows = [
     ["India's population", "~1.4 billion", "", S],
     ["Mobile internet users", "~958 million", "68% of population  |  IAMAI 2025", O],
@@ -116,9 +119,9 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
       { x: x + 0.1, y: sy + 0.03, w: sw - 0.2, h: sh - 0.06, valign: "middle", align: "center", fontSize: 14 });
   });
   card(s, 9.05, 1.45, 3.78, 1.6, CARD, S, "why-door");
-  T(s, [{ text: "The entry door\n", options: { bold: true, color: S, fontSize: 16 } }, { text: "36% of new Groww users start with a SIP (Q2 FY26, up 7 points on last year)." }], { x: 9.22, y: 1.56, w: 3.45, h: 1.4, fontSize: 16 });
+  T(s, [{ text: "The entry door\n", options: { bold: true, color: S, fontSize: 16 } }, { text: "36% of new Groww users start with a SIP (Q2 FY26, up 7 points on last year). For many, the first SIP is their first product on Groww." }], { x: 9.22, y: 1.54, w: 3.45, h: 1.46, fontSize: 14.5 });
   card(s, 9.05, 3.2, 3.78, 1.65, CARD, O, "why-leak");
-  T(s, [{ text: "The leak\n", options: { bold: true, color: O, fontSize: 16 } }, { text: "SIP stoppage ratio 78.5% in Sep 2026: 63.26 lakh new SIPs vs 49.68 lakh closed or completed." }], { x: 9.22, y: 3.31, w: 3.45, h: 1.45, fontSize: 16 });
+  T(s, [{ text: "The leak\n", options: { bold: true, color: O, fontSize: 16 } }, { text: "SIP stoppage ratio 78.5% in Sep 2026: 63.26 lakh new SIPs vs 49.68 lakh closed or completed. Acquisition works; keeping SIPs alive is the gap." }], { x: 9.22, y: 3.29, w: 3.45, h: 1.5, fontSize: 14.5 });
   card(s, 9.05, 5.0, 3.78, 1.62, CARD, Y, "why-estimate");
   T(s, [{ text: "Estimate logic\n", options: { bold: true, color: Y, fontSize: 16 } }, { text: "~10M of 16.7M users hold mutual funds; 20-30% assumed to start a first SIP in a year. Segment shares: engine, first-year posts stating age or income." }], { x: 9.22, y: 5.08, w: 3.45, h: 1.5, fontSize: 14.5 });
   T(s, [{ text: "Sources: " },
@@ -136,12 +139,13 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // =====================================================================================================================
 {
   const s = newSlide("How the evidence was built: an AI discovery engine reads 11,711 real conversations and is tested against a golden set");
+  wm(s, "wm_rise.png", 0.6, 1.5, 12.2, 4.4);
   const st = [
-    ["Collect", "40,000 Play Store reviews, 38.5K Reddit posts and 15.9K comments, 15.8K YouTube comments", S],
-    ["Filter and sample", "Remove duplicates, keep SIP and mutual-fund talk, seeded sampling: 21,073 items", O],
+    ["Collect", "40,000 Play Store reviews, 38.5K Reddit posts and 15.9K comments, 15.8K YouTube comments. Public data only; no personal or account data.", S],
+    ["Filter and sample", "Remove duplicates, keep SIP and mutual-fund talk, seeded sampling: 21,073 items. Spam and ads removed so each voice counts once.", O],
     ["AI extraction", "Gemini codes each item: what happened, why, feeling, needs, why started, confusion, age. 11,711 analysed, 4,952 relevant", P],
     ["Check", "Quotes must appear word for word (98.5%). A stricter prompt removed 28% false 'relevant' items such as ULIP and PPF", G],
-    ["Answer (RAG)", "Question, search terms, keyword and meaning search, AI re-rank, 2 to 3 sentence answer, four self-checks", Y],
+    ["Answer (RAG)", "Question, search terms, keyword and meaning search, AI re-rank, 2 to 3 sentence answer, four self-checks. Answers that fail a check are hidden.", Y],
     ["Evaluate", "19/19 tricky questions handled; precision@5 43 to 78%; 11/12 answers grounded; hand-labelled golden set to score extraction", S],
   ];
   st.forEach((c, i) => {
@@ -149,7 +153,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     card(s, x, y, w, h, CARD, c[2], "pipeline-" + (i + 1));
     badge(s, i + 1, x + 0.15, y + 0.13, c[2], 0.44);
     T(s, c[0], { x: x + 0.72, y: y + 0.1, w: w - 0.85, h: 0.5, fontSize: 16, bold: true, color: c[2], valign: "middle" });
-    T(s, c[1], { x: x + 0.2, y: y + 0.7, w: w - 0.4, h: h - 0.8, fontSize: 16 });
+    T(s, c[1], { x: x + 0.2, y: y + 0.66, w: w - 0.4, h: h - 0.72, fontSize: 15 });
   });
   card(s, 0.5, 5.98, 12.33, 0.72, CARD2, Y, "next-steps");
   T(s, [{ text: "Next: ", options: { bold: true, color: Y } }, { text: "4 interviews with salaried first-time investors then tested what the public data showed: personas and hypothesis follow. " }, link("Try the live engine", ENGINE)], { x: 0.7, y: 5.98, w: 11.9, h: 0.72, fontSize: 16, valign: "middle" });
@@ -170,6 +174,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // =====================================================================================================================
 {
   const s = newSlide("Validated hypothesis: SIPs stop because first-timers get no proper guidance when they miss a SIP or returns are low");
+  wm(s, "wm_sprout.png", 10.9, 4.6, 2.0, 2.0);
   const SEGN = require("./segment_numbers.json");
   T(s, [{ text: "Target segment: ", options: { bold: true, color: O } }, { text: `salaried, 22-30, the largest group at ${SEGN.share.early}% of first-time investors who state age or income` }],
     { x: 0.5, y: 1.4, w: 12.3, h: 0.32, fontSize: 15, color: SOFT });
@@ -203,7 +208,8 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   T(s, [
     { text: "Started with: ", options: { bold: true, color: P } }, { text: "a doubt goes unanswered in the app.", options: { breakLine: true } },
     { text: "Sharpened to: ", options: { bold: true, color: G } }, { text: "the gap is guidance at two moments, a missed SIP and low returns. Consistent with all 4 interviews.", options: { breakLine: true } },
-    { text: "Points to: ", options: { bold: true, color: Y } }, { text: "an in-app guide at those two moments: what a miss leads to, the gentler options, and why returns move in year one. It explains; it never recommends funds." }],
+    { text: "Points to: ", options: { bold: true, color: Y } }, { text: "an in-app guide at those two moments: what a miss leads to, the gentler options, and why returns move in year one. It explains; it never recommends funds.", options: { breakLine: true } },
+    { text: "Why Groww can fix it: ", options: { bold: true, color: S } }, { text: "the app already knows each debit date and sees every return, so it can step in at the right moment." }],
     { x: 6.95, y: 4.62, w: 5.7, h: 2.3, fontSize: 14, paraSpaceAfter: 6 });
   s.addNotes("Hypothesis validated with 4 interviews (all salaried; answers as given). Root cause: no proper guidance when a SIP is missed or returns are low, so investors do not know what to do. " +
     "Missed SIP: none of the 4 knew what several missed instalments lead to; Akshata missed 2 to 3 instalments by forgetting, did nothing when worried, asked for 'a proper guide to first time SIP investors' and only later found GR-1, which now guides her on whether to continue. " +
@@ -217,6 +223,8 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // =====================================================================================================================
 {
   const s = newSlide("Problem: when first-timers miss a SIP or see low returns, nothing guides them on what to do, so the SIP stops");
+  wm(s, "wm_fall.png", 0.4, 1.45, 12.4, 5.4);
+  s.addImage({ path: ART + "icon_fall.png", x: 4.0, y: 1.53, w: 0.84, h: 0.56, altText: "Falling graph in red" });
   const KN = require("./kpi_numbers.json"), SEGN = require("./segment_numbers.json");
   const box = (n, title, color, x, y, w, h, body, size = 15) => {
     card(s, x, y, w, h, CARD, color, "canvas-" + n);
@@ -228,14 +236,15 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   box(1, "What is the true problem?", S, 0.5, 1.45, 4.45, 2.95,
     "Year one has two make-or-break moments: a missed instalment (forgot, laid off, moved) and a low-returns month. At both, first-timers don't know what a miss leads to, whether the returns are normal, or that they can skip, lower or move the SIP. Nothing in the app guides them then, so they ask friends or Reddit, freeze, or cancel.", 14.5);
   box(2, "Who faces it?", O, 5.1, 1.45, 3.35, 2.95,
-    `Salaried first-time investors, 22 to 30, in their first 12 months. ${SEGN.share.early}% of first-timers who state age or income; about 1.0 to 1.5 million a year on Groww (estimate). Personas: Akshata and Praveen.`, 14.5);
+    `Salaried first-time investors, 22 to 30, in their first 12 months. ${SEGN.share.early}% of first-timers who state age or income; about 1.0 to 1.5 million a year on Groww (estimate). Personas: Akshata and Praveen. Most started on a friend's or sibling's advice and rarely look for help on their own.`, 14);
   box(3, "How do we know it is real?", P, 8.6, 1.45, 4.23, 2.95, [
     bl("Hypothesis validated in 4 interviews: 0 of 4 knew what several misses lead to; 4 of 4 named a gentler path"),
     bl(`${KN.S1 + KN.S2b}% of stated drop-off reasons sit at these two moments: missed SIPs ${KN.S1}%, low returns or confusing numbers ${KN.S2b}% (n=${KN.stated})`),
     bl(`A trusted answer is the top need in ${KN.O4_fy}% of first-year posts`, true)], 14);
   box(4, "What value does solving it create?", G, 0.5, 4.55, 6.0, 2.7, [
     { text: "For investors: ", options: { bold: true, color: G } }, { text: "at a missed SIP or a low-returns month, a clear answer to “what happens now, is this normal, what can I do”, and a gentler option than cancel.", options: { breakLine: true } },
-    { text: "For Groww: ", options: { bold: true, color: G } }, { text: "a higher 12-month active-SIP rate. Each +1 point keeps roughly 20,000 to 30,000 first-time investors a year (estimate), with fewer support contacts." }], 15);
+    { text: "For Groww: ", options: { bold: true, color: G } }, { text: "a higher 12-month active-SIP rate. Each +1 point keeps roughly 20,000 to 30,000 first-time investors a year (estimate), with fewer support contacts.", options: { breakLine: true } },
+    { text: "Why AI: ", options: { bold: true, color: G } }, { text: "each moment is personal (own numbers, own month), so one fixed FAQ cannot answer it; a checked AI can, for millions." }], 14.5);
   box(5, "Why solve it now?", Y, 6.65, 4.55, 6.18, 2.7, [
     bl("Acquisition works, retention lags: record Rs 32,490 crore monthly SIPs, yet a 78.5% stoppage ratio (Sep 2026)"),
     bl("36% of new Groww users start SIP-first, so more first-timers reach these moments"),
@@ -252,6 +261,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // =====================================================================================================================
 function sipalSlide(title, left, shots, caps, notes, opt = {}) {
   const s = newSlide(title);
+  wm(s, "wm_sprout.png", 0.55, 5.3, 1.7, 1.7);
   const LW = opt.leftW || 4.25;
   let y = 1.45;
   left.forEach((c, i) => {
@@ -265,7 +275,8 @@ function sipalSlide(title, left, shots, caps, notes, opt = {}) {
   shots.forEach((f, i) => {
     const x = X0 + i * (PH_W + GAP);
     s.addImage({ path: `wireframes/${f}.png`, x, y: PY, w: PH_W, h: PH_H, altText: "Wireframe: " + caps[i][2] });
-    T(s, [{ text: caps[i][0] + "  ", options: { bold: true, color: caps[i][3] } }, { text: caps[i][1] }], { x: x - 0.1, y: PY + PH_H + 0.06, w: PH_W + 0.2, h: 0.36, fontSize: 14, align: "center", valign: "middle" });
+    T(s, [{ text: caps[i][0] + "  ", options: { bold: true, color: caps[i][3] } }, { text: caps[i][1], options: { bold: true } }], { x: x - 0.1, y: PY + PH_H + 0.06, w: PH_W + 0.2, h: 0.34, fontSize: 14, align: "center", valign: "middle" });
+    if (caps[i][4]) T(s, caps[i][4], { x: x + 0.02, y: PY + PH_H + 0.4, w: PH_W - 0.04, h: 0.52, fontSize: 14, align: "center", valign: "top" });
   });
   s.addNotes(notes);
 }
@@ -277,7 +288,7 @@ sipalSlide("SIPal flow 1: a weekly check-in shows how the SIP did and why the ma
   [ { head: "The pitch", color: Y, h: 2.32, body: [{ text: "“A calm guide that comes to you every week, when your SIP misses a payment or your returns dip, and tells you what happened, whether it's normal, and what you can do.”", options: { italic: true } }] },
     { head: "How it works", color: S, h: 3.13, body: [bl("A weekly notification or the Explore entry opens it"), bl("Own numbers, why the market moved, is it normal"), bl("AI words facts from data; checked, or a safe fallback"), { text: "Numbers in the screens are illustrative.", options: { color: SOFT } }] } ],
   ["set1_1_weekly_notification", "set1_2_explore_entry", "set1_3_checkin_down_week", "set1_4_checkin_up_week"],
-  [["1", "Weekly notification", "lock-screen notification that the weekly SIP check-in is ready, with no amounts shown", S], ["2", "Or: Explore entry", "Mutual Funds Explore tab with the SIPal entry above Popular Funds", O], ["3", "Down week", "weekly check-in in a down week, with why the market fell", P], ["4", "Up week", "weekly check-in in an up week, with why the market rose", G]],
+  [["1", "Weekly notification", "lock-screen notification that the weekly SIP check-in is ready, with no amounts shown", S, "No amounts on the lock screen"], ["2", "Or: Explore entry", "Mutual Funds Explore tab with the SIPal entry above Popular Funds", O, "Open it from Explore, any time"], ["3", "Down week", "weekly check-in in a down week, with why the market fell", P, "Own funds, why, and is it normal"], ["4", "Up week", "weekly check-in in an up week, with why the market rose", G, "Same calm story on a rise"]],
   "Flow 1, weekly check-in. Two ways in: a weekly lock-screen notification (no amounts on the lock screen, for privacy) or the SIPal entry in the Mutual Funds Explore tab above Popular Funds. The check-in shows the investor's own SIP value, invested amount, change this week and overall, and each fund by category (no fund names). " +
   "'Why did it fall/rise' explains the market move in one sentence (index move plus the main driver) and links it to the investor's funds. 'Is this normal' gives year-one context without predicting returns. 'What can you do' says when no action is needed. " +
   "All numbers and market reasons in the screens are illustrative. Weekly, not daily, because frequent return checks raise loss-focused behaviour (myopic loss aversion). Evidence link: Praveen thought of quitting over low returns; Darshan found notification wording too technical.",
@@ -289,19 +300,22 @@ sipalSlide("SIPal flow 2: three days before the debit, SIPal asks if this month 
     { head: "Built from what users asked for", color: O, h: 1.72, body: [it("“A proper reminder a day before the due date” (Akshata)"), it("“Pay less and postpone the SIP” (Praveen)"), { text: "“Prior notification… to manage money better” (Sudhanva)", options: { italic: true } }] },
     { head: "Calm, not pushy", color: Y, h: 1.66, body: [bl("One reminder per instalment, no countdowns or red alerts"), bl("“Yes, all set” closes it in one tap"), bl("Skip and cancel stay visible and easy", true)] } ],
   ["set2_1_due_reminder", "set2_2_pay_less_this_month", "set2_3_confirmed"],
-  [["1", "Reminder, 3 days before", "lock-screen reminder three days before the SIP debit with two actions", S], ["2", "Pay less this month", "asks if the investor can pay this month and offers a smaller amount for November only", P], ["3", "Confirmed", "confirmation that November is set to a lower amount and December returns to the usual amount", G]],
+  [["1", "Reminder, 3 days before", "lock-screen reminder three days before the SIP debit with two actions", S, "Early enough for a change to go through"], ["2", "Pay less this month", "asks if the investor can pay this month and offers a smaller amount for November only", P, "A smaller amount, for this month only"], ["3", "Confirmed", "confirmation that November is set to a lower amount and December returns to the usual amount", G, "Next month goes back to the usual amount"]],
   "Flow 2, before the next debit. Three days ahead, a reminder asks whether this month is OK for the usual amount, with two actions: 'Yes, all set' or 'Pay less this month'. The SIPal screen offers a smaller amount for this month only (or skip, or move the date), explains what changes (SIP stays active, no penalty, fewer units bought), and confirms that the next month goes back to the usual amount. " +
-  "Feasibility: a one-month lower amount is a proposed feature; it needs the change to reach the fund house before its cut-off (hence 3 days ahead) and works within the existing auto-debit mandate. Evidence link: Akshata missed instalments by forgetting and asked for a reminder the day before; Praveen would have paid less and postponed; Sudhanva wanted a notice before the SIP date. Numbers are illustrative.");
+  "Feasibility: a one-month lower amount is a proposed feature; it needs the change to reach the fund house before its cut-off (hence 3 days ahead) and works within the existing auto-debit mandate. Evidence link: Akshata missed instalments by forgetting and asked for a reminder the day before; Praveen would have paid less and postponed; Sudhanva wanted a notice before the SIP date. Numbers are illustrative.", { phH: 4.75, phY: 1.5 });
 
 // =====================================================================================================================
 // 10. MVP RISKS AND MITIGATION (with the success target on top)
 // =====================================================================================================================
 {
   const s = newSlide("Risks: SIPal's main risks are advice drift, wrong explanations and pushy nudges, and each has a built-in safeguard");
+  wm(s, "wm_risefall.png", 0.5, 2.15, 12.33, 4.6);
   const SIPAL = "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/";
   card(s, 0.5, 1.45, 12.33, 0.62, CARD2, Y, "success-strip");
   T(s, [{ text: "Success: ", options: { bold: true, color: Y } }, { text: "+2 to +4 points on the 12-month active SIP rate (estimate), tracked by first-try debit success and the stop-to-adjust rate." }],
-    { x: 0.7, y: 1.45, w: 11.9, h: 0.62, fontSize: 15, valign: "middle" });
+    { x: 0.7, y: 1.45, w: 10.6, h: 0.62, fontSize: 15, valign: "middle" });
+  s.addImage({ path: ART + "icon_rise.png", x: 11.4, y: 1.52, w: 0.72, h: 0.48, altText: "Rising graph in green" });
+  s.addImage({ path: ART + "icon_fall.png", x: 12.08, y: 1.52, w: 0.72, h: 0.48, altText: "Falling graph in red" });
   const R = [
     ["Read as investment advice", S, "Advice and prediction requests get a fixed decline and a pointer to a SEBI-registered adviser. No fund names; “not investment advice” on every screen.", "17/17 safety tests; 20/20 golden answers advice-free"],
     ["Wrong or invented explanations", O, "The AI only words the facts and rules it is given. Every number must match them; a failed check shows the standard text instead.", "Gap: checks numbers and phrases, not every paraphrase"],

@@ -49,7 +49,7 @@ module.exports = function addPersonas(pres, s, C) {
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: p.x, y: y0, w, h, rectRadius: 0.15, fill: { color: CARD }, line: { color: p.col, width: 2 }, objectName: "persona-" + (i + 1) });
     s.addShape(pres.shapes.OVAL, { x: p.x + 0.2, y: y0 + 0.17, w: 0.72, h: 0.72, fill: { color: p.col }, line: { color: p.col }, objectName: "persona-avatar-" + (i + 1) });
     s.addText(p.ini, { x: p.x + 0.2, y: y0 + 0.17, w: 0.72, h: 0.72, fontFace: HEAD, fontSize: 24, bold: true, color: DARK, align: "center", valign: "middle", margin: 0 });
-    s.addText([{ text: p.name, options: { color: WHITE } }, { text: "  ·  " + p.tag, options: { color: p.col } }],
+    s.addText([{ text: p.name, options: { color: "5367F5" } }, { text: "  ·  " + p.tag, options: { color: p.col } }],
       { x: p.x + 1.08, y: y0 + 0.1, w: w - 1.25, h: 0.4, fontFace: BODY, fontSize: 18, bold: true, valign: "middle", margin: 0 });
     s.addText(p.quote, { x: p.x + 1.08, y: y0 + 0.5, w: w - 1.25, h: 0.52, fontFace: BODY, fontSize: 14, italic: true, color: SOFT, valign: "top", margin: 0 });
     s.addShape(pres.shapes.LINE, { x: p.x + 0.2, y: y0 + 1.08, w: w - 0.4, h: 0, line: { color: p.col, width: 1, transparency: 40 }, objectName: "persona-rule-" + (i + 1) });
