@@ -1,50 +1,267 @@
 {
-  "note": "SIPal knowledge base: short, general SIP rules written for first-time investors, each tied to an official or platform source. SIPal may only use these, the investor's own SIP numbers and the market facts below.",
-  "sources": {
-    "amfi": { "name": "AMFI investor education (Mutual Funds Sahi Hai)", "url": "https://www.mutualfundssahihai.com" },
-    "amfi_site": { "name": "AMFI", "url": "https://www.amfiindia.com" },
-    "sebi_inv": { "name": "SEBI investor website", "url": "https://investor.sebi.gov.in" },
-    "sebi": { "name": "SEBI", "url": "https://www.sebi.gov.in" },
-    "scores": { "name": "SEBI SCORES (complaints)", "url": "https://scores.sebi.gov.in" },
-    "groww_help": { "name": "Groww Help Centre", "url": "https://groww.in/help" }
+ "note": "SIPal knowledge base: short, general SIP rules written for first-time investors, each tied to an official or platform source. SIPal may only use these, the investor's own SIP numbers and the market facts below.",
+ "sources": {
+  "amfi": {
+   "name": "AMFI investor education (Mutual Funds Sahi Hai)",
+   "url": "https://www.mutualfundssahihai.com"
   },
-  "items": [
-    { "id": "k_sip", "title": "What a SIP is", "src": "amfi",
-      "text": "A SIP (systematic investment plan) puts a fixed amount into a mutual fund on a set date, usually every month. Each instalment buys units at that day's NAV, the price of one unit." },
-    { "id": "k_nav", "title": "Why the value moves", "src": "sebi_inv",
-      "text": "A fund's NAV moves with the prices of what it holds. Equity funds hold company shares, so when the stock market falls or rises, the value of the units already held falls or rises too. Mutual fund returns are market-linked and not guaranteed." },
-    { "id": "k_rca", "title": "Buying more units when prices fall", "src": "amfi",
-      "text": "A SIP invests the same amount each time, so it buys more units when prices are lower and fewer when prices are higher. This evens out the average cost over time. It does not guarantee a profit." },
-    { "id": "k_firstyear", "title": "Ups and downs early on", "src": "sebi_inv",
-      "text": "In the first months of a SIP only a few instalments are invested, so after a market fall the total value can sit below the amount invested. Short-term moves say little about long-term results, and past returns do not predict future returns." },
-    { "id": "k_missed", "title": "When an instalment fails", "src": "amfi",
-      "text": "If an auto-debit fails, for example because of a low balance, an inactive autopay mandate or a bank outage, that month's amount is not invested. The SIP itself stays registered. Most fund houses cancel a SIP only after several failed instalments in a row, commonly three; the exact rule depends on the fund house, so check the scheme terms or the app." },
-    { "id": "k_charges", "title": "Charges on a failed debit", "src": "amfi_site",
-      "text": "Fund houses do not charge a penalty for a missed SIP instalment. A bank may charge a fee when an auto-debit bounces, as per that bank's own schedule of charges." },
-    { "id": "k_skip", "title": "Skipping an instalment", "src": "groww_help",
-      "text": "Skipping means that month's instalment is not taken. The SIP stays active and the units already held stay invested; no new units are bought that month." },
-    { "id": "k_lower", "title": "Paying less or changing the date", "src": "groww_help",
-      "text": "Platforms let investors change a SIP's amount or date. A change has to be made a few working days before the next debit to take effect. Paying less buys fewer units that month, and the SIP stays active." },
-    { "id": "k_stop", "title": "Stopping a SIP", "src": "amfi",
-      "text": "Stopping (cancelling) a SIP ends future instalments. Units already bought stay invested until they are redeemed, and their value keeps moving with the market. A new SIP can be started later." },
-    { "id": "k_autopay", "title": "Autopay after cancelling a SIP", "src": "groww_help",
-      "text": "Cancelling a SIP stops its instalments. The bank autopay mandate is a separate permission: depending on the platform it may stay registered for other SIPs or may need to be cancelled separately in the app or with the bank." },
-    { "id": "k_returns", "title": "Absolute return and XIRR", "src": "amfi",
-      "text": "Absolute return compares current value with the total invested: (current value minus invested) divided by invested. XIRR also accounts for when each instalment went in, so it is the fairer yearly figure for a SIP. Early in a SIP the two can look very different." },
-    { "id": "k_direct", "title": "Direct and regular plans", "src": "sebi_inv",
-      "text": "The same scheme has a direct plan and a regular plan. A regular plan includes a distributor commission in its expense ratio, so its NAV and returns differ from the direct plan of the same scheme." },
-    { "id": "k_tax", "title": "Taxes and exit load", "src": "amfi",
-      "text": "Tax on mutual fund gains depends on the fund type and how long each instalment was held; each SIP instalment counts separately. Some funds charge an exit load if units are sold within a set period. The scheme documents (SID and KIM) or a tax professional give the exact rules." },
-    { "id": "k_freq", "title": "Daily, weekly or monthly SIPs", "src": "amfi",
-      "text": "SIPs can run daily, weekly or monthly. The frequency changes how often units are bought; the fund's expense ratio is the same. Each instalment is a separate purchase with its own holding period for tax." },
-    { "id": "k_advice", "title": "Personal advice", "src": "sebi",
-      "text": "SIPal explains but does not recommend funds or tell anyone what to do with their money. For a personal recommendation, investors can consult a SEBI-registered investment adviser; SEBI's website lists registered advisers." },
-    { "id": "k_help", "title": "Account help and complaints", "src": "scores",
-      "text": "For login, account or payment problems, the platform's own support is the first stop. Complaints about a fund house or an intermediary that stay unresolved can be raised on SEBI SCORES." }
-  ],
-  "market": {
-    "label": "Sample week (demo data, not live market data)",
-    "down": { "index": "Nifty 50", "change": -2.1, "driver": "global markets fell" },
-    "up": { "index": "Nifty 50", "change": 1.9, "driver": "company results came in better than expected" }
+  "amfi_site": {
+   "name": "AMFI",
+   "url": "https://www.amfiindia.com"
+  },
+  "sebi_inv": {
+   "name": "SEBI investor website",
+   "url": "https://investor.sebi.gov.in"
+  },
+  "sebi": {
+   "name": "SEBI",
+   "url": "https://www.sebi.gov.in"
+  },
+  "scores": {
+   "name": "SEBI SCORES (complaints)",
+   "url": "https://scores.sebi.gov.in"
+  },
+  "groww_help": {
+   "name": "Groww Help Centre",
+   "url": "https://groww.in/help"
+  },
+  "rbi": {
+   "name": "RBI financial education",
+   "url": "https://www.rbi.org.in/financialeducation/"
+  },
+  "nse_idx": {
+   "name": "NSE Indices (Nifty 50 factsheet)",
+   "url": "https://www.niftyindices.com"
   }
+ },
+ "items": [
+  {
+   "id": "k_sip",
+   "title": "What a SIP is",
+   "src": "amfi",
+   "text": "A SIP (systematic investment plan) puts a fixed amount into a mutual fund on a set date, usually every month. Each instalment buys units at that day's NAV, the price of one unit."
+  },
+  {
+   "id": "k_nav",
+   "title": "Why the value moves",
+   "src": "sebi_inv",
+   "text": "A fund's NAV moves with the prices of what it holds. Equity funds hold company shares, so when the stock market falls or rises, the value of the units already held falls or rises too. Mutual fund returns are market-linked and not guaranteed."
+  },
+  {
+   "id": "k_rca",
+   "title": "Buying more units when prices fall",
+   "src": "amfi",
+   "text": "A SIP invests the same amount each time, so it buys more units when prices are lower and fewer when prices are higher. This evens out the average cost over time. It does not guarantee a profit."
+  },
+  {
+   "id": "k_firstyear",
+   "title": "Ups and downs early on",
+   "src": "sebi_inv",
+   "text": "In the first months of a SIP only a few instalments are invested, so after a market fall the total value can sit below the amount invested. Short-term moves say little about long-term results, and past returns do not predict future returns."
+  },
+  {
+   "id": "k_missed",
+   "title": "When an instalment fails",
+   "src": "amfi",
+   "text": "If an auto-debit fails, for example because of a low balance, an inactive autopay mandate or a bank outage, that month's amount is not invested. The SIP itself stays registered. Most fund houses cancel a SIP only after several failed instalments in a row, commonly three; the exact rule depends on the fund house, so check the scheme terms or the app."
+  },
+  {
+   "id": "k_charges",
+   "title": "Charges on a failed debit",
+   "src": "amfi_site",
+   "text": "Fund houses do not charge a penalty for a missed SIP instalment. A bank may charge a fee when an auto-debit bounces, as per that bank's own schedule of charges."
+  },
+  {
+   "id": "k_skip",
+   "title": "Skipping an instalment",
+   "src": "groww_help",
+   "text": "Skipping means that month's instalment is not taken. The SIP stays active and the units already held stay invested; no new units are bought that month."
+  },
+  {
+   "id": "k_lower",
+   "title": "Paying less or changing the date",
+   "src": "groww_help",
+   "text": "Platforms let investors change a SIP's amount or date. A change has to be made a few working days before the next debit to take effect. Paying less buys fewer units that month, and the SIP stays active."
+  },
+  {
+   "id": "k_stop",
+   "title": "Stopping a SIP",
+   "src": "amfi",
+   "text": "Stopping (cancelling) a SIP ends future instalments. Units already bought stay invested until they are redeemed, and their value keeps moving with the market. A new SIP can be started later."
+  },
+  {
+   "id": "k_autopay",
+   "title": "Autopay after cancelling a SIP",
+   "src": "groww_help",
+   "text": "Cancelling a SIP stops its instalments. The bank autopay mandate is a separate permission: depending on the platform it may stay registered for other SIPs or may need to be cancelled separately in the app or with the bank."
+  },
+  {
+   "id": "k_returns",
+   "title": "Absolute return and XIRR",
+   "src": "amfi",
+   "text": "Absolute return compares current value with the total invested: (current value minus invested) divided by invested. XIRR also accounts for when each instalment went in, so it is the fairer yearly figure for a SIP. Early in a SIP the two can look very different."
+  },
+  {
+   "id": "k_direct",
+   "title": "Direct and regular plans",
+   "src": "sebi_inv",
+   "text": "The same scheme has a direct plan and a regular plan. A regular plan includes a distributor commission in its expense ratio, so its NAV and returns differ from the direct plan of the same scheme."
+  },
+  {
+   "id": "k_tax",
+   "title": "Taxes and exit load",
+   "src": "amfi",
+   "text": "Tax on mutual fund gains depends on the fund type and how long each instalment was held; each SIP instalment counts separately. Some funds charge an exit load if units are sold within a set period. The scheme documents (SID and KIM) or a tax professional give the exact rules."
+  },
+  {
+   "id": "k_freq",
+   "title": "Daily, weekly or monthly SIPs",
+   "src": "amfi",
+   "text": "SIPs can run daily, weekly or monthly. The frequency changes how often units are bought; the fund's expense ratio is the same. Each instalment is a separate purchase with its own holding period for tax."
+  },
+  {
+   "id": "k_advice",
+   "title": "Personal advice",
+   "src": "sebi",
+   "text": "SIPal explains but does not recommend funds or tell anyone what to do with their money. For a personal recommendation, investors can consult a SEBI-registered investment adviser; SEBI's website lists registered advisers."
+  },
+  {
+   "id": "k_help",
+   "title": "Account help and complaints",
+   "src": "scores",
+   "text": "For login, account or payment problems, the platform's own support is the first stop. Complaints about a fund house or an intermediary that stay unresolved can be raised on SEBI SCORES."
+  }
+ ],
+ "market": {
+  "label": "Sample week (demo data, not live market data)",
+  "down": {
+   "index": "Nifty 50",
+   "change": -2.1,
+   "driver": "global markets fell"
+  },
+  "up": {
+   "index": "Nifty 50",
+   "change": 1.9,
+   "driver": "company results came in better than expected"
+  }
+ },
+ "drivers": {
+  "note": "How markets usually move: plain explanations of common economic reasons. In this demo the week's reasons are sample data, not this week's actual news.",
+  "down": [
+   {
+    "id": "fii_sell",
+    "title": "Foreign investors sold Indian shares",
+    "short": "foreign investors sold Indian shares",
+    "src": "sebi_inv",
+    "text": "When US bond yields rise, safe US bonds pay more, so foreign funds move money out of markets like India. Their selling pulls down the big companies that carry the most weight in the Nifty 50."
+   },
+   {
+    "id": "crude_up",
+    "title": "Crude oil prices rose",
+    "short": "crude oil prices rose",
+    "src": "rbi",
+    "text": "India imports most of its oil. Costlier oil raises costs for companies and pushes up inflation, which can squeeze profits and weigh on share prices."
+   },
+   {
+    "id": "valuation",
+    "title": "Prices had run ahead of profits",
+    "short": "share prices had run ahead of company profits",
+    "src": "sebi_inv",
+    "text": "When share prices rise faster than company earnings, some investors find them expensive and sell, pulling prices back closer to what profits support."
+   },
+   {
+    "id": "bank_drag",
+    "title": "Bank shares fell",
+    "short": "bank shares fell",
+    "src": "nse_idx",
+    "text": "Banks and other financial companies make up about a third of the Nifty 50, so when they fall the index falls with them. Higher borrowing costs can squeeze bank margins."
+   },
+   {
+    "id": "rupee_weak",
+    "title": "The rupee weakened against the dollar",
+    "short": "the rupee weakened against the dollar",
+    "src": "rbi",
+    "text": "A weaker rupee means foreign investors get fewer dollars back when they sell, so some hold back on new investment or sell."
+   },
+   {
+    "id": "tech_rotation",
+    "title": "Global money moved to other markets",
+    "short": "global money moved to other markets",
+    "src": "sebi_inv",
+    "text": "When global investors chase a theme elsewhere, such as AI chip makers in other countries, less money flows into Indian shares, including large IT companies."
+   },
+   {
+    "id": "rates_up",
+    "title": "Interest rates stayed high",
+    "short": "interest-rate worries rose",
+    "src": "rbi",
+    "text": "When the RBI keeps rates high or raises them to fight inflation, loans cost more for companies and households, which can slow growth and weigh on shares."
+   },
+   {
+    "id": "ipo_rush",
+    "title": "New listings drew money away",
+    "short": "a busy IPO season drew money away",
+    "src": "sebi_inv",
+    "text": "A crowded season of new share sales (IPOs) can pull investors' cash away from existing large companies for a while."
+   }
+  ],
+  "up": [
+   {
+    "id": "results",
+    "title": "Company results beat estimates",
+    "short": "company results came in better than expected",
+    "src": "sebi_inv",
+    "text": "When companies report higher profits than analysts expected, investors are willing to pay more for their shares."
+   },
+   {
+    "id": "fii_buy",
+    "title": "Foreign investors came back",
+    "short": "foreign investors bought Indian shares",
+    "src": "sebi_inv",
+    "text": "When foreign funds turn buyers, their large purchases lift the big companies that carry the most weight in the Nifty 50."
+   },
+   {
+    "id": "crude_down",
+    "title": "Crude oil prices eased",
+    "short": "crude oil prices eased",
+    "src": "rbi",
+    "text": "Cheaper oil lowers costs for Indian companies and eases inflation, which helps profits and share prices."
+   },
+   {
+    "id": "valuation_ok",
+    "title": "Prices looked reasonable again",
+    "short": "prices looked reasonable after an earlier fall",
+    "src": "sebi_inv",
+    "text": "After a fall, shares can look fairly priced against company earnings, which brings long-term buyers back."
+   },
+   {
+    "id": "bank_rebound",
+    "title": "Bank shares recovered",
+    "short": "bank shares recovered",
+    "src": "nse_idx",
+    "text": "Banks and other financial companies are about a third of the Nifty 50, so a rise in their shares lifts the whole index."
+   },
+   {
+    "id": "rupee_strong",
+    "title": "The rupee strengthened",
+    "short": "the rupee strengthened",
+    "src": "rbi",
+    "text": "A stronger rupee means foreign investors get more dollars back, which makes Indian shares more attractive to them."
+   },
+   {
+    "id": "rates_ease",
+    "title": "Interest-rate worries eased",
+    "short": "interest-rate worries eased",
+    "src": "rbi",
+    "text": "When rates are expected to stay steady or come down, borrowing gets cheaper for companies and households, which supports growth and shares."
+   },
+   {
+    "id": "festive",
+    "title": "Festive-season buying",
+    "short": "festive-season buying added demand",
+    "src": "amfi",
+    "text": "Around festivals such as Diwali, more people and institutions often invest, which adds demand for shares. It is a pattern in some years, not a rule."
+   }
+  ]
+ }
 }

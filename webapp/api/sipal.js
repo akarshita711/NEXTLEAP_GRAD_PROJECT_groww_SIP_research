@@ -33,7 +33,10 @@ function scenario(raw = {}) {
   const newAmount = raw.newAmount === undefined ? null : Math.round(clamp(raw.newAmount, 0, amount, 0) / 100) * 100;
   const invested = amount * months, current = Math.round(invested * (1 + overallPct / 100) / 100) * 100;
   const fi = Math.round(clamp((raw.funds || [])[0], 0, FLEXI.length - 1, 0)), ii = Math.round(clamp((raw.funds || [])[1], 0, INDEX.length - 1, 0));
-  return { amount, months, weekPct, overallPct, newAmount, invested, current, diff: current - invested, dir: weekPct < 0 ? "down" : "up", holdings: [FLEXI[fi], INDEX[ii]] };
+  const dir = weekPct < 0 ? "down" : "up", pool = KB.drivers[dir];
+  let dv = (Array.isArray(raw.drivers) ? raw.drivers : []).map(x => Math.round(clamp(x, 0, pool.length - 1, 0))).filter((v, i, a) => a.indexOf(v) === i).slice(0, 3);
+  if (dv.length < 3) dv = dir === "down" ? [0, 1, 3] : [0, 1, 2];
+  return { amount, months, weekPct, overallPct, newAmount, invested, current, diff: current - invested, dir, holdings: [FLEXI[fi], INDEX[ii]], drivers: dv.map(i => pool[i]) };
 }
 function facts(s) {
   const d = dates(), m = KB.market[s.dir];
@@ -43,7 +46,8 @@ function facts(s) {
       funds: [{ name: s.holdings[0], type: "flexi cap fund", this_week: pct(Math.round(s.weekPct * 9) / 10) }, { name: s.holdings[1], type: "Nifty 50 index fund", this_week: pct(m.change) }],
       holdings_note: "sample holdings and sample returns for a demo, not real fund performance",
       next_instalment: `${inr(s.amount)} on ${d.due}` },
-    market_this_week: { note: KB.market.label, index: m.index, change: pct(m.change), main_reason: m.driver },
+    market_this_week: { note: KB.market.label, index: m.index, change: pct(m.change), main_reason: s.drivers[0].short + " and " + s.drivers[1].short,
+      economic_reasons: s.drivers.map(x => ({ reason: x.title, how_it_works: x.text })) },
     due_flow: { due_date: d.due, usual_amount: inr(s.amount), chosen_amount_this_month: s.newAmount === null ? null : inr(s.newAmount),
       last_day_to_change: d.lastChange, next_month_date: d.nextMonth, next_month_amount: inr(s.amount) },
   };
@@ -93,7 +97,7 @@ const ASK_SCHEMA = { type: "object", properties: {
 function promptCheckin(F) {
   return `${RULES}
 TASK: write the investor's weekly SIP check-in as three short parts (1 or 2 sentences each, under 40 words each):
-- why: name each of the investor's two funds by its full name with its change this week, then say why: the market move (index and change) and its main reason. Example shape: "Your <fund 1> fell 1.6% and your <fund 2> fell 2.1% this week because <reason>, which pulled the <index> down 2.1%." Use "fell" or "grew" to match the sign.
+- why: name each of the investor's two funds by its full name with its change this week, then say why in plain words: the main reasons (the first two economic reasons) and the index move. Example shape: "Your <fund 1> fell 1.6% and your <fund 2> fell 2.1% this week because <reason 1> and <reason 2>, which pulled the <index> down 2.1%." Use "fell" or "grew" to match the sign, and "pushed ... up" or "pulled ... down" to match the index move. Write the reasons in lower case inside the sentence.
 - normal: whether a move like this is normal, using the rules (no predictions).
 - todo: what they can do; say plainly when no action is needed and when the next instalment is.
 List the rule ids you used in kb_ids.
@@ -176,7 +180,8 @@ async function respond(body) {
     const fb = mode === "checkin" ? fbCheckin(F, s) : fbDue(F);
     const use = ok ? ai : fb;
     out = { mode, sections: Object.fromEntries(fields.map(f => [f, use[f]])), sources: srcList(use.kb_ids || []), checks,
-      fallback: !ok, fallback_reason: ok ? "" : (err ? "AI unavailable right now" : "a quality check failed"), model, facts: F, rejected: ok || !ai ? undefined : text };
+      fallback: !ok, fallback_reason: ok ? "" : (err ? "AI unavailable right now" : "a quality check failed"), model, facts: F, rejected: ok || !ai ? undefined : text,
+      drivers: mode === "checkin" ? s.drivers.map(x => ({ title: x.title, text: x.text, source: SRC[x.src] })) : undefined, drivers_note: mode === "checkin" ? KB.drivers.note : undefined };
   } else if (mode === "ask") {
     const q = String(body.question || "").slice(0, 600).trim();
     if (!q) return { error: "empty" };
