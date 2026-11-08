@@ -379,38 +379,41 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 10. SUCCESS METRICS + RISKS AND LIMITATIONS
+// 10. SUCCESS METRICS + RISKS AND MITIGATIONS
 // =====================================================================================================================
 {
-  const s = newSlide("Success and risks: SIPal aims for +2 to +4 points on 12-month active SIPs, and each risk and limitation has a safeguard");
-  wm(s, "wm_risefall.png", 0.5, 3.9, 12.33, 3.3);
+  const s = newSlide("Success and risks: SIPal aims for +2 to +4 points on 12-month active SIPs, and each risk has a clear mitigation");
+  wm(s, "wm_risefall.png", 0.5, 3.75, 12.33, 3.45);
   const top = [
     ["North star and target", GREEN, [["Metric: ", "% of first-time investors with an active SIP 12 months after starting"], ["Target: ", "+2 to +4 points for salaried 22-30 first-timers vs a control group (estimate)"]]],
     ["Product metrics that move it", BLUE, [["First-try debit success: ", "successful debits / debits tried"], ["Stop-to-adjust rate: ", "skip, lower or new date / opened stop"], ["Check-in reach: ", "share opening the weekly check-in"]]],
     ["Guardrails", BLUE, [["No pressure: ", "cancel stays one tap; time to cancel not worse"], ["No nagging: ", "one reminder per instalment; mute rate watched"], ["AI gate: ", "95%+ grounded, 0 advice phrases"]]]];
   top.forEach((c, i) => {
     const x = 0.5 + i * 4.18;
-    card(s, x, 1.45, 3.98, 2.3, PURE, c[1], "success-" + i);
+    card(s, x, 1.42, 3.98, 1.88, PURE, c[1], "success-" + i);
     T(s, [{ text: c[0], options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } }, ...c[2].flatMap((m, k) => [{ text: m[0], options: { bold: true } }, { text: m[1], options: { breakLine: k < c[2].length - 1 } }])],
-      { x: x + 0.18, y: 1.52, w: 3.65, h: 2.18, fontSize: 14, paraSpaceAfter: 3 });
+      { x: x + 0.18, y: 1.47, w: 3.65, h: 1.8, fontSize: 14, paraSpaceAfter: 1 });
   });
-  T(s, "Risks and limitations", { x: 0.5, y: 3.86, w: 6, h: 0.36, fontSize: 16, bold: true, color: BLUE });
-  s.addImage({ path: ART + "icon_rise.png", x: 3.0, y: 3.82, w: 0.66, h: 0.44, altText: "Rising graph in green" });
-  s.addImage({ path: ART + "icon_fall.png", x: 3.75, y: 3.82, w: 0.66, h: 0.44, altText: "Falling graph in red" });
+  T(s, "Risks and Mitigations", { x: 0.5, y: 3.37, w: 6, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  s.addImage({ path: ART + "icon_rise.png", x: 3.0, y: 3.33, w: 0.66, h: 0.44, altText: "Rising graph in green" });
+  s.addImage({ path: ART + "icon_fall.png", x: 3.75, y: 3.33, w: 0.66, h: 0.44, altText: "Falling graph in red" });
   const R = [
-    ["Read as investment advice", "Fixed decline and a SEBI-adviser pointer; no fund tips; “not advice” on every screen. 17/17 safety tests."],
-    ["Wrong explanations", "AI only words given facts; numbers checked; failed check shows standard text. Gap: paraphrases are not checked."],
-    ["Pushy or too many alerts", "Weekly, not daily; one reminder per instalment; mute; urgency words blocked; skip and cancel never hidden."],
-    ["Demo data (limitation)", "Sample SIP and market data. Launch needs Groww's portfolio data, a vetted market feed and fund-house support."],
-    ["Small samples (limitation)", "4 interviews, 19 survey answers, a 20-post golden set scored in-sample; public posts lean to vocal users."],
-    ["Privacy and free-tier limits", "No login or PAN; nothing stored. Rate limits, caching and a fallback keep it working if the AI is down."]];
+    ["Read as investment advice", "an answer sounds like a tip to buy, sell or stop.", "advice requests get a fixed decline and a SEBI-adviser pointer; \u201Cnot advice\u201D on every screen."],
+    ["Wrong or invented explanations", "the AI gets a number or a market reason wrong.", "AI only words given facts; every number is checked; a failed check shows standard text."],
+    ["Pushy or too many alerts", "nudges feel like pressure, or get muted and ignored.", "weekly, not daily; one reminder per instalment; no urgency words; skip and cancel always visible."],
+    ["Demo data, not real accounts", "sample numbers differ from a real portfolio.", "label all data as sample; launch only with Groww's portfolio data and a vetted market feed."],
+    ["Small research samples", "4 interviews and 19 survey answers may not represent everyone.", "A/B test against a control group; re-run the golden set after every change."],
+    ["Privacy and free-tier limits", "someone enters personal data, or the free AI quota runs out.", "no login or PAN; nothing stored; rate limits, caching and a fixed fallback keep it working."]];
   R.forEach((r, i) => {
-    const x = 0.5 + (i % 3) * 4.18, y = 4.28 + Math.floor(i / 3) * 1.48, w = 3.98, h = 1.38;
+    const x = 0.5 + (i % 3) * 4.18, y = 3.78 + Math.floor(i / 3) * 1.74, w = 3.98, h = 1.66;
     card(s, x, y, w, h, PURE, i % 2 ? GREEN : BLUE, "risk-" + (i + 1));
-    T(s, [{ text: (i + 1) + "  " + r[0], options: { bold: true, color: BLUE, breakLine: true } }, { text: r[1] }], { x: x + 0.15, y: y + 0.06, w: w - 0.3, h: h - 0.1, fontSize: 14 });
+    T(s, [{ text: (i + 1) + "  " + r[0], options: { bold: true, color: BLUE, breakLine: true } },
+          { text: "Risk: ", options: { bold: true } }, { text: r[1], options: { breakLine: true } },
+          { text: "Mitigation: ", options: { bold: true, color: BLUE } }, { text: r[2] }],
+      { x: x + 0.15, y: y + 0.05, w: w - 0.3, h: h - 0.08, fontSize: 14, paraSpaceAfter: 2 });
   });
   s.addNotes("Success: business metric as given in the brief. Uplift estimate: about 1.2 million salaried 22-30 first-timers a year; about half hit a missed-SIP or low-returns moment; assume 40% of those would stop without help and SIPal turns 10 to 20% of them to pay less, skip or continue: 24,000 to 48,000 more investors active at month 12, +2 to +4 points. " +
-    "Product metrics follow the KPI tree (slide 2). Risks and limitations: evaluation on the hand-labelled golden set is in-sample after prompt fixes; research samples are small; market reasons in the demo are sample data.");
+    "Product metrics follow the KPI tree (slide 2). Risks and mitigations: each card names the risk and the step that reduces it. Evidence: 17/17 safety tests (advice and prediction traps, a pasted PAN); golden set 19/20, scored in-sample after two prompt fixes; every shown answer advice-free 20/20. Known gap: the gate checks numbers and phrases, not every paraphrase. Market reasons in the demo are sample data.");
 }
 
 pres.writeFile({ fileName: "NL_Groww.pptx" }).then(f => console.log("written", f));
