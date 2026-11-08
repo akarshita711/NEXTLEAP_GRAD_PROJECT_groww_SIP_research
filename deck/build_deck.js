@@ -57,7 +57,15 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 2. IMPACT MAPPING
+// 2. KPI TREE (business metric decomposition)
+// =====================================================================================================================
+{
+  const s = newSlide("KPI tree: continuation rises most when a moment of doubt gets a trusted, clear answer in the app instead of ending in a stop");
+  require("./kpi_tree_slide.js")(pres, s, require("./kpi_numbers.json"), 0.06);
+}
+
+// =====================================================================================================================
+// 3. IMPACT MAPPING + SEGMENTS
 // =====================================================================================================================
 {
   const s = newSlide("Impact mapping: of about 2 to 3 million first-time Groww SIP investors a year, early-career salaried 22 to 30 are the largest group");
@@ -111,73 +119,46 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 3. SEGMENTATION
+// 4. HYPOTHESIS (one strong hypothesis for the target segment)
 // =====================================================================================================================
 {
-  const s = newSlide("Early-career salaried investors (22 to 30) are the largest first-time SIP group, and the most likely to wobble");
-  const seg = [
-    ["Students and under-22s", "Family-funded, small tickets", "21% of age-stating posts", "6% show a drop-off signal", "Needs: expectation-setting", S, false],
-    ["Early-career salaried, 22 to 30", "SIP paid from monthly salary", "60% by age  |  73% fixed salary", "12% drop-off signal (highest)", "Needs: pause or reduce, expectation-setting", O, true],
-    ["Variable-income earners", "Freelance, gig, small business", "14% of income-stating posts", "11% show a drop-off signal", "Needs: pause, skip or reduce", P, false],
-    ["Mid-career, 31 and over", "Goal-led salaried, professionals", "19% of age-stating posts", "6% show a drop-off signal", "Needs: trusted human help", G, false],
+  const s = newSlide("Hypothesis: salaried 22-30 first-timers stop because their first doubt goes unanswered in the app, not because markets fall");
+  const SEGN = require("./segment_numbers.json");
+  T(s, [{ text: "Target segment: ", options: { bold: true, color: O } }, { text: `salaried, 22-30, the largest group at ${SEGN.share.early}% of first-time investors who state age or income` }],
+    { x: 0.5, y: 1.4, w: 12.3, h: 0.32, fontSize: 15, color: SOFT });
+  const steps = [
+    ["1  Starts with intent", "Long-term wealth; expects steady growth", S, false],
+    ["2  Doubt moment, months 2-12", "A small or negative number, or a tight month (EMI, loan)", P, false],
+    ["3  Root cause: no trusted answer", "Nothing in the app explains their own case; no in-between option", O, true],
+    ["4  Asks outside or freezes", "Reddit, YouTube, friends, or does nothing", G, false],
+    ["5  The SIP breaks", "Stops, pauses or quietly lapses", Y, false],
   ];
-  seg.forEach((g, i) => {
-    const x = 0.5 + (i % 2) * 4.3, y = 1.5 + Math.floor(i / 2) * 2.62, w = 4.1, h = 2.48;
-    card(s, x, y, w, h, g[6] ? CARD2 : CARD, g[5], "segment-" + (i + 1));
-    badge(s, i + 1, x + 0.15, y + 0.15, g[5], 0.46);
-    T(s, g[0], { x: x + 0.72, y: y + 0.12, w: w - 0.85, h: 0.55, fontSize: 17, bold: true, valign: "middle", color: g[6] ? O : WHITE });
-    T(s, [{ text: g[1] + "\n", options: { color: SOFT } }, { text: g[2] + "\n", options: { bold: true } }, { text: g[3] + "\n", options: { bold: true, color: g[6] ? O : WHITE } }, { text: g[4], options: { color: SOFT } }],
-      { x: x + 0.2, y: y + 0.75, w: w - 0.4, h: 1.65, fontSize: 16 });
-    if (g[6]) {
-      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + w - 1.25, y: y - 0.2, w: 1.15, h: 0.36, rectRadius: 0.18, fill: { color: O }, line: { color: O }, objectName: "target-tag" });
-      T(s, "TARGET", { x: x + w - 1.25, y: y - 0.2, w: 1.15, h: 0.36, fontSize: 14, bold: true, color: DARK, align: "center", valign: "middle" });
-    }
+  const cw = 2.25, cg = 0.27, cy0 = 1.85, ch = 1.6;
+  steps.forEach((st, i) => {
+    const x = 0.5 + i * (cw + cg);
+    card(s, x, cy0, cw, ch, st[3] ? CARD2 : CARD, st[2], "hyp-step-" + (i + 1));
+    if (st[3]) s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: cy0, w: cw, h: ch, rectRadius: 0.18, fill: { color: CARD2, transparency: 100 }, line: { color: O, width: 3.5 }, objectName: "root-cause-highlight" });
+    T(s, [{ text: st[0], options: { bold: true, color: st[2], fontSize: 15, breakLine: true } }, { text: st[1], options: { fontSize: 14 } }], { x: x + 0.14, y: cy0 + 0.1, w: cw - 0.28, h: ch - 0.2, fontSize: 14 });
+    if (i < steps.length - 1) s.addShape(pres.shapes.RIGHT_ARROW, { x: x + cw + 0.04, y: cy0 + ch / 2 - 0.13, w: 0.19, h: 0.26, fill: { color: SOFT }, line: { color: SOFT }, objectName: "hyp-arrow-" + (i + 1) });
   });
-  card(s, 9.2, 1.5, 3.63, 5.1, CARD, null, "age-panel");
-  T(s, "Who states which age (share of 1,130 posts)", { x: 9.35, y: 1.58, w: 3.35, h: 0.7, fontSize: 15, bold: true, color: Y });
-  s.addChart(pres.charts.BAR, [{ name: "Share of posts", labels: ["<22", "22-25", "26-30", "31-35", "36+"], values: [21, 35, 25, 7, 12] }], {
-    x: 9.3, y: 2.25, w: 3.45, h: 2.75, barDir: "col", chartColors: [S, O, O, G, G], showLegend: false, showTitle: false, legendFontSize: 14, titleFontSize: 14, valAxisLabelFontSize: 14, valAxisLabelColor: WHITE, showValue: true, dataLabelPosition: "outEnd",
-    dataLabelColor: WHITE, dataLabelFontSize: 14, dataLabelFontFace: BODY, dataLabelFormatCode: '0"%"', catAxisLabelColor: WHITE, catAxisLabelFontSize: 14, catAxisLabelFontFace: BODY,
-    valAxisHidden: true, valGridLine: { style: "none" }, catGridLine: { style: "none" }, valAxisMaxVal: 45, valAxisMinVal: 0, barGapWidthPct: 40,
-  });
-  T(s, [{ text: "63%", options: { bold: true, color: O, fontSize: 18 } }, { text: " of first-year investors who state age are 22 to 30. " }, { text: "45%", options: { bold: true, color: O, fontSize: 18 } }, { text: " of Groww active users are under 30; median first-time investor age is about 25 to 26." }],
-    { x: 9.35, y: 5.05, w: 3.35, h: 1.5, fontSize: 14 });
-  T(s, "Segments built from what 4,952 SIP posts say about the writer; drop-off signal = paused, reduced, stopped, considering stopping or failed instalment.", { x: 0.5, y: 6.78, w: 8.6, h: 0.5, fontSize: 14, color: SOFT });
-  s.addNotes("Segments combine age and occupation as stated in public posts. Shares: age (n=1,130 posts that state age): under 22 21%, 22-25 35%, 26-30 25%, 31-35 7%, 36+ 12%; income (n=964): fixed salary 73%, student/dependent 13%, irregular or variable 14%. First-year investors who state age (n=345): 22-25 44%, 26-30 19%, under 22 28%. Drop-off signal rates by segment from the discovery engine (6%, 12%, 11%, 6%). Groww age facts: about 45% of active users under 30 (IPO prospectus, June 2025); median first-time investor age 25-26 from secondary reports. Chosen segment: early-career salaried 22-30, highest drop-off signal rate, largest by age and income share.");
-}
-
-// =====================================================================================================================
-// 4. HYPOTHESES
-// =====================================================================================================================
-{
-  const s = newSlide("Three hypotheses on why early-career salaried investors wobble in their first 12 months");
-  const H = [
-    [1, "The expectation gap", S,
-      "They start for long-term wealth and expect steady growth. The first statement shows a small or negative number they cannot interpret, and doubt begins.",
-      ["43% started for long-term wealth; 74% expect steady growth", "They look first at returns % and current value (62% of mentions); drop-offs sound confused or anxious 62% vs 27% of continuers", "Reassurance, expectation-setting and plain language: 48% of first-year needs"],
-      "Interview: what did you expect at month 3, and what did you see?"],
-    [2, "The cash squeeze with no middle path", O,
-      "In a tight month the visible choices are keep paying or cancel. Skipping is limited, so people stop or miss an instalment.",
-      ["Salaried drop-off signal is 12%, double the 6% of students and 31+; cash-flow pressure leads (32 of 78)", "22% of drop-off signals ask for a way to pause or reduce", "Survey: 3 of 18 missed an instalment, all on Groww; 'needed money' cited 4 times"],
-      "Interview: did you know you could pause, skip or reduce? What happened?"],
-    [3, "The silent wobble: nobody to ask in the app", P,
-      "When unsure, they ask YouTube, Reddit or friends, or do nothing and drift. Doubt goes unanswered inside the app.",
-      ["Outside the app: YouTube 38%, Reddit 32%, Google 12%", "Survey: 9 of 18 did nothing after thinking of stopping; 4 asked a friend, 3 followed influencers", "Continuing needs a plain answer to 'is this normal?' and a reversible option"],
-      "Interview: who did you ask, what did they say, what stayed unclear?"],
-  ];
-  H.forEach((h, i) => {
-    const x = 0.5 + i * 4.18, y = 1.5, w = 3.98, ht = 5.0;
-    card(s, x, y, w, ht, CARD, h[2], "hyp-" + h[0]);
-    badge(s, h[0], x + 0.15, y + 0.15, h[2], 0.5);
-    T(s, h[1], { x: x + 0.78, y: y + 0.1, w: w - 0.9, h: 0.65, fontSize: 16.5, bold: true, color: h[2], valign: "middle" });
-    T(s, h[3], { x: x + 0.2, y: y + 0.85, w: w - 0.4, h: 1.25, fontSize: 14.5, bold: true });
-    T(s,
-      h[4].map((b, k) => ({ text: b, options: { bullet: true, breakLine: k < h[4].length - 1, paraSpaceAfter: 4 } })), { x: x + 0.2, y: y + 2.15, w: w - 0.4, h: 2.15, fontSize: 14, color: SOFT });
-    T(s, h[5], { x: x + 0.2, y: y + 4.38, w: w - 0.4, h: 0.58, fontSize: 14, bold: true, color: Y, valign: "middle" });
-  });
-  T(s, "Covers: why they started  |  what the experience has been  |  pause, reduce or stop triggers  |  what they check  |  what they do outside the app  |  what keeps them going. Interviews (5 to 6) will confirm or kill each one.",
-    { x: 0.5, y: 6.62, w: 12.3, h: 0.7, fontSize: 14, color: SOFT });
-  s.addNotes("Hypotheses are framed from the discovery engine (4,952 relevant conversations) and the 18-person survey. They are hypotheses until the planned interviews. Groww skip rule: one survey respondent said only one instalment can be skipped at a time and three consecutive skips cancel the SIP; this must be verified in the app before being cited as fact.");
+  T(s, "The SIP breaks because the doubt goes unanswered, not because the market fell or the money ran out.", { x: 0.5, y: 3.55, w: 12.3, h: 0.45, fontSize: 19, bold: true, color: Y, valign: "middle" });
+  card(s, 0.5, 4.15, 6.05, 2.85, CARD, S, "hyp-evidence");
+  T(s, "Why we believe it", { x: 0.7, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: S, valign: "middle" });
+  T(s, [
+    { text: "84% of those who say expect steady long-term growth (378 of 450)", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
+    { text: "They watch current value (43%) and returns % (28%); confused by taxes, charges and XIRR", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
+    { text: "55% of their posts ask for a trusted answer about their own case (712 of 1,303)", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
+    { text: "Answers come from outside the app: Reddit 51%, YouTube 34%", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
+    { text: "Survey (n=18): 9 did nothing after doubting; top triggers market-fall news (5) and needing money (4)", options: { bullet: true } }],
+    { x: 0.7, y: 4.62, w: 5.7, h: 2.3, fontSize: 14 });
+  card(s, 6.75, 4.15, 6.08, 2.85, CARD, G, "hyp-test");
+  T(s, "How 5 to 6 interviews will test it", { x: 6.95, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: G, valign: "middle" });
+  T(s, [
+    { text: "Supported if ", options: { bold: true, color: G } }, { text: "4 of 6 describe a doubt moment, no trusted in-app answer, and outside help or freezing; and 3 of 6 say a clear explanation or an in-between option would have changed what they did", options: { breakLine: true } },
+    { text: "Wrong if ", options: { bold: true, color: P } }, { text: "most who stopped understood what was happening and simply needed the money, or found a clear answer in the app and still stopped", options: { breakLine: true } },
+    { text: "Weakest point: only 27 of this segment's posts show a drop-off, and they lean to money pressure.", options: { color: SOFT } }],
+    { x: 6.95, y: 4.62, w: 5.7, h: 2.3, fontSize: 14, paraSpaceAfter: 6 });
+  s.addNotes("One hypothesis for the target segment, replacing the earlier three. Evidence: discovery engine with the v3 labelling prompt, salaried 22-30 segment (1,303 relevant posts; segment assigned from stated age, income or source of money): 84% of the 450 who state an expectation expect steady long-term growth; of those who say what they check, current value 43% and returns 28%; top confusions taxes, charges and exit load, XIRR vs absolute returns; trusted help is the main unmet need in 712 of 1,303 posts (55%); outside sources named: Reddit 51%, YouTube 34%. Among the segment's 27 drop-off posts, cash-flow pressure and life events lead (52%), pause or reduce is the need for 22%. Survey n=18: 9 did nothing after a doubt; reasons market-fall news 5, needing money 4. Note: the segment's drop-off rate (2.0%) is not the highest (variable-income earners 6.2%, but only 225 posts); it is chosen because it is the largest group.");
 }
 
 // =====================================================================================================================
@@ -358,7 +339,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     T(s, c[1], { x: x + 0.2, y: y + 0.7, w: w - 0.4, h: h - 0.8, fontSize: 16 });
   });
   card(s, 0.5, 5.98, 12.33, 0.72, CARD2, Y, "next-steps");
-  T(s, [{ text: "Next: ", options: { bold: true, color: Y } }, { text: "5 to 6 interviews with early-career salaried first-time investors to confirm or kill the three hypotheses, then build and test the MVP. " }, link("Try the live engine", ENGINE)], { x: 0.7, y: 5.98, w: 11.9, h: 0.72, fontSize: 16, valign: "middle" });
+  T(s, [{ text: "Next: ", options: { bold: true, color: Y } }, { text: "5 to 6 interviews with early-career salaried first-time investors to confirm or kill the hypothesis, then build and test the MVP. " }, link("Try the live engine", ENGINE)], { x: 0.7, y: 5.98, w: 11.9, h: 0.72, fontSize: 16, valign: "middle" });
   T(s, "Free-tier stack: Gemini models, Vercel hosting. Data: public reviews, posts and comments shown as short excerpts without usernames.", { x: 0.5, y: 6.82, w: 12.3, h: 0.45, fontSize: 14, color: SOFT });
   s.addNotes("One-slide explanation of the discovery engine, as required. Collected: Play Store 40,000; Reddit posts 38,517 and comments 15,862; YouTube comments 15,799. After filters and seeded sampling the corpus is 21,073; 11,711 items analysed by Gemini in two passes; 4,952 judged relevant to a person's own mutual fund SIP. First prompt over-counted relevant items (ULIP, PPF, insurance): 510 of 1,804 flipped under the stricter prompt. Golden-set agreement numbers to be added once the hand-labelled set is scored.");
 }
