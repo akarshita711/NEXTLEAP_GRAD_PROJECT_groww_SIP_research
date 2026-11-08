@@ -60,7 +60,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // 2. IMPACT MAPPING
 // =====================================================================================================================
 {
-  const s = newSlide("Impact mapping: 1.4 billion Indians narrow to about 2 to 3 million first-time Groww SIP investors a year");
+  const s = newSlide("Impact mapping: of about 2 to 3 million first-time Groww SIP investors a year, early-career salaried 22 to 30 are the largest group");
   const rows = [
     ["India's population", "~1.4 billion", "", S],
     ["Mobile internet users", "~958 million", "68% of population  |  IAMAI 2025", O],
@@ -68,28 +68,46 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     ["Groww active users", "16.7 million", "~3% of UPI users  |  Groww Q4 FY26 letter", G],
     ["First-time SIP investors on Groww", "~2 to 3 million a year (estimate)", "", Y],
   ];
-  const widths = [8.3, 7.3, 6.3, 5.3, 4.7], cx = 4.65, h = 0.92, gap = 0.13;
+  const widths = [8.3, 7.5, 6.7, 5.9, 5.1], cx = 4.65, h = 0.7, gap = 0.07, top0 = 1.45;
   rows.forEach((r, i) => {
-    const y = 1.55 + i * (h + gap), w = widths[i];
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx - w / 2, y, w, h, rectRadius: 0.16, fill: { color: i === 4 ? CARD2 : CARD }, line: { color: r[3], width: i === 4 ? 3 : 2 }, objectName: "funnel-" + (i + 1) });
-    T(s, [{ text: r[0], options: { bold: true, fontSize: 16, breakLine: true, align: "center" } }, { text: r[1], options: { bold: true, color: r[3], fontSize: 19, align: "center" } }],
-      { x: cx - w / 2 + 0.2, y: y + (r[2] ? 0.02 : 0), w: w - 0.4, h: r[2] ? 0.56 : h, valign: "middle", align: "center", fontSize: 16 });
-    if (r[2]) T(s, r[2], { x: cx - w / 2 + 0.2, y: y + 0.52, w: w - 0.4, h: 0.36, fontSize: 14, color: SOFT, align: "center", valign: "middle" });
+    const y = top0 + i * (h + gap), w = widths[i], last = i === 4;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx - w / 2, y, w, h, rectRadius: 0.14, fill: { color: last ? CARD2 : CARD }, line: { color: r[3], width: last ? 3 : 2 }, objectName: "funnel-" + (i + 1) });
+    const head = last ? [{ text: r[0], options: { bold: true, fontSize: 16, breakLine: true } }, { text: r[1], options: { bold: true, color: r[3], fontSize: 18 } }]
+                      : [{ text: r[0] + "   ", options: { bold: true, fontSize: 16 } }, { text: r[1], options: { bold: true, color: r[3], fontSize: 18, breakLine: !!r[2] } }].concat(r[2] ? [{ text: r[2], options: { fontSize: 14, color: SOFT } }] : []);
+    T(s, head, { x: cx - w / 2 + 0.15, y, w: w - 0.3, h, valign: "middle", align: "center", fontSize: 16 });
   });
-  card(s, 9.05, 1.55, 3.78, 1.55, CARD, S, "why-door");
-  T(s, [{ text: "The entry door\n", options: { bold: true, color: S, fontSize: 16 } }, { text: "36% of new Groww users start with a SIP (Q2 FY26, up 7 points on last year)." }], { x: 9.22, y: 1.66, w: 3.45, h: 1.35, fontSize: 16 });
-  card(s, 9.05, 3.25, 3.78, 1.65, CARD, O, "why-leak");
-  T(s, [{ text: "The leak\n", options: { bold: true, color: O, fontSize: 16 } }, { text: "SIP stoppage ratio 78.5% in Sep 2026: 63.26 lakh new SIPs vs 49.68 lakh closed or completed." }], { x: 9.22, y: 3.36, w: 3.45, h: 1.45, fontSize: 16 });
-  card(s, 9.05, 5.05, 3.78, 1.5, CARD, Y, "why-estimate");
-  T(s, [{ text: "Estimate logic\n", options: { bold: true, color: Y, fontSize: 16 } }, { text: "60% of 16.7M users hold mutual funds (~10M). Assumed 20-30% began their first SIP in the last year." }], { x: 9.22, y: 5.14, w: 3.45, h: 1.35, fontSize: 16 });
+  // ---- the last level split into four first-time investor segments (shares from the engine; sizes = share x 2-3M) ----
+  const SEGN = require("./segment_numbers.json");
+  const segs = [["student", "Students, under 22", S], ["early", "Salaried, 22-30", O], ["variable", "Variable income", P], ["mid", "Mid-career, 31+", G]];
+  const top = segs.reduce((a, b) => (SEGN.share[b[0]] > SEGN.share[a[0]] ? b : a));
+  const sw = 1.95, sg = 0.17, sy = 5.5, sh = 1.12, sx0 = 0.5, fBottom = top0 + 5 * h + 4 * gap, busY = fBottom + 0.13;
+  const line = (x, y, w, hh) => s.addShape(pres.shapes.LINE, { x, y, w, h: hh, line: { color: "8C84D6", width: 1.25 }, objectName: "seg-connector" });
+  line(cx, fBottom, 0, busY - fBottom); line(sx0 + sw / 2, busY, 3 * (sw + sg), 0);
+  segs.forEach(([key, name, col], i) => {
+    const x = sx0 + i * (sw + sg), hot = key === top[0], sh_ = SEGN.share[key];
+    line(x + sw / 2, busY, 0, sy - busY);
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: sy, w: sw, h: sh, rectRadius: 0.12, fill: { color: hot ? CARD2 : CARD }, line: { color: hot ? Y : col, width: hot ? 3.5 : 1.75 }, objectName: "segment-" + key });
+    const amt = v => (v >= 1e6 ? `${(v / 1e6).toFixed(1)}M` : `${Math.round(v / 1e4) * 10}K`);
+    const size = `~${amt(sh_ * 2e4)}-${amt(sh_ * 3e4)} a year`;
+    T(s, (hot ? [{ text: "Largest group", options: { bold: true, color: Y, fontSize: 14, breakLine: true } }] : []).concat([
+        { text: name, options: { bold: true, fontSize: 14, breakLine: true } }, { text: `${sh_}% of first-timers`, options: { color: hot ? Y : col, bold: true, fontSize: 14, breakLine: true } },
+        { text: size, options: { color: SOFT, fontSize: 14 } }]),
+      { x: x + 0.1, y: sy + 0.03, w: sw - 0.2, h: sh - 0.06, valign: "middle", align: "center", fontSize: 14 });
+  });
+  card(s, 9.05, 1.45, 3.78, 1.6, CARD, S, "why-door");
+  T(s, [{ text: "The entry door\n", options: { bold: true, color: S, fontSize: 16 } }, { text: "36% of new Groww users start with a SIP (Q2 FY26, up 7 points on last year)." }], { x: 9.22, y: 1.56, w: 3.45, h: 1.4, fontSize: 16 });
+  card(s, 9.05, 3.2, 3.78, 1.65, CARD, O, "why-leak");
+  T(s, [{ text: "The leak\n", options: { bold: true, color: O, fontSize: 16 } }, { text: "SIP stoppage ratio 78.5% in Sep 2026: 63.26 lakh new SIPs vs 49.68 lakh closed or completed." }], { x: 9.22, y: 3.31, w: 3.45, h: 1.45, fontSize: 16 });
+  card(s, 9.05, 5.0, 3.78, 1.62, CARD, Y, "why-estimate");
+  T(s, [{ text: "Estimate logic\n", options: { bold: true, color: Y, fontSize: 16 } }, { text: "~10M of 16.7M users hold mutual funds; 20-30% assumed to start a first SIP in a year. Segment shares: engine, first-year posts stating age or income." }], { x: 9.22, y: 5.08, w: 3.45, h: 1.5, fontSize: 14.5 });
   T(s, [{ text: "Sources: " },
         link("IAMAI 2025", "https://yourstory.com/2026/01/indias-internet-user-base-crosses-950-million-2025-iamai-report", S), { text: "  |  " },
         link("NPCI-BCG", "https://assets.thehansindia.com/business/upi-crosses-500-million-users-sets-global-benchmark-for-digital-payments-bcgnpci-report-1013164", S), { text: "  |  " },
         link("Groww letter Q4 FY26", "https://nsearchives.nseindia.com/corporate/BILLIONBRAINS_20042026132113_ShareholdrsLetterSigned.pdf", S), { text: "  |  " },
         link("Groww letter Q2 FY26", "https://resources.groww.in/web-assets/media-library/2025/11/Q2%20FY26%20Shareholders%27%20Letter.pdf", S), { text: "  |  " },
         link("SIP stoppage Sep 2026", "https://www.angelone.in/news/mutual-funds/sip-stoppage-ratio-falls-for-5th-straight-month-to-78-53-in-september-2026", S)],
-    { x: 0.5, y: 6.72, w: 12.3, h: 0.5, fontSize: 14, color: SOFT });
-  s.addNotes("Funnel: 1.4B population; ~958M active internet users (IAMAI Internet in India 2025); 500M+ UPI consumers (NPCI-BCG 2025) used as the fintech-app proxy; 16.7M Groww active users and 60% mutual-fund attach (Groww Q4 FY26 shareholder letter); 36% of new users are SIP-first (Q2 FY26 letter). The final level is an estimate, not a reported figure: ~10M MF users x 20-30% assumed to have started their first SIP in the last 12 months. Validate with Groww internal data. SIP stoppage ratio is stoppages plus completions over new registrations, so it is not the share of investors who quit.");
+    { x: 0.5, y: 6.82, w: 12.3, h: 0.4, fontSize: 14, color: SOFT });
+  s.addNotes("Funnel: 1.4B population; ~958M active internet users (IAMAI Internet in India 2025); 500M+ UPI consumers (NPCI-BCG 2025) used as the fintech-app proxy; 16.7M Groww active users and 60% mutual-fund attach (Groww Q4 FY26 shareholder letter); 36% of new users are SIP-first (Q2 FY26 letter). The final level is an estimate, not a reported figure: ~10M MF users x 20-30% assumed to have started their first SIP in the last 12 months. Validate with Groww internal data. SIP stoppage ratio is stoppages plus completions over new registrations, so it is not the share of investors who quit. Segment shares: discovery engine (prompt v3), first-year investors whose posts state age, occupation or income; sizes = share x the 2 to 3 million estimate. Directional: only a minority of posts state these details.");
 }
 
 // =====================================================================================================================

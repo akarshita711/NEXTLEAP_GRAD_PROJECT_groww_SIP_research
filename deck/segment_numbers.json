@@ -1,0 +1,18 @@
+{
+ "first_year": 774,
+ "with_p2": 774,
+ "counts": {
+  "early": 138,
+  "student": 78,
+  "early_or_mid_salaried": 48,
+  "variable": 34,
+  "mid": 23
+ },
+ "assigned_by_age_or_income": 273,
+ "share": {
+  "student": 29,
+  "early": 51,
+  "variable": 12,
+  "mid": 8
+ }
+}

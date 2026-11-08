@@ -2,13 +2,13 @@
  "volumes": {
   "analysed": 11711,
   "extraction_ok": 11711,
-  "relevant_high_conf": 7374,
-  "drop_signals": 319,
+  "relevant_high_conf": 8871,
+  "drop_signals": 334,
   "by_source_relevant": {
    "playstore": 492,
    "reddit": 3189,
-   "reddit_comment": 2058,
-   "youtube": 1635
+   "reddit_comment": 2477,
+   "youtube": 2713
   },
   "by_source_analysed": {
    "playstore": 497,
@@ -18,121 +18,121 @@
   }
  },
  "sip_event_all_relevant": {
-  "continuing": [
-   3392,
-   46.0
-  ],
   "none": [
-   2936,
-   39.8
+   3973,
+   44.8
+  ],
+  "continuing": [
+   3749,
+   42.3
   ],
   "started": [
-   592,
-   8.0
+   628,
+   7.1
   ],
   "stopped": [
-   197,
-   2.7
-  ],
-  "switched_platform": [
-   71,
-   1.0
+   208,
+   2.3
   ],
   "unclear": [
-   64,
-   0.9
+   114,
+   1.3
+  ],
+  "switched_platform": [
+   73,
+   0.8
   ],
   "considering_stopping": [
-   51,
-   0.7
+   54,
+   0.6
   ],
   "paused": [
    30,
-   0.4
+   0.3
   ],
   "failed_instalment": [
    28,
-   0.4
+   0.3
   ],
   "reduced": [
-   13,
+   14,
    0.2
   ]
  },
  "trigger_among_drop": {
   "none": [
-   58,
-   18.2
+   61,
+   18.3
   ],
   "unclear": [
    43,
-   13.5
+   12.9
   ],
   "low_or_negative_returns": [
-   35,
-   11.0
+   37,
+   11.1
   ],
   "failed_payment_or_mandate": [
    34,
-   10.7
+   10.2
   ],
   "cash_flow_pressure": [
    32,
-   10.0
+   9.6
+  ],
+  "better_alternative": [
+   25,
+   7.5
   ],
   "app_issue": [
    22,
-   6.9
+   6.6
   ],
-  "better_alternative": [
-   21,
+  "expectation_mismatch": [
+   22,
    6.6
   ],
   "life_event": [
-   20,
+   21,
    6.3
   ],
-  "expectation_mismatch": [
+  "advice_from_others": [
    19,
-   6.0
+   5.7
   ],
   "confusion_about_numbers": [
    18,
-   5.6
-  ],
-  "advice_from_others": [
-   17,
-   5.3
+   5.4
   ]
  },
  "unmet_need_among_drop": {
   "trusted_human_help": [
-   79,
-   24.8
+   83,
+   24.9
   ],
   "none": [
-   72,
-   22.6
+   80,
+   24.0
   ],
   "flexible_pause_or_reduce": [
-   67,
-   21.0
+   69,
+   20.7
   ],
   "plain_language_explanation": [
    56,
-   17.6
+   16.8
   ],
   "failed_payment_alerts": [
-   26,
-   8.2
+   25,
+   7.5
+  ],
+  "expectation_setting": [
+   10,
+   3.0
   ],
   "reassurance_whats_normal": [
    10,
-   3.1
-  ],
-  "expectation_setting": [
-   8,
-   2.5
+   3.0
   ],
   "simple_returns_view": [
    1,
@@ -141,76 +141,80 @@
  },
  "unmet_need_all_relevant": {
   "none": [
-   3092,
-   41.9
+   3998,
+   45.1
   ],
   "trusted_human_help": [
-   2763,
-   37.5
+   3059,
+   34.5
   ],
   "plain_language_explanation": [
-   851,
-   11.5
+   1078,
+   12.2
   ],
   "reassurance_whats_normal": [
-   223,
-   3.0
+   233,
+   2.6
   ],
   "expectation_setting": [
-   164,
-   2.2
+   207,
+   2.3
   ],
   "flexible_pause_or_reduce": [
-   152,
-   2.1
+   157,
+   1.8
   ],
   "failed_payment_alerts": [
-   54,
-   0.7
+   53,
+   0.6
   ],
   "goal_progress_view": [
-   38,
+   45,
    0.5
   ],
   "simple_returns_view": [
-   37,
+   41,
    0.5
   ]
  },
  "emotion_among_drop": {
   "neutral": [
-   96,
-   30.1
+   100,
+   29.9
   ],
   "anxious": [
-   71,
-   22.3
+   74,
+   22.2
   ],
   "confused": [
-   67,
-   21.0
+   69,
+   20.7
   ],
   "frustrated": [
-   52,
-   16.3
+   54,
+   16.2
   ],
   "confident": [
-   13,
-   4.1
+   16,
+   4.8
   ],
   "disappointed": [
-   12,
-   3.8
+   13,
+   3.9
   ],
   "content": [
    8,
-   2.5
+   2.4
   ]
  },
  "outside_app_among_drop": {
   "none": [
-   241,
-   75.5
+   252,
+   75.4
+  ],
+  "youtube": [
+   4,
+   1.2
   ],
   "compare_other_platform": [
    2,
@@ -221,10 +225,6 @@
    0.6
   ],
   "reddit_forums": [
-   1,
-   0.3
-  ],
-  "youtube": [
    1,
    0.3
   ],
@@ -235,92 +235,92 @@
  },
  "outside_app_all": {
   "none": [
-   5351,
-   72.6
+   6032,
+   68.0
   ],
   "youtube": [
-   238,
-   3.2
+   509,
+   5.7
   ],
   "reddit_forums": [
-   181,
-   2.5
-  ],
-  "compare_other_platform": [
-   63,
-   0.9
+   189,
+   2.1
   ],
   "google_search": [
-   61,
+   67,
    0.8
   ],
+  "compare_other_platform": [
+   65,
+   0.7
+  ],
   "friends_family": [
-   36,
-   0.5
+   39,
+   0.4
   ],
   "advisor": [
-   34,
-   0.5
+   35,
+   0.4
   ],
   "whatsapp_telegram": [
    4,
-   0.1
+   0.0
   ]
  },
  "what_they_check_all": {
   "none": [
-   4927,
-   66.8
+   5712,
+   64.4
   ],
   "returns_percent": [
-   357,
-   4.8
+   383,
+   4.3
   ],
   "current_value": [
-   335,
-   4.5
-  ],
-  "statement": [
-   201,
-   2.7
+   348,
+   3.9
   ],
   "sip_date_status": [
-   199,
-   2.7
+   213,
+   2.4
+  ],
+  "statement": [
+   210,
+   2.4
   ],
   "xirr": [
-   130,
-   1.8
+   138,
+   1.6
   ],
   "nav": [
-   59,
+   68,
    0.8
   ],
   "market_news": [
-   43,
-   0.6
+   48,
+   0.5
   ],
   "units": [
-   21,
-   0.3
+   22,
+   0.2
   ]
  },
  "stage_among_drop": {
   "unclear": [
-   237,
-   74.3
+   250,
+   74.9
   ],
   "established_12m_plus": [
-   58,
-   18.2
+   61,
+   18.3
   ],
   "started_0_3m": [
    16,
-   5.0
+   4.8
   ],
   "early_3_12m": [
-   7,
-   2.2
+   6,
+   1.8
   ],
   "considering": [
    1,
@@ -347,28 +347,28 @@
  },
  "influence_known": {
   "self_research": [
-   2198,
-   81.3
+   2431,
+   73.4
   ],
   "creator_social": [
-   268,
-   9.9
+   630,
+   19.0
   ],
   "family": [
-   112,
-   4.1
+   116,
+   3.5
   ],
   "friend_colleague": [
-   107,
-   4.0
+   114,
+   3.4
   ],
   "app_prompt": [
-   11,
+   13,
    0.4
   ],
   "workplace": [
-   7,
-   0.3
+   8,
+   0.2
   ]
  },
  "months_since_start_drop": [
@@ -386,13 +386,13 @@
   12,
   12,
   12,
-  12,
   13,
   24,
   24,
   24,
   24,
   24,
+  36,
   36,
   36,
   36,
@@ -411,118 +411,90 @@
   240
  ],
  "trigger_x_event": {
-  "considering_stopping": {
-   "unclear": [
-    10,
-    19.6
-   ],
-   "cash_flow_pressure": [
-    9,
-    17.6
-   ],
+  "stopped": {
    "none": [
-    8,
-    15.7
+    44,
+    21.2
+   ],
+   "unclear": [
+    31,
+    14.9
    ],
    "low_or_negative_returns": [
-    7,
-    13.7
-   ],
-   "advice_from_others": [
-    5,
-    9.8
-   ],
-   "confusion_about_numbers": [
-    4,
-    7.8
+    29,
+    13.9
    ],
    "expectation_mismatch": [
-    2,
-    3.9
-   ],
-   "app_issue": [
-    2,
-    3.9
-   ],
-   "life_event": [
-    2,
-    3.9
+    19,
+    9.1
    ],
    "better_alternative": [
-    2,
-    3.9
+    18,
+    8.7
+   ],
+   "life_event": [
+    15,
+    7.2
+   ],
+   "confusion_about_numbers": [
+    14,
+    6.7
+   ],
+   "app_issue": [
+    13,
+    6.2
+   ],
+   "advice_from_others": [
+    10,
+    4.8
+   ],
+   "failed_payment_or_mandate": [
+    9,
+    4.3
+   ],
+   "cash_flow_pressure": [
+    6,
+    2.9
    ]
   },
   "reduced": {
    "cash_flow_pressure": [
     6,
-    46.2
+    42.9
    ],
    "better_alternative": [
-    2,
-    15.4
+    3,
+    21.4
    ],
    "none": [
     2,
-    15.4
+    14.3
    ],
    "unclear": [
     1,
-    7.7
+    7.1
    ],
    "advice_from_others": [
     1,
-    7.7
+    7.1
    ],
    "life_event": [
     1,
-    7.7
+    7.1
    ]
   },
-  "stopped": {
-   "none": [
-    41,
-    20.8
-   ],
-   "unclear": [
-    31,
-    15.7
-   ],
-   "low_or_negative_returns": [
-    26,
-    13.2
-   ],
-   "expectation_mismatch": [
-    16,
-    8.1
-   ],
-   "life_event": [
-    15,
-    7.6
-   ],
-   "better_alternative": [
-    15,
-    7.6
+  "failed_instalment": {
+   "failed_payment_or_mandate": [
+    23,
+    82.1
    ],
    "app_issue": [
-    14,
-    7.1
-   ],
-   "confusion_about_numbers": [
-    14,
-    7.1
-   ],
-   "advice_from_others": [
-    10,
-    5.1
-   ],
-   "failed_payment_or_mandate": [
-    9,
-    4.6
+    4,
+    14.3
    ],
    "cash_flow_pressure": [
-    6,
-    3.0
+    1,
+    3.6
    ]
   },
   "paused": {
@@ -567,24 +539,52 @@
     3.3
    ]
   },
-  "failed_instalment": {
-   "failed_payment_or_mandate": [
-    23,
-    82.1
-   ],
-   "app_issue": [
-    4,
-    14.3
+  "considering_stopping": {
+   "unclear": [
+    10,
+    18.5
    ],
    "cash_flow_pressure": [
-    1,
-    3.6
+    9,
+    16.7
+   ],
+   "none": [
+    8,
+    14.8
+   ],
+   "advice_from_others": [
+    7,
+    13.0
+   ],
+   "low_or_negative_returns": [
+    6,
+    11.1
+   ],
+   "confusion_about_numbers": [
+    4,
+    7.4
+   ],
+   "app_issue": [
+    3,
+    5.6
+   ],
+   "life_event": [
+    3,
+    5.6
+   ],
+   "expectation_mismatch": [
+    2,
+    3.7
+   ],
+   "better_alternative": [
+    2,
+    3.7
    ]
   }
  },
  "quality": {
-  "quote_verbatim_rate": 98.0,
-  "mean_confidence": 4.93
+  "quote_verbatim_rate": 97.8,
+  "mean_confidence": 4.89
  },
  "sample_quotes_by_trigger": {
   "app_issue": [
@@ -657,10 +657,10 @@
     "quote": "Should I Stop My SIP in a Small-Cap Fund Underperforming the Benchmark?"
    },
    {
-    "uid": "youtube:Ugx5tUCn0zGYkA3b4VF4AaABAg",
-    "source": "youtube",
-    "event": "considering_stopping",
-    "quote": "My sip is in loss. Can I get my invested money back if I cancel my sip??"
+    "uid": "reddit_comment:ork6ez8",
+    "source": "reddit_comment",
+    "event": "stopped",
+    "quote": "I am UAE based NRI and I have stopped sending money to India since last 2 years."
    }
   ],
   "failed_payment_or_mandate": [
@@ -771,10 +771,10 @@
     "quote": "Motilal Oswal Nasdaq 100 Fund of Fund pausing SIPs"
    },
    {
-    "uid": "reddit_comment:njkrwkz",
+    "uid": "reddit_comment:o7nhzdx",
     "source": "reddit_comment",
-    "event": "paused",
-    "quote": "Owing to the suspension, your Zerodha SIP has been paused."
+    "event": "stopped",
+    "quote": "SIP cancellation requested but amount still deducted – does it take a month to stop?"
    }
   ],
   "life_event": [
@@ -861,6 +861,18 @@
     "quote": "now I am selling all my funds in this worst app"
    },
    {
+    "uid": "reddit_comment:ot30ixa",
+    "source": "reddit_comment",
+    "event": "reduced",
+    "quote": "The shift happened gradually over the last 3 years, not as one decision. Every year I noticed I was adding more to my US brokerage and less to my India mutual funds"
+   },
+   {
+    "uid": "reddit_comment:ore0u3a",
+    "source": "reddit_comment",
+    "event": "stopped",
+    "quote": "I have completely stopped investing in India and that for several reasons."
+   },
+   {
     "uid": "reddit_comment:mqguk0f",
     "source": "reddit_comment",
     "event": "stopped",
@@ -877,18 +889,6 @@
     "source": "reddit",
     "event": "stopped",
     "quote": "Earlier I used to do sip in mon100"
-   },
-   {
-    "uid": "reddit:1qt5ewg",
-    "source": "reddit",
-    "event": "stopped",
-    "quote": "Sold my MFs near Nifty 25,700, sharing what I’m seeing now."
-   },
-   {
-    "uid": "reddit:1ihzl9t",
-    "source": "reddit",
-    "event": "stopped",
-    "quote": "From last month onwards my SIPs in Motilal Oswal S&P 500 index fund and Nasdaq 100 FOF has stopped due to RBI guidelines for foreign investment. Is there any other alternative for these mutual funds ?"
    }
   ],
   "unclear": [
