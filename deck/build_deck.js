@@ -60,8 +60,8 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // 2. KPI TREE (business metric decomposition)
 // =====================================================================================================================
 {
-  const s = newSlide("KPI tree: continuation rises most when a moment of doubt gets a trusted, clear answer in the app instead of ending in a stop");
-  require("./kpi_tree_slide.js")(pres, s, require("./kpi_numbers.json"), 0.06);
+  const s = newSlide("KPI tree: the 12-month active SIP rate comes down to whether each monthly instalment is paid, adjusted or recovered");
+  require("./kpi_tree_v3.js")(pres, s, { CARD, CARD2, WHITE, SOFT, DARK, Y, O, BODY });
 }
 
 // =====================================================================================================================
@@ -119,207 +119,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 4. HYPOTHESIS (one strong hypothesis for the target segment)
-// =====================================================================================================================
-{
-  const s = newSlide("Hypothesis: salaried 22-30 first-timers stop because their first doubt goes unanswered in the app, not because markets fall");
-  const SEGN = require("./segment_numbers.json");
-  T(s, [{ text: "Target segment: ", options: { bold: true, color: O } }, { text: `salaried, 22-30, the largest group at ${SEGN.share.early}% of first-time investors who state age or income` }],
-    { x: 0.5, y: 1.4, w: 12.3, h: 0.32, fontSize: 15, color: SOFT });
-  const steps = [
-    ["1  Starts with intent", "Long-term wealth; expects steady growth", S, false],
-    ["2  Doubt moment, months 2-12", "A small or negative number, or a tight month (EMI, loan)", P, false],
-    ["3  Root cause: no trusted answer", "Nothing in the app explains their own case; no in-between option", O, true],
-    ["4  Asks outside or freezes", "Reddit, YouTube, friends, or does nothing", G, false],
-    ["5  The SIP breaks", "Stops, pauses or quietly lapses", Y, false],
-  ];
-  const cw = 2.25, cg = 0.27, cy0 = 1.85, ch = 1.6;
-  steps.forEach((st, i) => {
-    const x = 0.5 + i * (cw + cg);
-    card(s, x, cy0, cw, ch, st[3] ? CARD2 : CARD, st[2], "hyp-step-" + (i + 1));
-    if (st[3]) s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: cy0, w: cw, h: ch, rectRadius: 0.18, fill: { color: CARD2, transparency: 100 }, line: { color: O, width: 3.5 }, objectName: "root-cause-highlight" });
-    T(s, [{ text: st[0], options: { bold: true, color: st[2], fontSize: 15, breakLine: true } }, { text: st[1], options: { fontSize: 14 } }], { x: x + 0.14, y: cy0 + 0.1, w: cw - 0.28, h: ch - 0.2, fontSize: 14 });
-    if (i < steps.length - 1) s.addShape(pres.shapes.RIGHT_ARROW, { x: x + cw + 0.04, y: cy0 + ch / 2 - 0.13, w: 0.19, h: 0.26, fill: { color: SOFT }, line: { color: SOFT }, objectName: "hyp-arrow-" + (i + 1) });
-  });
-  T(s, "The SIP breaks because the doubt goes unanswered, not because the market fell or the money ran out.", { x: 0.5, y: 3.55, w: 12.3, h: 0.45, fontSize: 19, bold: true, color: Y, valign: "middle" });
-  card(s, 0.5, 4.15, 6.05, 2.85, CARD, S, "hyp-evidence");
-  T(s, "Why we believe it", { x: 0.7, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: S, valign: "middle" });
-  T(s, [
-    { text: "84% of those who say expect steady long-term growth (378 of 450)", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
-    { text: "They watch current value (43%) and returns % (28%); confused by taxes, charges and XIRR", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
-    { text: "55% of their posts ask for a trusted answer about their own case (712 of 1,303)", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
-    { text: "Answers come from outside the app: Reddit 51%, YouTube 34%", options: { bullet: true, breakLine: true, paraSpaceAfter: 4 } },
-    { text: "Survey (n=18): 9 did nothing after doubting; top triggers market-fall news (5) and needing money (4)", options: { bullet: true } }],
-    { x: 0.7, y: 4.62, w: 5.7, h: 2.3, fontSize: 14 });
-  card(s, 6.75, 4.15, 6.08, 2.85, CARD, G, "hyp-test");
-  T(s, "How 5 to 6 interviews will test it", { x: 6.95, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: G, valign: "middle" });
-  T(s, [
-    { text: "Supported if ", options: { bold: true, color: G } }, { text: "4 of 6 describe a doubt moment, no trusted in-app answer, and outside help or freezing; and 3 of 6 say a clear explanation or an in-between option would have changed what they did", options: { breakLine: true } },
-    { text: "Wrong if ", options: { bold: true, color: P } }, { text: "most who stopped understood what was happening and simply needed the money, or found a clear answer in the app and still stopped", options: { breakLine: true } },
-    { text: "Weakest point: only 27 of this segment's posts show a drop-off, and they lean to money pressure.", options: { color: SOFT } }],
-    { x: 6.95, y: 4.62, w: 5.7, h: 2.3, fontSize: 14, paraSpaceAfter: 6 });
-  s.addNotes("One hypothesis for the target segment, replacing the earlier three. Evidence: discovery engine with the v3 labelling prompt, salaried 22-30 segment (1,303 relevant posts; segment assigned from stated age, income or source of money): 84% of the 450 who state an expectation expect steady long-term growth; of those who say what they check, current value 43% and returns 28%; top confusions taxes, charges and exit load, XIRR vs absolute returns; trusted help is the main unmet need in 712 of 1,303 posts (55%); outside sources named: Reddit 51%, YouTube 34%. Among the segment's 27 drop-off posts, cash-flow pressure and life events lead (52%), pause or reduce is the need for 22%. Survey n=18: 9 did nothing after a doubt; reasons market-fall news 5, needing money 4. Note: the segment's drop-off rate (2.0%) is not the highest (variable-income earners 6.2%, but only 225 posts); it is chosen because it is the largest group.");
-}
-
-// =====================================================================================================================
-// 5. PAIN POINTS
-// =====================================================================================================================
-{
-  const s = newSlide("Pain points: investors cannot tell if what they see is normal, and the app gives no middle path");
-  card(s, 0.5, 1.5, 5.3, 5.05, CARD, null, "survey-panel");
-  badge(s, 1, 0.65, 1.62, S, 0.46);
-  T(s, "Survey snapshot (n=18)", { x: 1.28, y: 1.62, w: 4.3, h: 0.46, fontSize: 17, bold: true, color: S, valign: "middle" });
-  [["9 of 18", "thought of stopping or pausing", S], ["3 of 18", "missed an instalment (all on Groww)", O], ["9 of 18", "did nothing next", P]].forEach((k, i) => {
-    T(s, [{ text: k[0], options: { bold: true, color: k[2], fontSize: 22 } }, { text: "\n" + k[1], options: { fontSize: 14, color: SOFT } }], { x: 0.7 + i * 1.7, y: 2.25, w: 1.6, h: 1.05, fontSize: 14, align: "left" });
-  });
-  T(s, "What they did after a moment of doubt (people)", { x: 0.7, y: 3.38, w: 4.9, h: 0.35, fontSize: 14, bold: true });
-  s.addChart(pres.charts.BAR, [{ name: "People", labels: ["Did nothing", "Asked a friend", "Followed influencers", "Asked family", "Searched Google"], values: [9, 4, 3, 1, 1] }], {
-    x: 0.6, y: 3.7, w: 5.1, h: 2.8, barDir: "bar", chartColors: [P, S, S, S, S], showLegend: false, showTitle: false, legendFontSize: 14, titleFontSize: 14, valAxisLabelFontSize: 14, valAxisLabelColor: WHITE, showValue: true, dataLabelPosition: "outEnd", dataLabelColor: WHITE, dataLabelFontSize: 14, dataLabelFontFace: BODY,
-    catAxisLabelColor: WHITE, catAxisLabelFontSize: 14, catAxisLabelFontFace: BODY, catAxisOrientation: "maxMin", valAxisHidden: true, valGridLine: { style: "none" }, catGridLine: { style: "none" }, valAxisMaxVal: 11, valAxisMinVal: 0, barGapWidthPct: 45,
-  });
-  card(s, 6.0, 1.5, 6.83, 5.05, CARD, null, "pain-panel");
-  T(s, "Top five pain points and blockers", { x: 6.2, y: 1.58, w: 6.4, h: 0.45, fontSize: 17, bold: true, color: Y, valign: "middle" });
-  const P5 = [
-    [S, "No baseline for \"is this normal?\"", "Reassurance, expectation-setting and plain-language needs make up 48% of first-year needs (n=1,063)."],
-    [O, "Screens that are hard to read", "First-year confusion: SIP dates and status 30%, autopay mandate 18%, returns vs invested 14%."],
-    [P, "No middle path", "22% of drop-off signals ask to pause or reduce; cash-flow pressure leads for salaried investors."],
-    [G, "Failed instalments go unseen", "18% of stated drop reasons are broken SIPs (payment, mandate, app); 3 of 18 survey respondents missed one."],
-    [Y, "Help lives outside the app", "YouTube 38%, Reddit 32%; visible drop-offs sound confused, anxious or frustrated 62% vs 27% of continuers."],
-  ];
-  P5.forEach((p, i) => {
-    const y = 2.1 + i * 0.89;
-    badge(s, i + 1, 6.2, y + 0.07, p[0], 0.44);
-    T(s, [{ text: p[1] + "\n", options: { bold: true, color: p[0], fontSize: 16 } }, { text: p[2], options: { fontSize: 14.5 } }], { x: 6.82, y, w: 5.85, h: 0.85, fontSize: 14.5 });
-  });
-  T(s, "Sources: discovery engine on 11,711 conversations; survey n=18 (screener to be repeated with interviews).", { x: 0.5, y: 6.72, w: 12.3, h: 0.45, fontSize: 14, color: SOFT });
-  s.addNotes("Engine numbers: first-year relevant conversations n=1,063; first-year confusion shares among 299 conversations that mention confusion; 22% from drop-off signals (n=696); 18% of 512 stated drop-off reasons are involuntary breaks; outside-app shares among 394 conversations that name a source; emotion comparison: drop-offs vs continuing investors (confused, anxious, frustrated or disappointed). Survey: Q7 thought of stopping yes 6 + maybe 3; Q9 did nothing 9, friend 4, influencers 3, family 1, Google 1; Q5 missed an instalment 3, all on Groww.");
-}
-
-// =====================================================================================================================
-// 6. PROBLEM FRAMING CANVAS
-// =====================================================================================================================
-{
-  const s = newSlide("True problem: at the wobble moment, investors cannot read what they see or act on what they feel");
-  const box = (n, title, color, x, y, w, h, body, size = 14.5) => {
-    card(s, x, y, w, h, CARD, color, "canvas-" + n);
-    badge(s, n, x + 0.15, y + 0.12, color, 0.46);
-    T(s, title, { x: x + 0.75, y: y + 0.12, w: w - 0.9, h: 0.46, fontSize: 16, bold: true, color, valign: "middle" });
-    T(s, body, { x: x + 0.2, y: y + 0.68, w: w - 0.4, h: h - 0.78, fontSize: size });
-  };
-  box(1, "What is the true problem?", S, 0.5, 1.45, 4.55, 2.95,
-    "Between months 2 and 12, a small or negative number, a tight month or a scary headline triggers doubt. Investors cannot tell if it is normal, the app offers only keep paying or cancel, and help sits on YouTube, Reddit and friends. Continuation breaks at the decision moment, not at the decision to start.", 16);
-  box(2, "Who faces it?", O, 5.2, 1.45, 3.75, 2.95,
-    "Early-career salaried first-time investors, 22 to 30, three to twelve months into a SIP paid from monthly salary. 60% of posts that state age; 63% of first-year ones; an estimated 2 to 3 million a year on Groww.", 16);
-  box(3, "How do we know it is real?", P, 9.1, 1.45, 3.73, 2.95,
-    [{ text: "43% of stated drop reasons are about understanding and expectations (n=512)", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-     { text: "9 of 18 surveyed considered stopping; 9 did nothing", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-     { text: "Industry SIP stoppage ratio 78.5% (Sep 2026)", options: { bullet: true } }], 15);
-  box(4, "What value does solving it create?", G, 0.5, 4.55, 7.0, 2.7, [
-    { text: "For investors: ", options: { bold: true, color: G } }, { text: "calm clarity at the wobble moment, a baseline for what is normal, a reversible option instead of a cliff, fewer silent lapses.\n", options: { breakLine: false } },
-    { text: "For Groww: ", options: { bold: true, color: G } }, { text: "a higher 12-month active-SIP rate. Each +1 point keeps roughly 20,000 to 30,000 investors a year (estimate), with more lifetime assets and fees, fewer support contacts and compounding trust." }], 16);
-  box(5, "Why solve it now?", Y, 7.65, 4.55, 5.18, 2.7, [
-    { text: "Acquisition works, retention lags: record Rs 32,490 crore monthly SIPs yet a 78.5% stoppage ratio", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-    { text: "36% of new Groww users start SIP-first", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-    { text: "AI can now answer from real conversations with built-in checks", options: { bullet: true } }], 16);
-  s.addNotes("Canvas follows the five questions in the brief. The problem is deliberately not 'investors stop when markets fall': a market-fall headline is the trigger, the root cause is the missing bridge between what investors see and what they can understand or do. The 20,000 to 30,000 figure is 1% of the estimated 2 to 3 million first-time SIP investors a year and must be validated with Groww cohort data. Record monthly SIP flows Rs 32,490 crore and stoppage ratio 78.53% are for September 2026 (AMFI via media reports).");
-}
-
-// =====================================================================================================================
-// 7. MVP
-// =====================================================================================================================
-{
-  const s = newSlide("MVP: SIP Check-in, an eval-gated AI that explains what investors see and never what to buy");
-  const steps = [
-    ["1  Trigger", "Opens from the month 2 to 6 statement or when an investor taps pause or cancel", S],
-    ["2  Inputs", "Months in, amount band, return shown, what worries them (chips). English, Hindi or Hinglish", O],
-    ["3  AI answer", "2 to 3 calm sentences: what the number means and what similar investors said or did, cited from real conversations", P],
-    ["4  Quality gate", "Grounded, no advice, numbers verified. If any check fails: safe fallback with AMFI, SEBI and Groww support links", G],
-  ];
-  steps.forEach((st, i) => {
-    const x = 0.5 + i * 3.12, w = 2.9;
-    card(s, x, 1.5, w, 2.15, i === 3 ? CARD2 : CARD, st[2], "mvp-step-" + (i + 1));
-    T(s, st[0], { x: x + 0.15, y: 1.58, w: w - 0.3, h: 0.4, fontSize: 17, bold: true, color: st[2] });
-    T(s, st[1], { x: x + 0.15, y: 2.02, w: w - 0.3, h: 1.6, fontSize: 15.5 });
-    if (i < 3) T(s, ">", { x: x + w - 0.02, y: 2.35, w: 0.25, h: 0.5, fontSize: 24, bold: true, color: Y, align: "center", valign: "middle" });
-  });
-  const C3 = [
-    ["Where AI earns its place", S, "It reads the investor's own numbers and worry in their language, retrieves similar real cases, and writes a calm explanation at the exact moment of doubt."],
-    ["What a non-AI version misses", O, "A static FAQ cannot tailor to month, amount and worry. Rules can compute returns but not tell cash stress from confusion. Advisors do not scale to millions."],
-    ["Eval gate before launch", G, "Ships only if the golden set shows 95%+ grounded answers, zero advice or return-prediction language, and 100% refusal of fund-pick and injection tests. Engine today: 19/19 tricky questions handled, 11/12 answers grounded."],
-  ];
-  C3.forEach((c, i) => {
-    const x = 0.5 + i * 4.18, w = 3.98;
-    card(s, x, 3.85, w, 2.2, CARD, c[1], "mvp-card-" + (i + 1));
-    T(s, c[0], { x: x + 0.18, y: 3.93, w: w - 0.36, h: 0.4, fontSize: 17, bold: true, color: c[1] });
-    T(s, c[2], { x: x + 0.18, y: 4.35, w: w - 0.36, h: 1.65, fontSize: 15 });
-  });
-  card(s, 0.5, 6.2, 12.33, 0.55, CARD2, Y, "mvp-disclaimer");
-  T(s, "Not investment advice. No fund names, no return predictions, no fear or urgency. Pause and cancel are never blocked.", { x: 0.7, y: 6.2, w: 11.9, h: 0.55, fontSize: 15, bold: true, color: Y, valign: "middle", align: "center" });
-  T(s, [{ text: "Retrieval core already live: " }, link("discovery engine", ENGINE, S)], { x: 0.5, y: 6.88, w: 12.3, h: 0.4, fontSize: 14, color: SOFT });
-  s.addNotes("MVP idea built on the same retrieval-augmented engine already deployed. Safe fallback: decline, express uncertainty, or point to AMFI, SEBI investor education and Groww support. The gate runs four checks on every answer (real citations, at most three sentences, numbers from computed counts, no advice language). Golden-set agreement on the extraction labels is measured separately once the hand-labelled set is returned. Release thresholds are proposals to be agreed with compliance.");
-}
-
-// =====================================================================================================================
-// 8. SUCCESS METRICS
-// =====================================================================================================================
-{
-  const s = newSlide("Success: lift 12-month active SIPs, tracked by leading indicators, guardrails and AI quality gates");
-  card(s, 0.5, 1.45, 12.33, 0.95, CARD2, Y, "north-star-card");
-  T(s, [{ text: "North star: ", options: { bold: true, color: Y } }, { text: "% of first-time investors with at least one successful instalment in the last 30 days, 12 months after their first SIP. Target: +2 to +3 points vs a control group (set from Groww baseline)." }], { x: 0.7, y: 1.45, w: 11.9, h: 0.95, fontSize: 17, valign: "middle" });
-  const cols = [
-    ["Leading indicators", "Move in weeks, not 12 months", S, [
-      ["Wobble-to-continue:", "% who open Check-in at a pause or cancel moment and still have an active SIP 30 days later"],
-      ["Month-6 survival:", "% of the cohort with an active SIP at month 6"],
-      ["Middle-path use:", "% of SIP changes made by pause or reduce rather than cancel"],
-      ["Clarity rate:", "% answering yes to 'did this make things clearer?' (goal 70%+)"]]],
-    ["Guardrails", "Make sure we do no harm", O, [
-      ["Advice language:", "0 advice or return-prediction phrases per 1,000 outputs"],
-      ["Cancel stays easy:", "cancel rate and time to cancel not worse than control"],
-      ["Support load:", "contacts and complaints do not rise"],
-      ["No pressure:", "average SIP amount not pushed up by the feature"]]],
-    ["AI output quality", "Measured on the golden set, weekly", G, [
-      ["Grounded:", "95%+ of claims supported by cited sources (today 11 of 12 answers)"],
-      ["Retrieval precision@5:", "75%+ (today 43 to 78% across runs)"],
-      ["Label agreement:", "85%+ relevance, 70%+ reason and need (hand labels pending)"],
-      ["Safe fallback:", "100% refusal on advice and injection tests (today 19/19)"]]],
-  ];
-  cols.forEach((c, i) => {
-    const x = 0.5 + i * 4.18, w = 3.98;
-    card(s, x, 2.55, w, 4.15, CARD, c[2], "metrics-col-" + (i + 1));
-    T(s, [{ text: c[0] + "\n", options: { bold: true, color: c[2], fontSize: 19 } }, { text: c[1], options: { color: SOFT, fontSize: 14 } }], { x: x + 0.18, y: 2.62, w: w - 0.36, h: 0.7, fontSize: 14 });
-    T(s, c[3].flatMap((m, k) => [{ text: m[0] + " ", options: { bold: true, color: c[2], breakLine: false } }, { text: m[1], options: { breakLine: k < c[3].length - 1, paraSpaceAfter: 5 } }]),
-      { x: x + 0.18, y: 3.4, w: w - 0.36, h: 3.25, fontSize: 15.5 });
-  });
-  T(s, "Each leading metric sits on the path to the north star; each guardrail guards a way the feature could hurt investors.", { x: 0.5, y: 6.8, w: 12.3, h: 0.45, fontSize: 14, color: SOFT });
-  s.addNotes("Business metric as given: increase the percentage of first-time mutual fund investors with an active SIP 12 months after starting. Active SIP = at least one successful instalment in the last 30 days. Targets are proposals pending Groww baseline data. Current AI numbers come from the engine evaluation: 19/19 tricky questions handled, retrieval precision 43-78% across six runs, 11 of 12 answers grounded in the final run.");
-}
-
-// =====================================================================================================================
-// 9. RISKS
-// =====================================================================================================================
-{
-  const s = newSlide("Risks: advice drift, wrong answers and pressure nudges matter most, and each has a built-in safeguard");
-  const R = [
-    ["Read as investment advice", S, "No fund or stock names, no return predictions, 'not advice' on every output, refusal tests, legal review before launch."],
-    ["Wrong or invented answers", O, "Answers only from retrieved sources, numbers checked by code, golden-set release gate, failed checks fall back to AMFI and SEBI links, kill switch."],
-    ["Retention pressure harms people who need cash", P, "No urgency or fear. Pause, reduce and cancel stay one tap away. Guardrail on cancel rate and time."],
-    ["Biased evidence", G, "Public posts skew to vocal, experienced users and miss silent lapsers. Add 5 to 6 interviews and Groww cohort data, state the bias, A/B test against control."],
-    ["Low adoption or extra friction", Y, "Show only at wobble moments, test wording, track opens and drop-off, never block the flow."],
-    ["Privacy and free-tier limits", S, "No PAN, account or portfolio data; inputs are bands and percentages, not stored. Saved verified answers, caching and fallbacks cover quota limits."],
-  ];
-  R.forEach((r, i) => {
-    const x = 0.5 + (i % 3) * 4.18, y = 1.5 + Math.floor(i / 3) * 2.62, w = 3.98, h = 2.48;
-    card(s, x, y, w, h, CARD, r[1], "risk-" + (i + 1));
-    badge(s, i + 1, x + 0.15, y + 0.13, r[1], 0.44);
-    T(s, r[0], { x: x + 0.72, y: y + 0.08, w: w - 0.85, h: 0.55, fontSize: 16, bold: true, color: r[1], valign: "middle" });
-    T(s, [{ text: "Mitigation: ", options: { bold: true } }, { text: r[2], options: { color: SOFT } }], { x: x + 0.2, y: y + 0.75, w: w - 0.4, h: h - 0.85, fontSize: 16 });
-  });
-  T(s, "Known limit today: the engine's strict judge still flags occasional over-generalised answers, so unverified answers are hidden, not shown.", { x: 0.5, y: 6.78, w: 12.3, h: 0.45, fontSize: 14, color: SOFT });
-  s.addNotes("Risk ranking by severity: (1) regulatory and advice risk, (2) hallucination, (3) harm from retention pressure. Evidence bias is the main research risk: public text under-represents silent drop-offs, which is why interviews and Groww cohort data are required before launch. In the engine evaluation, one 'continue vs drop off' answer was flagged by the judge in two runs for over-generalising; the saved version passes.");
-}
-
-// =====================================================================================================================
-// 10. HOW THE EVIDENCE WAS BUILT
+// 4. HOW THE EVIDENCE WAS BUILT (moved from the end)
 // =====================================================================================================================
 {
   const s = newSlide("How the evidence was built: an AI discovery engine reads 11,711 real conversations and is tested against a golden set");
@@ -339,9 +139,177 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     T(s, c[1], { x: x + 0.2, y: y + 0.7, w: w - 0.4, h: h - 0.8, fontSize: 16 });
   });
   card(s, 0.5, 5.98, 12.33, 0.72, CARD2, Y, "next-steps");
-  T(s, [{ text: "Next: ", options: { bold: true, color: Y } }, { text: "5 to 6 interviews with early-career salaried first-time investors to confirm or kill the hypothesis, then build and test the MVP. " }, link("Try the live engine", ENGINE)], { x: 0.7, y: 5.98, w: 11.9, h: 0.72, fontSize: 16, valign: "middle" });
+  T(s, [{ text: "Next: ", options: { bold: true, color: Y } }, { text: "4 interviews with salaried first-time investors then tested what the public data showed: personas and hypothesis follow. " }, link("Try the live engine", ENGINE)], { x: 0.7, y: 5.98, w: 11.9, h: 0.72, fontSize: 16, valign: "middle" });
   T(s, "Free-tier stack: Gemini models, Vercel hosting. Data: public reviews, posts and comments shown as short excerpts without usernames.", { x: 0.5, y: 6.82, w: 12.3, h: 0.45, fontSize: 14, color: SOFT });
   s.addNotes("One-slide explanation of the discovery engine, as required. Collected: Play Store 40,000; Reddit posts 38,517 and comments 15,862; YouTube comments 15,799. After filters and seeded sampling the corpus is 21,073; 11,711 items analysed by Gemini in two passes; 4,952 judged relevant to a person's own mutual fund SIP. First prompt over-counted relevant items (ULIP, PPF, insurance): 510 of 1,804 flipped under the stricter prompt. Golden-set agreement numbers to be added once the hand-labelled set is scored.");
+}
+
+// =====================================================================================================================
+// 5. PERSONAS (two interviewees, answers as given)
+// =====================================================================================================================
+{
+  const s = newSlide("Personas: one missed SIPs, one faced low returns and a layoff; neither had guidance on what to do next");
+  require("./persona_slide.js")(pres, s, { CARD, SOFT, WHITE, DARK, S, O, Y, HEAD, BODY });
+}
+
+// =====================================================================================================================
+// 6. HYPOTHESIS (validated with 4 interviews)
+// =====================================================================================================================
+{
+  const s = newSlide("Validated hypothesis: SIPs stop because first-timers get no proper guidance when they miss a SIP or returns are low");
+  const SEGN = require("./segment_numbers.json");
+  T(s, [{ text: "Target segment: ", options: { bold: true, color: O } }, { text: `salaried, 22-30, the largest group at ${SEGN.share.early}% of first-time investors who state age or income` }],
+    { x: 0.5, y: 1.4, w: 12.3, h: 0.32, fontSize: 15, color: SOFT });
+  const steps = [
+    ["1  Starts with intent", "Own goal or a friend's nudge; expects 10% to 15%+ a year", S, false],
+    ["2  Trigger moment", "Misses a SIP (forgot, layoff, a move) or sees low returns", P, false],
+    ["3  Root cause: no proper guidance", "No one explains what a miss leads to, or what to do at low returns", O, true],
+    ["4  Doesn't know what to do", "Asks a friend, advisors, Reddit, or does nothing", G, false],
+    ["5  The SIP breaks", "Missed, stopped, or cancelled and redeemed", Y, false],
+  ];
+  const cw = 2.25, cg = 0.27, cy0 = 1.85, ch = 1.6;
+  steps.forEach((st, i) => {
+    const x = 0.5 + i * (cw + cg);
+    card(s, x, cy0, cw, ch, st[3] ? CARD2 : CARD, st[2], "hyp-step-" + (i + 1));
+    if (st[3]) s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: cy0, w: cw, h: ch, rectRadius: 0.18, fill: { color: CARD2, transparency: 100 }, line: { color: O, width: 3.5 }, objectName: "root-cause-highlight" });
+    T(s, [{ text: st[0], options: { bold: true, color: st[2], fontSize: 15, breakLine: true } }, { text: st[1], options: { fontSize: 14 } }], { x: x + 0.14, y: cy0 + 0.1, w: cw - 0.28, h: ch - 0.2, fontSize: 14 });
+    if (i < steps.length - 1) s.addShape(pres.shapes.RIGHT_ARROW, { x: x + cw + 0.04, y: cy0 + ch / 2 - 0.13, w: 0.19, h: 0.26, fill: { color: SOFT }, line: { color: SOFT }, objectName: "hyp-arrow-" + (i + 1) });
+  });
+  T(s, "With no guidance at a missed SIP or a low-returns moment, investors don't know what to do, and the SIP stops.", { x: 0.5, y: 3.55, w: 12.3, h: 0.45, fontSize: 18, bold: true, color: Y, valign: "middle" });
+  card(s, 0.5, 4.15, 6.05, 2.85, CARD, S, "hyp-evidence");
+  T(s, "What 4 interviews showed", { x: 0.7, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: S, valign: "middle" });
+  T(s, [
+    { text: "Missed SIP: none of the 4 knew what several misses lead to", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
+    { text: "Low returns: 2 of 4 thought of quitting, unsure what else to do", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
+    { text: "With no guide, they asked a friend, advisors or Reddit, or did nothing", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
+    { text: "Asked for it: “a proper guide to first time SIP investors”; found GR-1 only later", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
+    { text: "4 of 4 named a gentler path: move the date, pay less, skip a month", options: { bullet: true } }],
+    { x: 0.7, y: 4.62, w: 5.7, h: 2.3, fontSize: 14 });
+  card(s, 6.75, 4.15, 6.08, 2.85, CARD, G, "hyp-test");
+  T(s, "How we got here, and where it points", { x: 6.95, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: G, valign: "middle" });
+  T(s, [
+    { text: "Started with: ", options: { bold: true, color: P } }, { text: "a doubt goes unanswered in the app.", options: { breakLine: true } },
+    { text: "Sharpened to: ", options: { bold: true, color: G } }, { text: "the gap is guidance at two moments, a missed SIP and low returns. Consistent with all 4 interviews.", options: { breakLine: true } },
+    { text: "Points to: ", options: { bold: true, color: Y } }, { text: "an in-app guide at those two moments: what a miss leads to, the gentler options, and why returns move in year one. It explains; it never recommends funds." }],
+    { x: 6.95, y: 4.62, w: 5.7, h: 2.3, fontSize: 14, paraSpaceAfter: 6 });
+  s.addNotes("Hypothesis validated with 4 interviews (all salaried; answers as given). Root cause: no proper guidance when a SIP is missed or returns are low, so investors do not know what to do. " +
+    "Missed SIP: none of the 4 knew what several missed instalments lead to; Akshata missed 2 to 3 instalments by forgetting, did nothing when worried, asked for 'a proper guide to first time SIP investors' and only later found GR-1, which now guides her on whether to continue. " +
+    "Low returns: Praveen thought of stopping over 'low returns and wrong decisions, and poor knowledge about market' and wants the app to 'make some analysis'; Darshan found notification wording too technical ('in simple terms life would have been easy') and was drawn to ETFs and bonds. " +
+    "Sudhanva (0 to 3 months) has had neither moment yet but did not know skip, change date or lower amount exist. Gentler paths named: move the date (Sudhanva), short bridge (Darshan), pay less and postpone (Praveen), skip next month (Akshata). " +
+    "The hypothesis began as 'a doubt goes unanswered in the app' and was sharpened after the interviews; further interviews are its independent check. Guidance here means explanation, never fund recommendations.");
+}
+
+// =====================================================================================================================
+// 7. PROBLEM FRAMING CANVAS (aligned to the validated hypothesis)
+// =====================================================================================================================
+{
+  const s = newSlide("Problem: when first-timers miss a SIP or see low returns, nothing guides them on what to do, so the SIP stops");
+  const KN = require("./kpi_numbers.json"), SEGN = require("./segment_numbers.json");
+  const box = (n, title, color, x, y, w, h, body, size = 15) => {
+    card(s, x, y, w, h, CARD, color, "canvas-" + n);
+    badge(s, n, x + 0.15, y + 0.12, color, 0.46);
+    T(s, title, { x: x + 0.75, y: y + 0.12, w: w - 0.9, h: 0.46, fontSize: 16, bold: true, color, valign: "middle" });
+    T(s, body, { x: x + 0.2, y: y + 0.68, w: w - 0.4, h: h - 0.78, fontSize: size });
+  };
+  const bl = (t, last) => ({ text: t, options: last ? { bullet: true } : { bullet: true, breakLine: true, paraSpaceAfter: 4 } });
+  box(1, "What is the true problem?", S, 0.5, 1.45, 4.45, 2.95,
+    "Year one has two make-or-break moments: a missed instalment (forgot, laid off, moved) and a low-returns month. At both, first-timers don't know what a miss leads to, whether the returns are normal, or that they can skip, lower or move the SIP. Nothing in the app guides them then, so they ask friends or Reddit, freeze, or cancel.", 14.5);
+  box(2, "Who faces it?", O, 5.1, 1.45, 3.35, 2.95,
+    `Salaried first-time investors, 22 to 30, in their first 12 months. ${SEGN.share.early}% of first-timers who state age or income; about 1.0 to 1.5 million a year on Groww (estimate). Personas: Akshata and Praveen.`, 14.5);
+  box(3, "How do we know it is real?", P, 8.6, 1.45, 4.23, 2.95, [
+    bl("Hypothesis validated in 4 interviews: 0 of 4 knew what several misses lead to; 4 of 4 named a gentler path"),
+    bl(`${KN.S1 + KN.S2b}% of stated drop-off reasons sit at these two moments: missed SIPs ${KN.S1}%, low returns or confusing numbers ${KN.S2b}% (n=${KN.stated})`),
+    bl(`A trusted answer is the top need in ${KN.O4_fy}% of first-year posts`, true)], 14);
+  box(4, "What value does solving it create?", G, 0.5, 4.55, 6.0, 2.7, [
+    { text: "For investors: ", options: { bold: true, color: G } }, { text: "at a missed SIP or a low-returns month, a clear answer to “what happens now, is this normal, what can I do”, and a gentler option than cancel.", options: { breakLine: true } },
+    { text: "For Groww: ", options: { bold: true, color: G } }, { text: "a higher 12-month active-SIP rate. Each +1 point keeps roughly 20,000 to 30,000 first-time investors a year (estimate), with fewer support contacts." }], 15);
+  box(5, "Why solve it now?", Y, 6.65, 4.55, 6.18, 2.7, [
+    bl("Acquisition works, retention lags: record Rs 32,490 crore monthly SIPs, yet a 78.5% stoppage ratio (Sep 2026)"),
+    bl("36% of new Groww users start SIP-first, so more first-timers reach these moments"),
+    bl("The pieces exist (skip, lower amount, GR-1) but don't appear at the moment: Akshata found GR-1 only later", true)], 15);
+  s.addNotes("Canvas aligned to the validated hypothesis (slide 6): the root cause is the absence of guidance at two moments, a missed SIP and a low-returns month. " +
+    `Public-data numbers, discovery engine v3: of ${KN.stated} drop-off posts that state a reason, missed or broken SIPs (failed payment or mandate, app issue) are ${KN.S1}%; low or negative returns, expectation mismatch and confusing numbers are ${KN.S2b}%; ` +
+    `money pressure or a life event ${KN.S2a}%, a better alternative or others' advice ${KN.S2c}%. Trusted help is the main need in ${KN.O4_fy}% of ${KN.first_year} first-year posts. ` +
+    "Interviews: 4 salaried Groww SIP investors, answers as given. The 20,000 to 30,000 per point figure is 1% of the estimated 2 to 3 million first-time SIP investors a year and must be checked against Groww cohort data. " +
+    "Record monthly SIP flows Rs 32,490 crore and stoppage ratio 78.53% are for September 2026 (AMFI via media reports).");
+}
+
+// =====================================================================================================================
+// 8-9. MVP: SIPal, two flows with wireframes
+// =====================================================================================================================
+function sipalSlide(title, left, shots, caps, notes, opt = {}) {
+  const s = newSlide(title);
+  const LW = opt.leftW || 4.25;
+  let y = 1.45;
+  left.forEach((c, i) => {
+    card(s, 0.5, y, LW, c.h, i === 0 ? CARD2 : CARD, c.color, "sipal-left-" + (i + 1));
+    T(s, [{ text: c.head, options: { bold: true, color: c.color, fontSize: 16, breakLine: true } }, ...c.body],
+      { x: 0.68, y: y + 0.08, w: LW - 0.33, h: c.h - 0.14, fontSize: 14 });
+    y += c.h + 0.12;
+  });
+  const PH_H = opt.phH || 5.2, PH_W = PH_H * 412 / 866, X0 = 0.5 + LW + 0.2, n = shots.length;
+  const GAP = n > 1 ? Math.min(0.22, (12.83 - X0 - n * PH_W) / (n - 1)) : 0, PY = opt.phY || 1.42;
+  shots.forEach((f, i) => {
+    const x = X0 + i * (PH_W + GAP);
+    s.addImage({ path: `wireframes/${f}.png`, x, y: PY, w: PH_W, h: PH_H, altText: "Wireframe: " + caps[i][2] });
+    T(s, [{ text: caps[i][0] + "  ", options: { bold: true, color: caps[i][3] } }, { text: caps[i][1] }], { x: x - 0.1, y: PY + PH_H + 0.06, w: PH_W + 0.2, h: 0.36, fontSize: 14, align: "center", valign: "middle" });
+  });
+  s.addNotes(notes);
+}
+const bl = (t, last) => ({ text: t, options: last ? { bullet: true } : { bullet: true, breakLine: true, paraSpaceAfter: 3 } });
+const it = (t) => ({ text: t, options: { italic: true, breakLine: true } });
+
+// 8. Flow 1: weekly portfolio check-in
+sipalSlide("SIPal flow 1: a weekly check-in shows how the SIP did and why the market moved, in a good week or a bad one",
+  [ { head: "The pitch", color: Y, h: 2.32, body: [{ text: "“A calm guide that comes to you every week, when your SIP misses a payment or your returns dip, and tells you what happened, whether it's normal, and what you can do.”", options: { italic: true } }] },
+    { head: "How it works", color: S, h: 3.13, body: [bl("A weekly notification or the Explore entry opens it"), bl("Own numbers, why the market moved, is it normal"), bl("AI words facts from data; checked, or a safe fallback"), { text: "Numbers in the screens are illustrative.", options: { color: SOFT } }] } ],
+  ["set1_1_weekly_notification", "set1_2_explore_entry", "set1_3_checkin_down_week", "set1_4_checkin_up_week"],
+  [["1", "Weekly notification", "lock-screen notification that the weekly SIP check-in is ready, with no amounts shown", S], ["2", "Or: Explore entry", "Mutual Funds Explore tab with the SIPal entry above Popular Funds", O], ["3", "Down week", "weekly check-in in a down week, with why the market fell", P], ["4", "Up week", "weekly check-in in an up week, with why the market rose", G]],
+  "Flow 1, weekly check-in. Two ways in: a weekly lock-screen notification (no amounts on the lock screen, for privacy) or the SIPal entry in the Mutual Funds Explore tab above Popular Funds. The check-in shows the investor's own SIP value, invested amount, change this week and overall, and each fund by category (no fund names). " +
+  "'Why did it fall/rise' explains the market move in one sentence (index move plus the main driver) and links it to the investor's funds. 'Is this normal' gives year-one context without predicting returns. 'What can you do' says when no action is needed. " +
+  "All numbers and market reasons in the screens are illustrative. Weekly, not daily, because frequent return checks raise loss-focused behaviour (myopic loss aversion). Evidence link: Praveen thought of quitting over low returns; Darshan found notification wording too technical.",
+  { leftW: 2.75, phH: 4.75, phY: 1.5 });
+
+// 9. Flow 2: reminder before the next debit
+sipalSlide("SIPal flow 2: three days before the debit, SIPal asks if this month is OK and lets them pay less just once",
+  [ { head: "Fixes the missed-SIP moment", color: P, h: 1.95, body: [bl("A reminder 3 days ahead, while a change can still go through"), bl("Pay less this month only; next month goes back on its own"), bl("Says what changes: SIP stays active, no penalty", true)] },
+    { head: "Built from what users asked for", color: O, h: 1.72, body: [it("“A proper reminder a day before the due date” (Akshata)"), it("“Pay less and postpone the SIP” (Praveen)"), { text: "“Prior notification… to manage money better” (Sudhanva)", options: { italic: true } }] },
+    { head: "Calm, not pushy", color: Y, h: 1.66, body: [bl("One reminder per instalment, no countdowns or red alerts"), bl("“Yes, all set” closes it in one tap"), bl("Skip and cancel stay visible and easy", true)] } ],
+  ["set2_1_due_reminder", "set2_2_pay_less_this_month", "set2_3_confirmed"],
+  [["1", "Reminder, 3 days before", "lock-screen reminder three days before the SIP debit with two actions", S], ["2", "Pay less this month", "asks if the investor can pay this month and offers a smaller amount for November only", P], ["3", "Confirmed", "confirmation that November is set to a lower amount and December returns to the usual amount", G]],
+  "Flow 2, before the next debit. Three days ahead, a reminder asks whether this month is OK for the usual amount, with two actions: 'Yes, all set' or 'Pay less this month'. The SIPal screen offers a smaller amount for this month only (or skip, or move the date), explains what changes (SIP stays active, no penalty, fewer units bought), and confirms that the next month goes back to the usual amount. " +
+  "Feasibility: a one-month lower amount is a proposed feature; it needs the change to reach the fund house before its cut-off (hence 3 days ahead) and works within the existing auto-debit mandate. Evidence link: Akshata missed instalments by forgetting and asked for a reminder the day before; Praveen would have paid less and postponed; Sudhanva wanted a notice before the SIP date. Numbers are illustrative.");
+
+// =====================================================================================================================
+// 10. MVP RISKS AND MITIGATION (with the success target on top)
+// =====================================================================================================================
+{
+  const s = newSlide("Risks: SIPal's main risks are advice drift, wrong explanations and pushy nudges, and each has a built-in safeguard");
+  const SIPAL = "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/";
+  card(s, 0.5, 1.45, 12.33, 0.62, CARD2, Y, "success-strip");
+  T(s, [{ text: "Success: ", options: { bold: true, color: Y } }, { text: "+2 to +4 points on the 12-month active SIP rate (estimate), tracked by first-try debit success and the stop-to-adjust rate." }],
+    { x: 0.7, y: 1.45, w: 11.9, h: 0.62, fontSize: 15, valign: "middle" });
+  const R = [
+    ["Read as investment advice", S, "Advice and prediction requests get a fixed decline and a pointer to a SEBI-registered adviser. No fund names; “not investment advice” on every screen.", "17/17 safety tests; 20/20 golden answers advice-free"],
+    ["Wrong or invented explanations", O, "The AI only words the facts and rules it is given. Every number must match them; a failed check shows the standard text instead.", "Gap: checks numbers and phrases, not every paraphrase"],
+    ["Too cautious to be useful", P, "If unsure, SIPal points to an official source instead of guessing. Fallback rate is tracked; the golden set is re-run after every prompt change.", "19/20 golden-set match; one tip wrongly declined"],
+    ["Pushy or too many alerts", G, "Weekly, not daily. One reminder per instalment, “Not now” and mute. Urgency words are blocked; skip and cancel are never hidden.", "Guardrail: mute rate and time to cancel"],
+    ["Demo data, not real accounts", Y, "SIP numbers and market moves are labelled sample data. Launch needs Groww's portfolio data, a vetted market feed and fund-house support for paying less.", "Next: pilot on real data, behind a flag"],
+    ["Privacy and free-tier limits", S, "No login and no PAN; personal details are refused and nothing is stored. Rate limits, caching and fixed fallback text keep it working if the AI is down.", "PAN test refused; fallback works if the AI is down"],
+  ];
+  R.forEach((r, i) => {
+    const x = 0.5 + (i % 3) * 4.18, y = 2.18 + Math.floor(i / 3) * 2.32, w = 3.98, h = 2.24;
+    card(s, x, y, w, h, CARD, r[1], "risk-" + (i + 1));
+    badge(s, i + 1, x + 0.15, y + 0.13, r[1], 0.44);
+    T(s, r[0], { x: x + 0.72, y: y + 0.08, w: w - 0.85, h: 0.55, fontSize: 16, bold: true, color: r[1], valign: "middle" });
+    T(s, [{ text: "Mitigation: ", options: { bold: true } }, { text: r[2], options: { color: WHITE, breakLine: true } }, { text: r[3], options: { color: SOFT, italic: true } }],
+      { x: x + 0.2, y: y + 0.68, w: w - 0.4, h: h - 0.74, fontSize: 14, paraSpaceAfter: 4 });
+  });
+  T(s, [{ text: "Live MVP: ", options: { bold: true, color: Y } }, link("Try SIPal", SIPAL, S), { text: "   Release gate: golden-set match 80%+, every shown answer advice-free, every advice request declined.", options: { color: SOFT } }],
+    { x: 0.5, y: 6.82, w: 12.33, h: 0.4, fontSize: 14 });
+  s.addNotes("Risks of the SIPal MVP and how each is handled. Evaluation (engine/sipal_eval): the 20 hand-labelled golden-set posts from the Evidence Log were sent to Ask SIPal; expected behaviour came from the hand labels. First run 16/20; after two general prompt fixes (do not treat a forgotten password as personal data; point to support, scheme documents or an adviser on tax, charge and own-case questions) 19/20, measured on the same set, so in-sample. " +
+    "20/20 shown answers advice-free; 7/7 advice-seeking posts referred to an adviser or official source; 4/4 off-topic posts declined. 17/17 safety tests (advice and prediction traps, an instruction to break the rules, a pasted PAN, rule questions, own numbers, Hinglish, off-topic). " +
+    "A rejected draft example: an up-week check-in was blocked because the advice check read 'returns are not guaranteed' as a guarantee; the check was fixed to allow negations. Success target and metrics follow the KPI tree on slide 2.");
 }
 
 pres.writeFile({ fileName: "NL_Groww.pptx" }).then(f => console.log("written", f));
