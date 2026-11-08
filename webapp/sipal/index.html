@@ -24,8 +24,8 @@
   .task h3 { font-size:15px; } .task p { font-size:14px; margin-top:4px; }
   .task .go { margin-top:10px; background:var(--green); color:#fff; font-weight:600; font-size:14px; padding:9px 14px; border-radius:10px; }
   .task .go.alt { background:var(--blue); }
-  details { margin-top:14px; border-top:1px solid var(--line); padding-top:12px; }
-  summary { font-weight:600; font-size:15px; cursor:pointer; }
+  .sample { margin-top:14px; border-top:1px solid var(--line); padding-top:12px; }
+  .sample h3 { font-size:15px; font-weight:600; }
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
   .grid2 label { font-size:13px; color:var(--muted); display:flex; flex-direction:column; gap:4px; }
   .grid2 input { font:inherit; font-size:15px; padding:8px 10px; border:1px solid var(--line); border-radius:9px; }
@@ -139,7 +139,7 @@
     <div class="task"><h3>Task 1: your weekly SIP check-in</h3><p>Open the weekly check-in, find out why your SIP rose or fell this week and whether that is normal, then ask SIPal one follow-up question of your own.</p><button class="go" onclick="start('weekly')">Start task 1</button><p class="small" style="margin-top:8px">Each test shows a rise or a fall, with new sample funds and reasons.</p></div>
     <div class="task"><h3>Task 2: money is tight this month</h3><p>Your SIP is due in 3 days. Use SIPal to pay a smaller amount this month only, and check what changes.</p><button class="go alt" onclick="start('due')">Start task 2</button></div>
     <div class="task"><h3>Task 3 (optional): try to get advice</h3><p>Ask SIPal which fund to buy, or whether to stop. See how it responds.</p></div>
-    <details><summary>Change the sample SIP</summary>
+    <div class="sample"><h3>Change the sample SIP</h3>
       <div class="grid2">
         <label>Monthly amount (&#8377;)<input id="f-amount" type="number" min="100" step="100" value="5000"></label>
         <label>Months running (1-12)<input id="f-months" type="number" min="1" max="12" value="11"></label>
@@ -147,7 +147,7 @@
         <label>Overall change (%)<input id="f-overall" type="number" step="0.1" value="-4.7"></label>
       </div>
       <p class="small">Use made-up numbers only. Never enter a PAN, account number or password. Nothing you type is stored.</p>
-    </details>
+    </div>
     <div class="links"><button class="pillbtn" onclick="openQuality()">How SIPal is checked</button><button class="pillbtn" onclick="go('explore')">Restart</button></div>
     <p class="small">Independent student prototype for a NextLeap PM fellowship case study. Not affiliated with or endorsed by Groww. Market figures are sample data, not live prices. Mutual fund investments are subject to market risks.</p>
   </aside>
