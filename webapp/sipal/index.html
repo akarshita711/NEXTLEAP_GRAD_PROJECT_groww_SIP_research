@@ -135,8 +135,8 @@
 <div class="wrap">
   <aside class="guide">
     <h1><svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><use href="#mini"/></svg>Try SIPal</h1>
-    <p>SIPal explains your SIP in plain words at the two moments when first-timers often stop: a week when returns dip, and a month when paying the SIP is hard. It explains; it never recommends funds or tells you what to do with your money.</p>
-    <div class="task"><h3>Task 1: your SIP fell this week</h3><p>Open the weekly check-in, find out why your SIP fell and whether that is normal, then ask SIPal one follow-up question of your own.</p><button class="go" onclick="start('weekly')">Start task 1</button> <button class="go alt" style="background:#fff;color:var(--green-d);border:1.5px solid var(--green)" onclick="start('weekly', 'up')">Or see an up week</button><p class="small" style="margin-top:8px">Each test picks a new pair of sample funds.</p></div>
+    <p>SIPal is an in-app feature that explains your SIP in plain words at the two moments when first-timers often stop: a week when returns dip, and a month when paying the SIP is hard. It explains; it never recommends funds or tells you what to do with your money.</p>
+    <div class="task"><h3>Task 1: your weekly SIP check-in</h3><p>Open the weekly check-in, find out why your SIP rose or fell this week and whether that is normal, then ask SIPal one follow-up question of your own.</p><button class="go" onclick="start('weekly')">Start task 1</button><p class="small" style="margin-top:8px">Each test shows a rise or a fall, with new sample funds and reasons.</p></div>
     <div class="task"><h3>Task 2: money is tight this month</h3><p>Your SIP is due in 3 days. Use SIPal to pay a smaller amount this month only, and check what changes.</p><button class="go alt" onclick="start('due')">Start task 2</button></div>
     <div class="task"><h3>Task 3 (optional): try to get advice</h3><p>Ask SIPal which fund to buy, or whether to stop. See how it responds.</p></div>
     <details><summary>Change the sample SIP</summary>
@@ -267,7 +267,7 @@ const SCREENS = {
       <div class="card"><div class="h5"><span class="dot" style="background:var(--green)">&#10003;</span>Is this normal?</div><div class="txt" id="c-normal"><div class="skel"></div><div class="skel" style="width:60%"></div></div></div>
       <div class="card"><div class="h5">What can you do?</div><div class="txt" id="c-todo"><div class="skel" style="width:80%"></div></div></div>
       <div id="c-qc"></div>
-      <div class="lbl">ASK A FOLLOW-UP</div><div class="sugg">${["Why is my value below what I invested?", "Will it go back up?", "What is XIRR?"].map(q => `<button onclick="ask('${q}','weekly check-in')">${q}</button>`).join("")}</div>
+      <div class="lbl">ASK A FOLLOW-UP</div><div class="sugg">${(dir === "down" ? ["Why is my value below what I invested?", "Will it go back up?", "What is XIRR?"] : ["Will it keep rising?", "Should I invest more now?", "What is XIRR?"]).map(q => `<button onclick="ask('${q}','weekly check-in')">${q}</button>`).join("")}</div>
       ${askBox("weekly check-in")}${NA}<p class="na">Market figures are sample data for this demo, not live prices.</p></div></div>`;
   },
   due() {
@@ -317,8 +317,9 @@ function go(name) {
   const b = $("#screen .body"); if (b && name !== "chat") b.scrollTop = 0;
 }
 function toggleReasons() { const r = $("#c-reasons"), b = $("#c-whybtn"); if (!r || !r.innerHTML) return; const on = r.classList.toggle("on"); b.setAttribute("aria-expanded", on); $("#c-pill").innerHTML = on ? "Hide reasons &#9652;" : "Economic reasons &#9662;"; }
-function start(which, dir) { state.choice = null; state.newAmount = null; state.chat = []; newFunds();
-  if (which === "weekly") { $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; }
+let lastDir = Math.random() < 0.5 ? "up" : "down";
+function start(which) { state.choice = null; state.newAmount = null; state.chat = []; newFunds();
+  if (which === "weekly") { const dir = lastDir = lastDir === "down" ? "up" : "down"; $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; }
   go(which === "weekly" ? "lockWeekly" : "lockDue");
   if (window.innerWidth < 920) $(".phone").scrollIntoView({ behavior: "smooth" }); }
 
