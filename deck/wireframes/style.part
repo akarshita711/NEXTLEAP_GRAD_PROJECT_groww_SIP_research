@@ -7,7 +7,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: "Inter", "Liberation Sans", sans-serif; background: transparent; display: flex; gap: 40px; padding: 30px; color: var(--ink); }
-  .phone { width: 412px; height: 866px; border-radius: 54px; background: #23233A; padding: 11px; box-shadow: 0 0 0 1.5px #6E6F94; flex: none; }
+  .phone { width: 412px; height: 866px; border-radius: 54px; background: #000000; padding: 11px; flex: none; }
   .screen { width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #fff; display: flex; flex-direction: column; }
   .status { height: 47px; display: flex; align-items: center; justify-content: space-between; padding: 6px 30px 0 34px; font-weight: 600; font-size: 16px; flex: none; }
   .status .icons { display: flex; gap: 6px; align-items: center; }

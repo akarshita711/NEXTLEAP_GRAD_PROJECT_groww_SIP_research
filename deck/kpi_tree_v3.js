@@ -2,7 +2,7 @@
 // Pure metric logic, drawn before any research: no research numbers and no solution names. Every text >= 14pt.
 module.exports = function addKpiTreeV3(pres, s, C) {
   const { CARD, CARD2, WHITE, SOFT, DARK, Y, O, BODY } = C;
-  const EDGE = "8C84D6";
+  const EDGE = "000000";
   const COL = [[0.5, 1.6], [2.53, 1.9], [4.86, 1.95], [7.24, 2.25], [9.9, 2.93]];   // [x, w] per column
   const box = (c, y, h, title, sub, o = {}) => {
     const [x, w] = COL[c];

@@ -6,22 +6,34 @@ pres.author = "";
 pres.company = "";
 pres.title = "First-time SIP retention on Groww: problem framing, MVP and success metrics";
 
-// ---------- palette: vibrant on deep indigo, colour-blind-safe (blue / orange / yellow / pink / teal; meaning never relies on colour alone) ----------
-const BG = "140F3D", CARD = "251D70", CARD2 = "33288F", WHITE = "FFFFFF", SOFT = "DAD5FF", DARK = "140F3D";
-const Y = "F0E442", O = "FFB000", S = "56B4E9", G = "3DDBB0", P = "F08DC0";
+// ---------- palette: Groww brand, four colours only: white, Caribbean Green, Groww Blue, black ----------
+// Green is used for shapes and lines (too light for text on white); text is black, headings and links blue.
+const GREEN = "00D09C", BLUE = "5367F5", BLACK = "000000", PURE = "FFFFFF";
+const BG = PURE, CARD = PURE, CARD2 = PURE, WHITE = BLACK, SOFT = BLACK, DARK = BLACK;   // old names kept so slide code is unchanged
+const Y = GREEN, O = GREEN, S = BLUE, G = GREEN, P = BLUE;
+const ART = "art/";
+// every slide: green text becomes blue so it stays readable on white
+const _addSlide = pres.addSlide.bind(pres);
+const txt = c => (c === GREEN ? BLUE : c);
+const fixRuns = r => { if (Array.isArray(r)) r.forEach(x => { if (x && x.options) { if (x.options.color) x.options.color = txt(x.options.color); if (x.options.underline && x.options.underline.color) x.options.underline.color = txt(x.options.underline.color); } }); };
+pres.addSlide = (...a) => { const s = _addSlide(...a); const at = s.addText.bind(s);
+  s.addText = (t, o = {}) => { fixRuns(t); if (o.color) o.color = txt(o.color); return at(t, o); }; return s; };
 const HEAD = "Arial", BODY = "Calibri";
 const ENGINE = "https://nextleapgradprojectgrowwsipresearch.vercel.app/";
 
+const BRAND = [
+  { rect: { x: 0, y: 0, w: 0.12, h: 3.75, fill: { color: BLUE }, line: { color: BLUE } } },
+  { rect: { x: 0, y: 3.75, w: 0.12, h: 3.75, fill: { color: GREEN }, line: { color: GREEN } } },
+  { image: { x: 0.12, y: 7.27, w: 12.74, h: 0.2, path: ART + "ribbon.png" } },
+  { image: { x: 12.93, y: 7.1, w: 0.32, h: 0.32, path: ART + "groww_logo.png" } },
+];
 pres.defineSlideMaster({
   title: "CONTENT", background: { color: BG },
-  objects: [{ placeholder: { options: { name: "title", type: "title", x: 0.5, y: 0.28, w: 12.33, h: 1.05, fontFace: HEAD, fontSize: 27, bold: true, color: WHITE, valign: "middle", margin: 0 }, text: "" } }],
+  objects: [...BRAND, { placeholder: { options: { name: "title", type: "title", x: 0.5, y: 0.28, w: 12.33, h: 1.05, fontFace: HEAD, fontSize: 27, bold: true, color: BLACK, valign: "middle", margin: 0 }, text: "" } }],
 });
-pres.defineSlideMaster({ title: "COVER", background: { color: BG } });
+pres.defineSlideMaster({ title: "COVER", background: { color: BG }, objects: BRAND.slice(0, 3) });
 
-function blobs(s, a = S, b = P) {                    // soft decorative glows (behind content)
-  s.addShape(pres.shapes.OVAL, { x: -1.6, y: -1.8, w: 4.6, h: 4.6, fill: { color: b, transparency: 68 }, line: { color: b, transparency: 100 }, objectName: "glow-1" });
-  s.addShape(pres.shapes.OVAL, { x: 11.1, y: 5.6, w: 4.2, h: 4.2, fill: { color: a, transparency: 70 }, line: { color: a, transparency: 100 }, objectName: "glow-2" });
-}
+function blobs() {}                                   // the brand bar, ribbon and logo now live on the slide master
 function newSlide(title) {
   const s = pres.addSlide({ masterName: "CONTENT" });
   blobs(s);
@@ -29,10 +41,10 @@ function newSlide(title) {
   return s;
 }
 const card = (s, x, y, w, h, fill = CARD, line = null, name = "card") =>
-  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.18, fill: { color: fill }, line: line ? { color: line, width: 2 } : { color: fill, width: 0.5 }, objectName: name });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.18, fill: { color: fill }, line: line ? { color: line, width: 2 } : { color: BLACK, width: 1 }, objectName: name });
 const badge = (s, n, x, y, color, d = 0.5) => {
   s.addShape(pres.shapes.OVAL, { x, y, w: d, h: d, fill: { color }, line: { color }, objectName: "badge-" + n });
-  s.addText(String(n), { x, y, w: d, h: d, align: "center", valign: "middle", fontFace: HEAD, fontSize: 18, bold: true, color: DARK, margin: 0, isTextBox: true });
+  s.addText(String(n), { x, y, w: d, h: d, align: "center", valign: "middle", fontFace: HEAD, fontSize: 18, bold: true, color: color === BLUE ? PURE : BLACK, margin: 0, isTextBox: true });
 };
 const T = (s, runs, o) => s.addText(runs, Object.assign({ fontFace: BODY, fontSize: 15, color: WHITE, margin: 0, valign: "top", isTextBox: true }, o));
 const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, tooltip: url }, color, underline: { style: "sng", color }, bold: true } });
@@ -42,17 +54,18 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // =====================================================================================================================
 {
   const s = pres.addSlide({ masterName: "COVER" });
-  blobs(s, S, P);
-  s.addShape(pres.shapes.OVAL, { x: 9.3, y: 0.2, w: 4.6, h: 4.6, fill: { color: G, transparency: 80 }, line: { color: G, transparency: 100 }, objectName: "glow-3" });
-  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.7, y: 0.6, w: 6.9, h: 0.5, rectRadius: 0.25, fill: { color: CARD2 }, line: { color: Y, width: 1.5 }, objectName: "kicker" });
-  T(s, "NextLeap graduation project  |  Growth PM case: Groww", { x: 0.7, y: 0.6, w: 6.9, h: 0.5, fontSize: 16, bold: true, color: Y, align: "center", valign: "middle" });
-  T(s, "Helping first-time Groww investors stay invested through year one", { x: 0.7, y: 1.55, w: 11.6, h: 2.0, fontFace: HEAD, fontSize: 46, bold: true, valign: "top" });
-  T(s, "Why early-career salaried investors wobble in months 2 to 12, and an AI check-in that steadies them without giving advice", { x: 0.7, y: 3.65, w: 10.8, h: 1.0, fontSize: 22, color: SOFT });
-  card(s, 0.7, 4.85, 11.9, 1.0, CARD, O, "north-star");
-  T(s, [{ text: "North-star metric: ", options: { bold: true, color: O } }, { text: "percentage of first-time mutual fund investors who still have an active SIP 12 months after starting their first one." }], { x: 0.95, y: 4.9, w: 11.4, h: 0.9, fontSize: 19, valign: "middle" });
-  T(s, [{ text: "11,711", options: { bold: true, color: S } }, { text: " conversations analysed   |   " }, { text: "4,952", options: { bold: true, color: G } }, { text: " about real SIP journeys   |   " },
-        { text: "18", options: { bold: true, color: P } }, { text: "-person survey   |   " }, link("Try the live AI discovery engine", ENGINE)], { x: 0.7, y: 6.1, w: 12, h: 0.4, fontSize: 16 });
-  T(s, "Independent study. Not affiliated with Groww. Not investment advice. Mutual fund investments are subject to market risks.", { x: 0.7, y: 6.7, w: 12, h: 0.4, fontSize: 14, color: SOFT });
+  s.addImage({ path: ART + "groww_logo.png", x: 0.7, y: 0.55, w: 0.62, h: 0.62, altText: "Groww logo" });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.5, y: 0.61, w: 6.2, h: 0.5, rectRadius: 0.25, fill: { color: PURE }, line: { color: BLUE, width: 1.5 }, objectName: "kicker" });
+  T(s, "NextLeap graduation project  |  Growth PM case: Groww", { x: 1.5, y: 0.61, w: 6.2, h: 0.5, fontSize: 16, bold: true, color: BLUE, align: "center", valign: "middle" });
+  T(s, "Helping first-time Groww investors stay invested through year one", { x: 0.7, y: 1.45, w: 7.1, h: 2.1, fontFace: HEAD, fontSize: 40, bold: true, valign: "top" });
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.72, y: 3.62, w: 1.4, h: 0.09, fill: { color: GREEN }, line: { color: GREEN }, objectName: "title-underline" });
+  T(s, "Why early-career salaried investors wobble in months 2 to 12, and an AI check-in that steadies them without giving advice", { x: 0.7, y: 3.85, w: 7.1, h: 0.95, fontSize: 19 });
+  s.addImage({ path: ART + "cover_art.png", x: 7.95, y: 0.55, w: 4.9, h: 4.0, altText: "Art: a SIPal sprout on a stack of rupee coins beside a rising green line, green and blue candles and a dashed blue line that falls and recovers" });
+  card(s, 0.7, 4.95, 12.13, 0.95, PURE, GREEN, "north-star");
+  T(s, [{ text: "North-star metric: ", options: { bold: true, color: BLUE } }, { text: "percentage of first-time mutual fund investors who still have an active SIP 12 months after starting their first one." }], { x: 0.95, y: 4.98, w: 11.6, h: 0.9, fontSize: 19, valign: "middle" });
+  T(s, [{ text: "11,711", options: { bold: true, color: BLUE } }, { text: " conversations analysed   |   " }, { text: "4,952", options: { bold: true, color: BLUE } }, { text: " about real SIP journeys   |   " },
+        { text: "18", options: { bold: true, color: BLUE } }, { text: "-person survey   |   " }, link("Try the live AI discovery engine", ENGINE, BLUE)], { x: 0.7, y: 6.12, w: 12, h: 0.4, fontSize: 16 });
+  T(s, "Independent study. Not affiliated with Groww; Groww logo shown for identification only. Not investment advice. Mutual fund investments are subject to market risks.", { x: 0.7, y: 6.62, w: 12.1, h: 0.5, fontSize: 14 });
   s.addNotes("Title slide. North-star metric as given in the brief. Numbers: 11,711 conversations analysed by the discovery engine, 4,952 judged relevant to a person's own mutual fund SIP; survey n=18. Name of the fellow intentionally not shown.");
 }
 
@@ -89,7 +102,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   const segs = [["student", "Students, under 22", S], ["early", "Salaried, 22-30", O], ["variable", "Variable income", P], ["mid", "Mid-career, 31+", G]];
   const top = segs.reduce((a, b) => (SEGN.share[b[0]] > SEGN.share[a[0]] ? b : a));
   const sw = 1.95, sg = 0.17, sy = 5.5, sh = 1.12, sx0 = 0.5, fBottom = top0 + 5 * h + 4 * gap, busY = fBottom + 0.13;
-  const line = (x, y, w, hh) => s.addShape(pres.shapes.LINE, { x, y, w, h: hh, line: { color: "8C84D6", width: 1.25 }, objectName: "seg-connector" });
+  const line = (x, y, w, hh) => s.addShape(pres.shapes.LINE, { x, y, w, h: hh, line: { color: BLACK, width: 1.25 }, objectName: "seg-connector" });
   line(cx, fBottom, 0, busY - fBottom); line(sx0 + sw / 2, busY, 3 * (sw + sg), 0);
   segs.forEach(([key, name, col], i) => {
     const x = sx0 + i * (sw + sg), hot = key === top[0], sh_ = SEGN.share[key];
