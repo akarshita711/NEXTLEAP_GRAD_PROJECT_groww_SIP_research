@@ -348,7 +348,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 // 9. MVP AND USER TESTING
 // =====================================================================================================================
 {
-  const s = newSlide("MVP and user testing: SIPal is live, every AI answer is checked before it shows, and three users test it on two real tasks");
+  const s = newSlide("MVP and user testing: SIPal is live, every AI answer is checked before it shows, and 3 users' feedback is built in");
   const SIPAL = "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/";
   card(s, 0.5, 1.45, 4.25, 1.9, PURE, GREEN, "what");
   T(s, [{ text: "What SIPal is", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
@@ -356,26 +356,31 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     { x: 0.68, y: 1.52, w: 3.92, h: 1.8, fontSize: 14 });
   card(s, 0.5, 3.45, 4.25, 2.42, PURE, BLUE, "gate");
   T(s, [{ text: "AI with a quality gate", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
-        { text: "AI only words the facts it is given. Each answer is checked (numbers, no advice, no fund tips, calm tone, a source), or a safe fallback shows. Golden set 19/20; advice-free 20/20; safety tests 17/17.", options: { breakLine: true } },
+        { text: "AI only words the facts it is given. Each answer is checked (numbers, no advice, no fund tips, calm tone, a source), or a safe fallback shows. Golden set 18/20; advice-free 20/20; safety tests 17/17.", options: { breakLine: true } },
         { text: "Where AI earns its place: ", options: { bold: true } }, { text: "answering each investor's own question, in their own words." }],
     { x: 0.68, y: 3.51, w: 3.92, h: 2.32, fontSize: 14 });
   card(s, 0.5, 5.97, 4.25, 1.23, PURE, GREEN, "link");
   T(s, [{ text: "Try it live: ", options: { bold: true, color: BLUE } }, link("SIPal MVP", SIPAL, BLUE), { text: "\nnextleapgradprojectgrowwsipresearch.vercel.app/sipal", options: { fontSize: 14 } },
         { text: "\nSample data, no login. Not investment advice.", options: { fontSize: 14 } }], { x: 0.68, y: 6.0, w: 3.95, h: 1.16, fontSize: 15 });
-  const shots = [["set1_1_weekly_notification", "Weekly alert"], ["set1_3_checkin_down_week", "Why it fell"], ["set2_2_pay_less_this_month", "Pay less"], ["set3_ask_sipal_quality_check", "Advice declined"]];
-  const PH_H = 3.45, PH_W = PH_H * 412 / 842;
+  const shots = [["set1_3_checkin_down_week", "Why it fell"], ["set4_sips_tab", "SIPs tab"], ["set2_2_pay_less_this_month", "Pay less"], ["set2_3_proceed_to_pay", "Proceed to pay?"], ["set3_ask_sipal_quality_check", "Advice declined"]];
+  const PH_H = 2.62, PH_W = PH_H * 412 / 842, GAPX = (7.88 - 5 * PH_W) / 4;
   shots.forEach((sh, i) => {
-    const x = 4.95 + i * (PH_W + 0.3);
+    const x = 4.95 + i * (PH_W + GAPX);
     s.addImage({ path: "wireframes/" + sh[0] + ".png", x, y: 1.45, w: PH_W, h: PH_H, altText: "SIPal screen: " + sh[1] });
-    T(s, [{ text: (i + 1) + "  ", options: { bold: true, color: BLUE } }, { text: sh[1], options: { bold: true } }], { x: x - 0.12, y: 4.94, w: PH_W + 0.24, h: 0.34, fontSize: 14, align: "center", valign: "middle" });
+    T(s, [{ text: (i + 1) + " ", options: { bold: true, color: BLUE } }, { text: sh[1], options: { bold: true } }], { x: x - 0.2, y: 4.1, w: PH_W + 0.4, h: 0.3, fontSize: 14, align: "center", valign: "middle" });
   });
-  T(s, "User testing with 3 first-time investors (fill in after the sessions)", { x: 4.95, y: 5.33, w: 7.9, h: 0.34, fontSize: 15, bold: true, color: BLUE });
-  const th = ["Tester", "Task 1: weekly check-in", "Task 2: pay less", "Task 3: ask for advice", "What they said / what we changed"].map(t => ({ text: t, options: { bold: true, color: PURE, fill: { color: BLUE }, align: "center", valign: "middle" } }));
-  const blank = n => ["Tester " + n, "", "", "", ""].map(t => ({ text: t, options: { color: BLACK, valign: "middle" } }));
-  s.addTable([th, blank(1), blank(2), blank(3)], { x: 4.95, y: 5.7, w: 7.88, colW: [0.95, 1.55, 1.3, 1.6, 2.48], fontFace: BODY, fontSize: 14, border: { type: "solid", pt: 1, color: BLACK }, rowH: [0.42, 0.34, 0.34, 0.34] });
+  T(s, "User testing: what 3 first-time investors found, and what we changed", { x: 4.95, y: 4.44, w: 7.9, h: 0.32, fontSize: 15, bold: true, color: BLUE });
+  const th = ["Tester", "What they found", "What we changed"].map(t => ({ text: t, options: { bold: true, color: PURE, fill: { color: BLUE }, align: "center", valign: "middle" } }));
+  const tr = (a, b, c, own) => [a, b, c].map((t, k) => ({ text: t, options: { color: BLACK, bold: k === 0, italic: !!own && k === 0, valign: "middle" } }));
+  s.addTable([th,
+    tr("User 1", "Tabs didn't open; Popular Funds stuck loading; too many suggestions", "Tabs work; fund cards shown; suggestions only in Ask SIPal"),
+    tr("User 2", "\u201CYes, all set\u201D did nothing; no fund minimum or custom amount", "\u201CProceed to pay?\u201D screen; minimum-amount note; custom amount"),
+    tr("User 3", "The SIPal explanation took half the screen", "Intro cut to one line; tasks as compact buttons"),
+    tr("Own review", "Had to zoom on phones; Enter hard in chat; Task 2 name clashed", "Fits the phone screen; Enter sends; Task 2 renamed; lighter chat", true)],
+    { x: 4.95, y: 4.8, w: 7.88, colW: [1.12, 3.33, 3.43], fontFace: BODY, fontSize: 14, border: { type: "solid", pt: 1, color: BLACK }, rowH: [0.34, 0.5, 0.5, 0.5, 0.5], margin: [2, 5, 2, 5] });
   s.addNotes("SIPal MVP, live at " + SIPAL + ". Screens are captured from the live app. Tasks for testers: (1) open the weekly check-in, find why the SIP rose or fell and whether that is normal, ask one follow-up; (2) the SIP is due in 3 days and money is tight: pay a smaller amount this month and check what changes; (3) try to get SIPal to recommend a fund. " +
-    "Record for each tester: finished each task (yes/no), time taken, any confusion, whether the advice request was declined, and one quote. The results table is left empty on purpose until the sessions are run; no results are invented. " +
-    "Evaluation: the 20 hand-labelled golden-set posts from the Evidence Log 19/20 (first run 16/20, two general prompt fixes, in-sample); every shown answer advice-free 20/20; safety tests 17/17. What a non-AI version would miss: a fixed FAQ cannot answer questions phrased in unplanned ways or in Hinglish, and cannot tell an explanation request from an advice request.");
+    "User testing (3 first-time investors, feedback as reported by the Fellow): User 1 could not open the Dashboard, SIPs and Watchlist tabs, saw Popular Funds as placeholders that looked like loading, and found suggestion buttons on every page unnecessary. User 2 found that \u201CYes, all set\u201D led nowhere and asked for the fund house minimum and a custom amount, each followed by a \u201CProceed to pay?\u201D confirmation. User 3 found the SIPal explanation took half the screen. Own review: pages needed zooming on phones (inputs under 16px make iOS zoom), Enter was hard to use in chat, the Task 2 name clashed with another project, and the per-answer quality box in chat was not needed (safe-fallback notes remain). All were fixed and deployed. " +
+    "Evaluation: the 20 hand-labelled golden-set posts from the Evidence Log, latest run 18/20 (first run 16/20, then 19/20 after two general prompt fixes, in-sample; 18/20 after the rules update, the extra miss is a post sharing a new SIP that was declined as off-topic); every shown answer advice-free 20/20; safety tests 17/17. What a non-AI version would miss: a fixed FAQ cannot answer questions phrased in unplanned ways or in Hinglish, and cannot tell an explanation request from an advice request.");
 }
 
 // =====================================================================================================================
@@ -413,7 +418,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
       { x: x + 0.15, y: y + 0.05, w: w - 0.3, h: h - 0.08, fontSize: 14, paraSpaceAfter: 2 });
   });
   s.addNotes("Success: business metric as given in the brief. Uplift estimate: about 1.2 million salaried 22-30 first-timers a year; about half hit a missed-SIP or low-returns moment; assume 40% of those would stop without help and SIPal turns 10 to 20% of them to pay less, skip or continue: 24,000 to 48,000 more investors active at month 12, +2 to +4 points. " +
-    "Product metrics follow the KPI tree (slide 2). Risks and mitigations: each card names the risk and the step that reduces it. Evidence: 17/17 safety tests (advice and prediction traps, a pasted PAN); golden set 19/20, scored in-sample after two prompt fixes; every shown answer advice-free 20/20. Known gap: the gate checks numbers and phrases, not every paraphrase. Market reasons in the demo are sample data.");
+    "Product metrics follow the KPI tree (slide 2). Risks and mitigations: each card names the risk and the step that reduces it. Evidence: 17/17 safety tests (advice and prediction traps, a pasted PAN); golden set 18/20 in the latest run, scored in-sample; every shown answer advice-free 20/20. Known gap: the gate checks numbers and phrases, not every paraphrase. Market reasons in the demo are sample data.");
 }
 
 pres.writeFile({ fileName: "NL_Groww.pptx" }).then(f => console.log("written", f));
