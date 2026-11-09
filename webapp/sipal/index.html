@@ -364,7 +364,7 @@ const SCREENS = {
         <span style="flex:1"><span class="app"><span>SIPal</span><span>now</span></span><span class="t">Your weekly SIP check-in is ready &#127807;</span><span class="b">See how your funds did this week, why the market moved, and whether it's normal. Takes about a minute.</span></span></button>
         <div class="acts"><button class="p" onclick="go('checkin')">See my check-in</button><button onclick="dismiss('weekly')">Not now</button></div></div>`);
     if (showDue) cards.push(`<div class="ncard ${seq > 1 ? "stacked" : ""}" id="n-due"><button class="top" onclick="state.choice=null;state.newAmount=null;go('due')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg>
-        <span style="flex:1"><span class="app"><span>SIPal</span><span>${seq > 1 ? `${seq} reminders` : "now"}</span></span><span class="t">${dueTitle} &#127807;</span><span class="b">${inr(s.sipA)} goes to ${FLEXI[funds[0]]} ${daysLeft === 0 ? "today" : "on " + d.due}. Is this month OK for that amount? If money is tight, you can pay less just this once.</span></span></button>
+        <span style="flex:1"><span class="app"><span>SIPal</span><span>${seq > 1 ? `${seq} reminders` : "now"}</span></span><span class="t">${dueTitle} &#127807;</span><span class="b">${s.weekPct < 0 ? "Returns dipped this week; see why in your check-in. " : ""}${inr(s.sipA)} goes to ${FLEXI[funds[0]]} ${daysLeft === 0 ? "today" : "on " + d.due}. Is this month OK for that amount? If money is tight, you can pay less just this once.</span></span></button>
         <div class="acts"><button class="p" onclick="state.choice='yes';go('payConfirm')">Yes, all set</button><button onclick="state.choice='less';state.newAmount=null;state.custom=false;go('due')">Pay less this month</button></div>
         <div class="nseq">Reminder ${seq} of 4 &middot; one a day until the debit; stops once you answer</div></div>`);
     return `<div class="screen lock" style="height:100%;width:100%;border-radius:0">${STATUS}<div class="lockbody">
@@ -394,6 +394,10 @@ const SCREENS = {
         <div class="txt" id="c-why"><div class="skel"></div><div class="skel" style="width:70%"></div></div><div class="reasons" id="c-reasons"></div></div>
       <div class="card"><div class="h5"><span class="dot" style="background:var(--green)">&#10003;</span>Is this normal?</div><div class="txt" id="c-normal"><div class="skel"></div><div class="skel" style="width:60%"></div></div></div>
       <div class="card"><div class="h5">What can you do?</div><div class="txt" id="c-todo"><div class="skel" style="width:80%"></div></div></div>
+      ${dir === "down" ? `<div class="card" id="c-opts"><div class="h5">Your next instalment</div>
+        <div class="txt">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due}. You can continue as usual, or pay less just this month; your SIP stays on either way.</div>
+        <div class="choices"><button class="choice" onclick="contUsual()"><span class="r"></span>Continue as usual</button><button class="choice" onclick="state.choice='less';state.newAmount=null;state.custom=false;go('due')"><span class="r"></span>Pay less this month</button></div>
+        <div class="sub" style="margin-top:8px">Paying less doesn't change what your units are worth today; it only means a smaller instalment this month.</div></div>` : ""}
       <div id="c-qc"></div>
       ${askBtn("weekly check-in")}${NA}<p class="na">Market figures are sample data for this demo, not live prices.</p></div></div>`;
   },
@@ -403,6 +407,7 @@ const SCREENS = {
     if (c === "less" && na !== null && !state.custom) setTimeout(loadDue, 0);
     return `${head("SIPal Assistant", MF())}<div class="body"><div class="pad">
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your next SIP</div><div class="hs">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due} (${daysLeft === 0 ? "today" : dlText()})</div></div></div>
+      ${s.weekPct < 0 ? `<div class="infobox" style="margin-top:0"><span>&#9432;</span><span>Returns dipped this week. A dip is common in a SIP's first year, and while prices are lower each rupee buys more units. If you'd rather not pay the full amount, you can pay less just this month.</span></div>` : ""}
       <div class="card"><div class="h5">Can you pay ${inr(s.sipA)} this month?</div>
         <div class="choices"><button class="choice" onclick="state.choice='yes';state.newAmount=null;go('payConfirm')"><span class="r"></span>Yes, all set</button><button class="choice ${c === "less" ? "sel" : ""}" onclick="state.choice='less';state.newAmount=null;state.custom=false;go('due')"><span class="r"></span>Not this month</button></div></div>
       ${c === "less" ? `<div class="card"><div class="h5">Pay a smaller amount, just for ${d.dueMonth}</div>
@@ -478,6 +483,7 @@ function go(name, how) {
 }
 function openChat(ctx) { state.ctx = ctx; state.from = state.screen; state.screen = "chat"; $("#screen").innerHTML = `<div class="view v-fwd">${SCREENS.chat()}</div>`; }
 function dismiss(k) { const c = $("#n-" + k); if (c) c.classList.add("gone"); setTimeout(() => { state.dismissed[k] = true; go("lock"); }, 260); }
+function contUsual() { const c = $("#c-opts"), s = scn(), d = dates(); if (c) c.innerHTML = `<div class="h5"><span class="dot" style="background:var(--green)">&#10003;</span>You're all set</div><div class="txt">${inr(s.sipA)} goes in on ${d.due} as usual. Nothing else to do.</div>`; }
 function pick(v) { state.newAmount = v; state.custom = false; go("due"); }
 function useCustom() {
   const s = scn(), v = Math.round(+$("#camt").value || 0), e = $("#cerr");
@@ -489,7 +495,7 @@ function toggleReasons() { const r = $("#c-reasons"), b = $("#c-whybtn"); if (!r
 let lastDir = Math.random() < 0.5 ? "up" : "down";
 function start(which) { state.choice = null; state.newAmount = null; state.custom = false; state.chat = []; newFunds();
   if (which === "weekly" || which === "lock") { const dir = lastDir = lastDir === "down" ? "up" : "down"; $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; state.lockMode = "weekly"; }
-  if (which === "due") { if (dueSeen) { daysLeft = daysLeft === 0 ? 3 : daysLeft - 1; dueSeen = false; updateTaskLabel(); } state.lockMode = "due"; }
+  if (which === "due") { if (dueSeen) { daysLeft = daysLeft === 0 ? 3 : daysLeft - 1; dueSeen = false; updateTaskLabel(); } state.lockMode = "due"; $("#f-week").value = -1.8; $("#f-overall").value = -4.7; }
   state.dismissed = {}; state.answered = false;
   if (which === "ask") { state.screen = "hub"; openChat("SIPal home"); }
   else { state.screen = ""; go("lock"); }
