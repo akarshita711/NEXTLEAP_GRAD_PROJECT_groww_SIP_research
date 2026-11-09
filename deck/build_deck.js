@@ -362,7 +362,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   card(s, 0.5, 5.97, 4.25, 1.23, PURE, GREEN, "link");
   T(s, [{ text: "Try it live: ", options: { bold: true, color: BLUE } }, link("SIPal MVP", SIPAL, BLUE), { text: "\nnextleapgradprojectgrowwsipresearch.vercel.app/sipal", options: { fontSize: 14 } },
         { text: "\nSample data, no login. Not investment advice.", options: { fontSize: 14 } }], { x: 0.68, y: 6.0, w: 3.95, h: 1.16, fontSize: 15 });
-  const shots = [["set1_1_notifications", "Notifications"], ["set1_3_checkin_down_week", "Why it fell"], ["set2_2_pay_less_this_month", "Pay less"], ["set2_3_proceed_to_pay", "Proceed to pay?"], ["set3_ask_sipal_quality_check", "Advice declined"]];
+  const shots = [["set1_1_weekly_notification", "Weekly alert"], ["set1_3_checkin_down_week", "Why it fell"], ["set2_1_due_reminder", "Due alert"], ["set2_3_proceed_to_pay", "Proceed to pay?"], ["set3_ask_sipal_quality_check", "Advice declined"]];
   const PH_H = 2.62, PH_W = PH_H * 412 / 842, GAPX = (7.88 - 5 * PH_W) / 4;
   shots.forEach((sh, i) => {
     const x = 4.95 + i * (PH_W + GAPX);
@@ -376,7 +376,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     tr("User 1", "Tabs didn't open; Popular Funds stuck loading; too many suggestions", "Tabs work; fund cards shown; suggestions only in Ask SIPal"),
     tr("User 2", "\u201CYes, all set\u201D did nothing; no fund minimum or custom amount", "\u201CProceed to pay?\u201D screen; minimum-amount note; custom amount"),
     tr("User 3", "The SIPal explanation took half the screen", "Intro cut to one line; tasks as compact buttons"),
-    tr("Own review", "Zooming on phones; Enter hard in chat; no logo; one reminder only", "Fits the screen; Enter sends; Groww logo; daily reminders to the debit", true)],
+    tr("Own review", "Zooming on phones; Enter hard in chat; no logo; one reminder only", "Fits the screen; multi-line chat box; Groww logo; daily reminders", true)],
     { x: 4.95, y: 4.8, w: 7.88, colW: [1.12, 3.33, 3.43], fontFace: BODY, fontSize: 14, border: { type: "solid", pt: 1, color: BLACK }, rowH: [0.34, 0.5, 0.5, 0.5, 0.5], margin: [2, 5, 2, 5] });
   s.addNotes("SIPal MVP, live at " + SIPAL + ". Screens are captured from the live app. Tasks for testers: (1) open the weekly check-in, find why the SIP rose or fell and whether that is normal, ask one follow-up; (2) the SIP is due in 3 days and money is tight: pay a smaller amount this month and check what changes; (3) Ask SIPal: ask anything about the SIP in your own words (including a fund tip, which SIPal declines because it is a guide, not an adviser). " +
     "User testing (3 first-time investors, feedback as reported by the Fellow): User 1 could not open the Dashboard, SIPs and Watchlist tabs, saw Popular Funds as placeholders that looked like loading, and found suggestion buttons on every page unnecessary. User 2 found that \u201CYes, all set\u201D led nowhere and asked for the fund house minimum and a custom amount, each followed by a \u201CProceed to pay?\u201D confirmation. User 3 found the SIPal explanation took half the screen. Own review: pages needed zooming on phones (inputs under 16px make iOS zoom), Enter was hard to use in chat, the Task 2 name clashed with another project, and the per-answer quality box in chat was not needed (safe-fallback notes remain). All were fixed and deployed. " +
