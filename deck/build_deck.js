@@ -181,52 +181,52 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
 }
 
 // =====================================================================================================================
-// 5. HYPOTHESIS (validated with 4 interviews)
+// 5. HYPOTHESIS (one segment, one moment: falling returns)
 // =====================================================================================================================
 {
-  const s = newSlide("Validated hypothesis: SIPs stop because first-timers get no proper guidance when they miss a SIP or returns are low");
-  wm(s, "wm_sprout.png", 10.9, 4.6, 2.0, 2.0);
+  const s = newSlide("Hypothesis: when returns fall, first-timers get no calm, plain explanation in the app, so they stop their SIP");
   const SEGN = require("./segment_numbers.json");
-  T(s, [{ text: "Target segment: ", options: { bold: true, color: O } }, { text: `salaried, 22-30, the largest group at ${SEGN.share.early}% of first-time investors who state age or income` }],
-    { x: 0.5, y: 1.4, w: 12.3, h: 0.32, fontSize: 15, color: SOFT });
+  T(s, [{ text: "Segment: ", options: { bold: true, color: BLUE } }, { text: `salaried first-time SIP investors, 22-30, in year one (${SEGN.share.early}% of first-timers)` },
+        { text: "      Moment: ", options: { bold: true, color: BLUE } }, { text: "the week their returns fall" }],
+    { x: 0.5, y: 1.38, w: 12.33, h: 0.34, fontSize: 15 });
+  card(s, 0.5, 1.8, 12.33, 1.22, PURE, GREEN, "hypothesis-statement");
+  T(s, [{ text: "We believe ", options: { bold: true, color: BLUE } }, { text: "salaried first-time investors stop their SIP when their returns fall, " },
+        { text: "because ", options: { bold: true, color: BLUE } }, { text: "nothing in the app calmly explains, in plain words, why their value fell and whether that is normal, so stopping feels like the only way to avoid losing more. " },
+        { text: "If ", options: { bold: true, color: BLUE } }, { text: "SIPal explains their own numbers at the dip and offers a gentler step than stopping (pay less this month), " },
+        { text: "then ", options: { bold: true, color: BLUE } }, { text: "more of them will stay invested." }],
+    { x: 0.7, y: 1.84, w: 11.95, h: 1.14, fontSize: 16, valign: "middle" });
   const steps = [
-    ["1  Starts with intent", "Own goal or a friend's nudge; expects 10% to 15%+ a year", S, false],
-    ["2  Trigger moment", "Misses a SIP (forgot, layoff, a move) or sees low returns", P, false],
-    ["3  Root cause: no proper guidance", "No one explains what a miss leads to, or what to do at low returns", O, true],
-    ["4  Doesn't know what to do", "Asks a friend, advisors, Reddit, or does nothing", G, false],
-    ["5  The SIP breaks", "Missed, stopped, or cancelled and redeemed", Y, false],
-  ];
-  const cw = 2.25, cg = 0.27, cy0 = 1.85, ch = 1.6;
+    ["1  Starts hopeful", "Expects steady growth of 10% to 15%+ a year"],
+    ["2  Returns fall", "A red week; value dips below what was invested"],
+    ["3  Root cause", "No calm answer: the app shows the loss, not why or if it's normal"],
+    ["4  Fear of losing more", "Asks Reddit, friends or influencers, or freezes"],
+    ["5  Stops the SIP", "Cancels or redeems, often at a low point"]];
+  const cw = 2.25, cg = 0.27, cy = 3.14, ch = 1.18;
   steps.forEach((st, i) => {
-    const x = 0.5 + i * (cw + cg);
-    card(s, x, cy0, cw, ch, st[3] ? CARD2 : CARD, st[2], "hyp-step-" + (i + 1));
-    if (st[3]) s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: cy0, w: cw, h: ch, rectRadius: 0.18, fill: { color: CARD2, transparency: 100 }, line: { color: O, width: 3.5 }, objectName: "root-cause-highlight" });
-    T(s, [{ text: st[0], options: { bold: true, color: st[2], fontSize: 15, breakLine: true } }, { text: st[1], options: { fontSize: 14 } }], { x: x + 0.14, y: cy0 + 0.1, w: cw - 0.28, h: ch - 0.2, fontSize: 14 });
-    if (i < steps.length - 1) s.addShape(pres.shapes.RIGHT_ARROW, { x: x + cw + 0.04, y: cy0 + ch / 2 - 0.13, w: 0.19, h: 0.26, fill: { color: SOFT }, line: { color: SOFT }, objectName: "hyp-arrow-" + (i + 1) });
+    const x = 0.5 + i * (cw + cg), root = i === 2;
+    card(s, x, cy, cw, ch, PURE, root ? GREEN : BLUE, "hyp-step-" + (i + 1));
+    if (root) s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: cy, w: cw, h: ch, rectRadius: 0.18, fill: { color: PURE, transparency: 100 }, line: { color: GREEN, width: 3.5 }, objectName: "root-cause-highlight" });
+    T(s, [{ text: st[0], options: { bold: true, color: BLUE, fontSize: 15, breakLine: true } }, { text: st[1], options: { fontSize: 14 } }], { x: x + 0.12, y: cy + 0.07, w: cw - 0.24, h: ch - 0.12, fontSize: 14 });
+    if (i < 4) s.addShape(pres.shapes.RIGHT_ARROW, { x: x + cw + 0.04, y: cy + ch / 2 - 0.13, w: 0.19, h: 0.26, fill: { color: BLACK }, line: { color: BLACK }, objectName: "hyp-arrow-" + (i + 1) });
   });
-  T(s, "With no guidance at a missed SIP or a low-returns moment, investors don't know what to do, and the SIP stops.", { x: 0.5, y: 3.55, w: 12.3, h: 0.45, fontSize: 18, bold: true, color: Y, valign: "middle" });
-  card(s, 0.5, 4.15, 6.05, 2.85, CARD, S, "hyp-evidence");
-  T(s, "What 4 interviews showed", { x: 0.7, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: S, valign: "middle" });
-  T(s, [
-    { text: "Missed SIP: none of the 4 knew what several misses lead to", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-    { text: "Low returns: 2 of 4 thought of quitting, unsure what else to do", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-    { text: "With no guide, they asked a friend, advisors or Reddit, or did nothing", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-    { text: "Asked for it: “a proper guide to first time SIP investors”; found GR-1 only later", options: { bullet: true, breakLine: true, paraSpaceAfter: 3 } },
-    { text: "4 of 4 named a gentler path: move the date, pay less, skip a month", options: { bullet: true } }],
-    { x: 0.7, y: 4.62, w: 5.7, h: 2.3, fontSize: 14 });
-  card(s, 6.75, 4.15, 6.08, 2.85, CARD, G, "hyp-test");
-  T(s, "How we got here, and where it points", { x: 6.95, y: 4.22, w: 5.7, h: 0.38, fontSize: 17, bold: true, color: G, valign: "middle" });
-  T(s, [
-    { text: "Started with: ", options: { bold: true, color: P } }, { text: "a doubt goes unanswered in the app.", options: { breakLine: true } },
-    { text: "Sharpened to: ", options: { bold: true, color: G } }, { text: "the gap is guidance at two moments, a missed SIP and low returns. Consistent with all 4 interviews.", options: { breakLine: true } },
-    { text: "Points to: ", options: { bold: true, color: Y } }, { text: "an in-app guide at those two moments: what a miss leads to, the gentler options, and why returns move in year one. It explains; it never recommends funds.", options: { breakLine: true } },
-    { text: "Why Groww can fix it: ", options: { bold: true, color: S } }, { text: "the app already knows each debit date and sees every return, so it can step in at the right moment." }],
-    { x: 6.95, y: 4.62, w: 5.7, h: 2.3, fontSize: 14, paraSpaceAfter: 6 });
-  s.addNotes("Hypothesis validated with 4 interviews (all salaried; answers as given). Root cause: no proper guidance when a SIP is missed or returns are low, so investors do not know what to do. " +
-    "Missed SIP: none of the 4 knew what several missed instalments lead to; Akshata missed 2 to 3 instalments by forgetting, did nothing when worried, asked for 'a proper guide to first time SIP investors' and only later found GR-1, which now guides her on whether to continue. " +
-    "Low returns: Praveen thought of stopping over 'low returns and wrong decisions, and poor knowledge about market' and wants the app to 'make some analysis'; Darshan found notification wording too technical ('in simple terms life would have been easy') and was drawn to ETFs and bonds. " +
-    "Sudhanva (0 to 3 months) has had neither moment yet but did not know skip, change date or lower amount exist. Gentler paths named: move the date (Sudhanva), short bridge (Darshan), pay less and postpone (Praveen), skip next month (Akshata). " +
-    "The hypothesis began as 'a doubt goes unanswered in the app' and was sharpened after the interviews; further interviews are its independent check. Guidance here means explanation, never fund recommendations.");
+  s.addImage({ path: ART + "icon_fall.png", x: 4.38, y: 3.19, w: 0.5, h: 0.33, altText: "Falling graph in red" });
+  card(s, 0.5, 4.45, 6.05, 2.77, PURE, BLUE, "hyp-evidence");
+  T(s, [{ text: "Why we believe it", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
+    { text: "Low returns, wrong expectations or confusing numbers: 33% of stated drop-off reasons, the largest group", options: { bullet: true, breakLine: true } },
+    { text: "“Sip band kar do kyun ki market aur gire ga.” (public post)", options: { bullet: true, italic: true, breakLine: true } },
+    { text: "Survey (n=19): 10 thought of stopping; 5 cited market-fall news, 2 low profit; 9 did nothing", options: { bullet: true, breakLine: true } },
+    { text: "Interviews: 2 of 4 thought of quitting over low returns or jargon; 0 of 4 turned to the app for help", options: { bullet: true } }],
+    { x: 0.68, y: 4.52, w: 5.72, h: 2.64, fontSize: 14, paraSpaceAfter: 3 });
+  card(s, 6.75, 4.45, 6.08, 2.77, PURE, GREEN, "hyp-test");
+  T(s, [{ text: "How we will know, and why “pay less”", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
+    { text: "Right if: ", options: { bold: true } }, { text: "after a dip, investors who see SIPal stop less, and more choose to adjust instead (stop-to-adjust rate up vs control).", options: { breakLine: true } },
+    { text: "Wrong if: ", options: { bold: true } }, { text: "investors who understand the dip still stop as often, or stops are mostly about needing the money.", options: { breakLine: true } },
+    { text: "Pay less: ", options: { bold: true } }, { text: "for someone ready to stop after a dip, a smaller amount keeps the SIP alive. It does not shrink a loss already shown, so SIPal never pitches it as loss protection." }],
+    { x: 6.93, y: 4.52, w: 5.75, h: 2.64, fontSize: 14, paraSpaceAfter: 3 });
+  s.addNotes("One segment, one moment, one root cause. Segment: salaried first-time SIP investors aged 22-30 in the first year of their SIP (the largest first-timer group). Moment: a week or month when returns fall. Root cause: the app shows the loss but nothing calmly explains, in plain words, why the value fell and whether it is normal, so stopping feels like the only way to avoid losing more. " +
+    "Evidence: discovery engine, 230 stated drop-off reasons: low or negative returns, expectation mismatch and confusing numbers 33% (the largest group); in the target segment, 84% of those who state an expectation expect steady long-term growth (378 of 450), and trusted, plain answers come from Reddit and YouTube rather than the app. Survey n=19: 10 thought of stopping or pausing (6 yes, 4 maybe); reasons included market-fall news 5 and low profit 2; 9 did nothing next. " +
+    "Interviews: Praveen thought of quitting over low returns and poor market knowledge; Darshan found notifications too technical ('if they had given information in simple terms life would have been easy') and was drawn to ETFs and bonds; none of the 4 turned to the app when worried (brother, Reddit, friend, nothing). " +
+    "On pay less: paying less does not reduce losses on units already held, and in a dip each rupee buys more units, so SIPal offers pay-less only as a gentler alternative to stopping, never as a way to avoid losses (that would be market timing and investment advice). Measured by the stop-to-adjust rate from the KPI tree.");
 }
 
 // =====================================================================================================================
