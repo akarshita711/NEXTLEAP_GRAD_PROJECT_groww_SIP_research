@@ -261,7 +261,7 @@ let drivers = [0, 1, 3];
 function newFunds() { let f; do { f = [Math.floor(Math.random() * FLEXI.length), Math.floor(Math.random() * INDEX.length)]; } while (f[0] === funds[0] && f[1] === funds[1]); funds = f;
   const pool = [0, 1, 2, 3, 4, 5, 6, 7].sort(() => Math.random() - 0.5); drivers = pool.slice(0, 3); }
 newFunds();
-const state = { screen: "lock", choice: null, newAmount: null, custom: false, chat: [], ctx: "SIPal home", from: "hub", busy: false, payFrom: "due", dismissed: {}, answered: false };
+const state = { screen: "lock", choice: null, newAmount: null, custom: false, chat: [], ctx: "SIPal home", from: "hub", busy: false, payFrom: "due", dismissed: {}, answered: false, lockMode: "weekly" };
 let daysLeft = 3, dueSeen = false;          // SIPal reminds daily from 3 days before the debit: 3, 2, 1 days, then today
 const dlText = () => daysLeft === 0 ? "today" : daysLeft === 1 ? "in 1 day" : `in ${daysLeft} days`;
 function updateTaskLabel() { const b = $("#t2label"); if (b) b.textContent = "SIP due " + dlText(); }
@@ -357,10 +357,10 @@ const SCREENS = {
   lock() {
     const d = dates(), s = scn(), dsm = state.dismissed, seq = 4 - daysLeft;
     const dueTitle = daysLeft === 0 ? "Your SIP is due today" : `Your SIP is due ${dlText()}`;
-    const showDue = !dsm.due && !state.answered;
+    const showDue = state.lockMode === "due" && !dsm.due && !state.answered;
     dueSeen = dueSeen || showDue;
     const cards = [];
-    if (!dsm.weekly) cards.push(`<div class="ncard" id="n-weekly"><button class="top" onclick="go('checkin')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg>
+    if (state.lockMode === "weekly" && !dsm.weekly) cards.push(`<div class="ncard" id="n-weekly"><button class="top" onclick="go('checkin')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg>
         <span style="flex:1"><span class="app"><span>SIPal</span><span>now</span></span><span class="t">Your weekly SIP check-in is ready &#127807;</span><span class="b">See how your funds did this week, why the market moved, and whether it's normal. Takes about a minute.</span></span></button>
         <div class="acts"><button class="p" onclick="go('checkin')">See my check-in</button><button onclick="dismiss('weekly')">Not now</button></div></div>`);
     if (showDue) cards.push(`<div class="ncard ${seq > 1 ? "stacked" : ""}" id="n-due"><button class="top" onclick="state.choice=null;state.newAmount=null;go('due')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg>
@@ -487,8 +487,8 @@ function useCustom() {
 function toggleReasons() { const r = $("#c-reasons"), b = $("#c-whybtn"); if (!r || !r.innerHTML) return; const on = r.classList.toggle("on"); b.setAttribute("aria-expanded", on); $("#c-pill").innerHTML = on ? "Hide reasons &#9652;" : "Economic reasons &#9662;"; }
 let lastDir = Math.random() < 0.5 ? "up" : "down";
 function start(which) { state.choice = null; state.newAmount = null; state.custom = false; state.chat = []; newFunds();
-  if (which !== "ask") { const dir = lastDir = lastDir === "down" ? "up" : "down"; $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; }
-  if (which !== "ask" && dueSeen) { daysLeft = daysLeft === 0 ? 3 : daysLeft - 1; dueSeen = false; updateTaskLabel(); }
+  if (which === "weekly" || which === "lock") { const dir = lastDir = lastDir === "down" ? "up" : "down"; $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; state.lockMode = "weekly"; }
+  if (which === "due") { if (dueSeen) { daysLeft = daysLeft === 0 ? 3 : daysLeft - 1; dueSeen = false; updateTaskLabel(); } state.lockMode = "due"; }
   state.dismissed = {}; state.answered = false;
   if (which === "ask") { state.screen = "hub"; openChat("SIPal home"); }
   else { state.screen = ""; go("lock"); }
