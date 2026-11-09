@@ -62,8 +62,8 @@
   {
    "id": "k_missed",
    "title": "When an instalment fails",
-   "src": "amfi",
-   "text": "If an auto-debit fails, for example because of a low balance, an inactive autopay mandate or a bank outage, that month's amount is not invested. The SIP itself stays registered. Most fund houses cancel a SIP only after several failed instalments in a row, commonly three; the exact rule depends on the fund house, so check the scheme terms or the app."
+   "src": "groww_help",
+   "text": "If an auto-debit fails, for example because of a low balance, an inactive autopay mandate or a bank outage, that month's amount is not invested. The SIP stays registered, but as the Groww app notes under SEBI's rules, a SIP is cancelled if 3 instalments in a row are missed or skipped."
   },
   {
    "id": "k_charges",
@@ -75,13 +75,13 @@
    "id": "k_skip",
    "title": "Skipping an instalment",
    "src": "groww_help",
-   "text": "Skipping means that month's instalment is not taken. The SIP stays active and the units already held stay invested; no new units are bought that month."
+   "text": "Skipping means that month's instalment is not taken. The SIP stays active and the units already held stay invested; no new units are bought that month. A skip counts towards the rule that cancels a SIP after 3 missed or skipped instalments in a row."
   },
   {
    "id": "k_lower",
    "title": "Paying less or changing the date",
    "src": "groww_help",
-   "text": "Platforms let investors change a SIP's amount or date. A change has to be made a few working days before the next debit to take effect. Paying less buys fewer units that month, and the SIP stays active."
+   "text": "Platforms let investors change a SIP's amount or date. A change has to be made a few working days before the next debit to take effect. Each fund house sets a minimum SIP amount for each scheme, shown in the scheme details, so the amount cannot go below it. Paying less buys fewer units that month, and the SIP stays active."
   },
   {
    "id": "k_stop",

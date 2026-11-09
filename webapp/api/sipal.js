@@ -30,13 +30,14 @@ function scenario(raw = {}) {
   const months = Math.round(clamp(raw.months, 1, 12, 11));
   const weekPct = Math.round(clamp(raw.weekPct, -15, 15, -1.8) * 10) / 10;
   const overallPct = Math.round(clamp(raw.overallPct, -40, 40, weekPct < 0 ? -4.7 : 5.3) * 10) / 10;
-  const newAmount = raw.newAmount === undefined ? null : Math.round(clamp(raw.newAmount, 0, amount, 0) / 100) * 100;
+  const sipA = Math.max(100, Math.round(amount * 0.6 / 100) * 100), sipB = Math.max(0, amount - sipA);   // two SIPs: flexi cap (due soon) + index
+  const newAmount = raw.newAmount === undefined ? null : Math.round(clamp(raw.newAmount, 0, sipA, 0));
   const invested = amount * months, current = Math.round(invested * (1 + overallPct / 100) / 100) * 100;
   const fi = Math.round(clamp((raw.funds || [])[0], 0, FLEXI.length - 1, 0)), ii = Math.round(clamp((raw.funds || [])[1], 0, INDEX.length - 1, 0));
   const dir = weekPct < 0 ? "down" : "up", pool = KB.drivers[dir];
   let dv = (Array.isArray(raw.drivers) ? raw.drivers : []).map(x => Math.round(clamp(x, 0, pool.length - 1, 0))).filter((v, i, a) => a.indexOf(v) === i).slice(0, 3);
   if (dv.length < 3) dv = dir === "down" ? [0, 1, 3] : [0, 1, 2];
-  return { amount, months, weekPct, overallPct, newAmount, invested, current, diff: current - invested, dir, holdings: [FLEXI[fi], INDEX[ii]], drivers: dv.map(i => pool[i]) };
+  return { amount, sipA, sipB, months, weekPct, overallPct, newAmount, invested, current, diff: current - invested, dir, holdings: [FLEXI[fi], INDEX[ii]], drivers: dv.map(i => pool[i]) };
 }
 function facts(s) {
   const d = dates(), m = KB.market[s.dir];
@@ -45,11 +46,12 @@ function facts(s) {
       overall_change: `${s.diff < 0 ? "−" : "+"}${inr(s.diff)} (${pct(s.overallPct)})`, this_week_change: pct(s.weekPct),
       funds: [{ name: s.holdings[0], type: "flexi cap fund", this_week: pct(Math.round(s.weekPct * 9) / 10) }, { name: s.holdings[1], type: "Nifty 50 index fund", this_week: pct(m.change) }],
       holdings_note: "sample holdings and sample returns for a demo, not real fund performance",
-      next_instalment: `${inr(s.amount)} on ${d.due}` },
+      sips: [{ fund: s.holdings[0], amount: inr(s.sipA), next_date: d.due }, { fund: s.holdings[1], amount: inr(s.sipB), next_date: "1st of next month" }],
+      next_instalment: `${inr(s.sipA)} for ${s.holdings[0]} on ${d.due}` },
     market_this_week: { note: KB.market.label, index: m.index, change: pct(m.change), main_reason: s.drivers[0].short + " and " + s.drivers[1].short,
       economic_reasons: s.drivers.map(x => ({ reason: x.title, how_it_works: x.text })) },
-    due_flow: { due_date: d.due, usual_amount: inr(s.amount), chosen_amount_this_month: s.newAmount === null ? null : inr(s.newAmount),
-      last_day_to_change: d.lastChange, next_month_date: d.nextMonth, next_month_amount: inr(s.amount) },
+    due_flow: { fund: s.holdings[0], due_date: d.due, usual_amount: inr(s.sipA), chosen_amount_this_month: s.newAmount === null ? null : inr(s.newAmount),
+      minimum_sip_amount_sample: inr(500), last_day_to_change: d.lastChange, next_month_date: d.nextMonth, next_month_amount: inr(s.sipA) },
   };
 }
 
@@ -97,7 +99,7 @@ const ASK_SCHEMA = { type: "object", properties: {
 function promptCheckin(F) {
   return `${RULES}
 TASK: write the investor's weekly SIP check-in as three short parts (1 or 2 sentences each, under 40 words each):
-- why: name each of the investor's two funds by its full name with its change this week, then say why in plain words: the main reasons (the first two economic reasons) and the index move. Example shape: "Your <fund 1> fell 1.6% and your <fund 2> fell 2.1% this week because <reason 1> and <reason 2>, which pulled the <index> down 2.1%." Use "fell" or "grew" to match the sign, and "pushed ... up" or "pulled ... down" to match the index move. Write the reasons in lower case inside the sentence.
+- why: name each of the investor's two funds by its full name with its change this week, then say why in plain words: the main reasons (the first two economic reasons) and the index move. Example shape: "Your <fund 1> fell 1.6% and your <fund 2> fell 2.1% this week because <reason 1> and <reason 2>, which pulled the <index> down 2.1%." Use "fell" or "grew" to match the sign, and "pushed ... up" or "pulled ... down" to match the index move. Start each reason with a lower-case letter inside the sentence, but keep proper nouns capitalised (Indian, RBI, US, Diwali, IPO).
 - normal: whether a move like this is normal, using the rules (no predictions).
 - todo: what they can do; say plainly when no action is needed and when the next instalment is.
 List the rule ids you used in kb_ids.
@@ -109,7 +111,7 @@ ${kbText(["k_nav", "k_rca", "k_firstyear", "k_returns", "k_skip", "k_lower"])}`;
 function promptDue(F) {
   return `${RULES}
 TASK: the investor's SIP is due soon and they chose to pay ${F.due_flow.chosen_amount_this_month} instead of ${F.due_flow.usual_amount} this month only${F.due_flow.chosen_amount_this_month === "₹0" ? " (that means skipping this month)" : ""}.
-In 2 or 3 short sentences (under 60 words) explain what changes: whether the SIP stays active, any penalty, what happens to units this month, and that next month goes back to the usual amount. List rule ids used in kb_ids.
+In 2 or 3 short sentences (under 65 words) explain what changes for their SIP in the fund named in the facts: whether the SIP stays active, any penalty, what happens to units this month, and that next month goes back to the usual amount. If they are skipping, also say that 3 missed or skipped instalments in a row cancel a SIP. Do not name the fund. List rule ids used in kb_ids.
 FACTS: ${JSON.stringify(F.due_flow)}
 RULES:
 ${kbText(["k_skip", "k_lower", "k_charges", "k_missed", "k_rca"])}`;
@@ -148,7 +150,7 @@ function fbCheckin(F, s) {
 }
 function fbDue(F) {
   const skip = F.due_flow.chosen_amount_this_month === "₹0";
-  return { changes: skip ? `Skipping keeps your SIP active, and there is no penalty from the fund house. No new units are bought this month, and from ${F.due_flow.next_month_date} it goes back to ${F.due_flow.usual_amount}.`
+  return { changes: skip ? `Skipping keeps your SIP active, and there is no penalty from the fund house. No new units are bought this month, and from ${F.due_flow.next_month_date} it goes back to ${F.due_flow.usual_amount}. Note: 3 missed or skipped instalments in a row cancel a SIP.`
     : `Your SIP stays active and there is no penalty from the fund house. You buy fewer units this month, and from ${F.due_flow.next_month_date} it goes back to ${F.due_flow.usual_amount}.`, kb_ids: ["k_skip", "k_lower", "k_charges"] };
 }
 const T = {
