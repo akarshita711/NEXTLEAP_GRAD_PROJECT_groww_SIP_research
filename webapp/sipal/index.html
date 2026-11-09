@@ -400,7 +400,7 @@ const SCREENS = {
   due() {
     const d = dates(), s = scn(), c = state.choice, na = state.newAmount;
     const opts = [MIN_SIP, Math.round(s.sipA / 3 / 100) * 100, Math.round(s.sipA * 2 / 3 / 100) * 100].filter((v, i, a) => v >= MIN_SIP && v < s.sipA && a.indexOf(v) === i);
-    if (c === "less" && na !== null) setTimeout(loadDue, 0);
+    if (c === "less" && na !== null && !state.custom) setTimeout(loadDue, 0);
     return `${head("SIPal Assistant", MF())}<div class="body"><div class="pad">
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your next SIP</div><div class="hs">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due} (${daysLeft === 0 ? "today" : dlText()})</div></div></div>
       <div class="card"><div class="h5">Can you pay ${inr(s.sipA)} this month?</div>
@@ -408,11 +408,12 @@ const SCREENS = {
       ${c === "less" ? `<div class="card"><div class="h5">Pay a smaller amount, just for ${d.dueMonth}</div>
         <div class="infobox"><span>&#9432;</span><span>Each fund house sets a minimum SIP amount. For ${FLEXI[funds[0]]}, it is ${inr(MIN_SIP)} (sample; check the scheme details). You can pay from ${inr(MIN_SIP)} up to ${inr(s.sipA)}.</span></div>
         <div class="chips">${opts.map(v => `<button class="chip ${na === v && !state.custom ? "sel" : ""}" onclick="pick(${v})">${inr(v)}</button>`).join("")}<button class="chip ${na === 0 ? "sel" : ""}" onclick="pick(0)">Skip</button></div>
-        ${state.custom ? `<form class="custom" novalidate onsubmit="event.preventDefault();useCustom()"><input id="camt" type="number" inputmode="numeric" placeholder="Amount in ₹" min="${MIN_SIP}" max="${s.sipA - 1}" value="${state.custom && na ? na : ""}" aria-label="Custom amount"><button>Use</button></form><div class="err" id="cerr"></div>`
-          : `<button class="linkbtn" onclick="state.custom=true;go('due');setTimeout(()=>$('#camt')&&$('#camt').focus(),50)">+ Enter custom amount</button>`}
+        ${state.custom ? `<form class="custom" novalidate onsubmit="event.preventDefault();useCustom()"><input id="camt" type="number" inputmode="numeric" enterkeyhint="go" placeholder="Enter amount in ₹" min="${MIN_SIP}" max="${s.sipA - 1}" value="${state.custom && na ? na : ""}" aria-label="Custom amount" oninput="$('#cerr').textContent=''"></form><div class="err" id="cerr"></div>`
+          : `<button class="linkbtn" onclick="state.custom=true;state.newAmount=null;go('due');setTimeout(()=>$('#camt')&&$('#camt').focus(),50)">+ Enter custom amount</button>`}
         <div class="sub" style="margin-top:8px">Next month goes back to ${inr(s.sipA)} on its own.</div>
         ${daysLeft <= 1 ? `<div class="infobox"><span>&#9432;</span><span>It's close to the debit date. If a change can't reach the fund house in time, it applies from next month.</span></div>` : ""}</div>
-        ${na !== null ? `<div class="card"><div class="h5"><span class="dot" style="background:var(--green)">&#10003;</span>What changes?</div><div class="txt" id="d-changes"><div class="skel"></div><div class="skel" style="width:70%"></div></div></div><div id="d-qc"></div>
+        ${state.custom ? `<button class="btn pri" onclick="useCustom()">Proceed to pay</button>` : ""}
+        ${na !== null && !state.custom ? `<div class="card"><div class="h5"><span class="dot" style="background:var(--green)">&#10003;</span>What changes?</div><div class="txt" id="d-changes"><div class="skel"></div><div class="skel" style="width:70%"></div></div></div><div id="d-qc"></div>
         <button class="btn pri" onclick="go('payConfirm')">Continue</button>` : ""}
         <div class="sub" style="text-align:center">Other options: move the date &middot; stop the SIP (always available in SIPs)</div>` : ""}
       ${askBtn("SIP due reminder")}${NA}</div></div>`;
@@ -482,7 +483,7 @@ function useCustom() {
   const s = scn(), v = Math.round(+$("#camt").value || 0), e = $("#cerr");
   if (v < MIN_SIP) { e.textContent = `The minimum for this fund is ${inr(MIN_SIP)}.`; return; }
   if (v >= s.sipA) { e.textContent = `That's your usual amount or more. Choose "Yes, all set" instead.`; return; }
-  state.newAmount = v; go("due");
+  state.newAmount = v; go("payConfirm");
 }
 function toggleReasons() { const r = $("#c-reasons"), b = $("#c-whybtn"); if (!r || !r.innerHTML) return; const on = r.classList.toggle("on"); b.setAttribute("aria-expanded", on); $("#c-pill").innerHTML = on ? "Hide reasons &#9652;" : "Economic reasons &#9662;"; }
 let lastDir = Math.random() < 0.5 ? "up" : "down";
