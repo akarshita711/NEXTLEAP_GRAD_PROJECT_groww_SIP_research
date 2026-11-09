@@ -77,8 +77,8 @@
   .chatbar { flex:none; border-top:1px solid var(--line); background:#fff; padding:8px 10px 12px; min-width:0; max-width:100%; overflow:hidden; }
   .screen, .phone, .wrap, .body, .pad { min-width:0; }
   .msg { overflow-wrap:anywhere; }
-  .ask { background:#F2F3F7; border-radius:24px; display:flex; align-items:center; padding:4px 4px 4px 14px; }
-  .ask input { flex:1; min-width:0; border:0; outline:0; font:inherit; font-size:16px; padding:10px 0; background:transparent; }
+  .ask { background:#F2F3F7; border-radius:24px; display:flex; align-items:flex-end; padding:4px 4px 4px 14px; }
+  .ask textarea { flex:1; min-width:0; border:0; outline:0; font:inherit; font-size:16px; line-height:1.35; padding:10px 0; background:transparent; resize:none; height:42px; max-height:120px; overflow-y:auto; }
   .send { width:42px; height:42px; border-radius:50%; background:var(--blue); display:grid; place-items:center; flex:none; }
   .send:disabled { background:#B9C0F7; }
   .sugg { display:flex; gap:6px; overflow-x:auto; padding-bottom:8px; scrollbar-width:none; }
@@ -95,7 +95,7 @@
   .rowkv { display:flex; justify-content:space-between; font-size:14px; padding:9px 0; border-bottom:1px dashed var(--line); gap:12px; }
   .rowkv:last-child { border-bottom:0; } .rowkv span:first-child { color:var(--muted); } .rowkv b { text-align:right; }
   .msg { max-width:88%; border-radius:16px; padding:10px 12px; font-size:14px; line-height:1.45; }
-  .msg.me { align-self:flex-end; background:var(--blue); color:#fff; border-bottom-right-radius:4px; }
+  .msg.me { white-space:pre-wrap; align-self:flex-end; background:var(--blue); color:#fff; border-bottom-right-radius:4px; }
   .msg.bot { align-self:flex-start; background:#fff; border:1px solid var(--line); border-bottom-left-radius:4px; display:flex; flex-direction:column; gap:8px; }
   .skel { background:linear-gradient(90deg,#EEF0F4 25%,#F7F8FA 50%,#EEF0F4 75%); background-size:200% 100%; animation:sh 1.2s infinite; border-radius:6px; height:13px; margin-top:7px; }
   @keyframes sh { to { background-position:-200% 0; } }
@@ -203,7 +203,7 @@
     <div class="tasks">
       <button class="task" onclick="start('weekly')"><span class="n">1</span><span><b>Weekly check-in</b><span class="d">Why your SIP rose or fell, and is it normal</span></span></button>
       <button class="task" onclick="start('due')"><span class="n b">2</span><span><b id="t2label">SIP due in 3 days</b><span class="d">Pay in full, or pay less this month</span></span></button>
-      <button class="task" onclick="start('ask')"><span class="n k">3</span><span><b>Ask for advice</b><span class="d">Ask which fund to buy and see what happens</span></span></button>
+      <button class="task" onclick="start('ask')"><span class="n k">3</span><span><b>Ask SIPal</b><span class="d">Ask anything about your SIP, in your own words</span></span></button>
       <button class="mset" onclick="openSettings()" aria-label="Sample SIP settings">&#9881;</button>
     </div>
     <div class="sample" id="sample"><h3>Change the sample SIP</h3>
@@ -449,10 +449,11 @@ const SCREENS = {
     setTimeout(() => { renderChat(); const i = $("#q"); if (i && window.innerWidth > 760) i.focus(); }, 0);
     return `${head("Ask SIPal", MF())}<div class="body" id="chatbody"><div class="pad" style="gap:10px" id="chatlist"></div></div>
       <div class="chatbar"><div class="sugg">${SUG.map(q => `<button type="button" onclick="ask(this.textContent)">${q}</button>`).join("")}</div>
-        <form class="ask" onsubmit="event.preventDefault(); ask($('#q').value)"><input id="q" placeholder="Type your question" autocomplete="off" enterkeyhint="send" maxlength="300" aria-label="Ask SIPal"><button class="send" id="qsend" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form>
+        <form class="ask" onsubmit="event.preventDefault(); ask($('#q').value)"><textarea id="q" rows="1" placeholder="Type your question" autocomplete="off" enterkeyhint="enter" maxlength="500" aria-label="Ask SIPal" oninput="growQ()" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();ask(this.value);}"></textarea><button class="send" id="qsend" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form>
         <div class="na" style="margin-top:6px">SIPal explains; it does not give investment advice.</div></div>`;
   },
 };
+function growQ() { const t = $("#q"); if (!t) return; t.style.height = "42px"; t.style.height = Math.min(t.scrollHeight, 120) + "px"; }
 function renderChat() {
   const L = $("#chatlist"); if (!L) return;
   L.innerHTML = `<div class="na">Context: ${esc(state.ctx)} &middot; sample SIP</div>` + (state.chat.length ? "" : `<div class="msg bot">Hi! Ask me anything about your SIP: missed instalments, skipping, paying less, returns or XIRR. Tap a suggestion below or type your own.</div>`) +
@@ -519,7 +520,7 @@ async function loadDue() {
 }
 async function ask(q) {
   q = String(q || "").trim(); if (!q || state.busy) return;
-  state.busy = true; const inp = $("#q"), btn = $("#qsend"); if (inp) inp.value = ""; if (btn) btn.disabled = true;
+  state.busy = true; const inp = $("#q"), btn = $("#qsend"); if (inp) { inp.value = ""; growQ(); } if (btn) btn.disabled = true;
   state.chat.push({ me: true, text: q }); const m = { loading: true }; state.chat.push(m); renderChat();
   try { m.r = await api({ mode: "ask", question: q, context: state.ctx, scenario: scn() }); }
   catch (e) { m.r = { answer: e.message, fallback: true, fallback_reason: "AI unavailable right now", sources: [] }; }
