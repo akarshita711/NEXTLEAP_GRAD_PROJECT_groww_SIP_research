@@ -41,8 +41,8 @@ module.exports = function addKpiTreeV3(pres, s, C) {
   const ey = i => Y0 + i * (H + G);
   const E = [
     box(4, ey(0), H, "Autopay active rate", "working autopay ÷ SIPs due"),
-    box(4, ey(1), H, "First-try debit success", "successful debits ÷ debits tried", { line: Y, lw: 3, name: "metric-debit-success" }),
-    box(4, ey(2), H, "Stop-intent rate", "opened stop or cancel ÷ SIPs due"),
+    box(4, ey(1), H, "First-try debit success", "successful debits ÷ debits tried"),
+    box(4, ey(2), H, "Stop-intent rate", "opened stop or cancel ÷ SIPs due", { line: Y, lw: 3, name: "metric-stop-intent" }),
     box(4, ey(3), H, "Stop-to-adjust rate", "adjusted ÷ opened stop or cancel", { line: Y, lw: 3, name: "metric-stop-to-adjust" }),
     box(4, ey(4), H, "Debit failure rate", "failed debits ÷ SIPs due"),
     box(4, ey(5), H, "Fix rate", "paid within 7 days ÷ failed"),
@@ -50,7 +50,7 @@ module.exports = function addKpiTreeV3(pres, s, C) {
   // monthly product metrics (column 4), each centred on its pair
   const mid = (a, b) => (a.y + b.y + b.h) / 2 - H / 2;
   const D = [
-    box(3, mid(E[0], E[1]), H, "Paid on time", "paid as planned ÷ due", { line: O, lw: 2.5 }),
+    box(3, mid(E[0], E[1]), H, "Paid on time", "paid as planned ÷ due"),
     box(3, mid(E[2], E[3]), H, "Adjusted, not stopped", "skip, lower, move ÷ due", { line: O, lw: 2.5 }),
     box(3, mid(E[4], E[5]), H, "Recovered after failing", "paid within 7 days ÷ due"),
   ];
@@ -71,14 +71,14 @@ module.exports = function addKpiTreeV3(pres, s, C) {
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.5, y: 6.5, w: 12.33, h: 0.76, rectRadius: 0.1, fill: { color: CARD2 }, line: { color: Y, width: 2 }, objectName: "pick" });
   s.addText([
     { text: "Steady SIP continuity can be increased by ", options: { bold: true } },
-    { text: "the first-try debit success rate ", options: { bold: true, color: Y } }, { text: "and ", options: { bold: true } },
-    { text: "the stop-to-adjust rate.", options: { bold: true, color: Y, breakLine: true } },
-    { text: "The first keeps money flowing every month with no effort from the investor; the second turns a decision to leave into a smaller step.", options: { fontSize: 14 } }],
+    { text: "lowering the stop-intent rate ", options: { bold: true, color: Y } }, { text: "and ", options: { bold: true } },
+    { text: "raising the stop-to-adjust rate.", options: { bold: true, color: Y, breakLine: true } },
+    { text: "Fewer investors reach for stop when returns fall, and those who do take a smaller step instead of leaving.", options: { fontSize: 14 } }],
     { x: 0.7, y: 6.52, w: 11.93, h: 0.72, fontFace: BODY, fontSize: 16, color: WHITE, valign: "middle", margin: 0 });
   s.addNotes(
     "Business metric: 12-month active SIP rate = first-timers active at month 12 (at least one successful instalment in the last 30 days) / first-timers who started a first SIP. " +
     "Active at month 12 = first-timers whose first instalment was paid x the monthly continuation rate, multiplied over months 2 to 12. " +
     "Monthly continuation rate = paid on time + adjusted instead of stopped + recovered after a failed debit (each as a share of SIPs due that month; the three are mutually exclusive). " +
     "Paid on time = autopay active rate x first-try debit success. Adjusted, not stopped = stop-intent rate x stop-to-adjust rate (skip, lower amount or new date instead of cancelling). Recovered = debit failure rate x fix rate within 7 days. " +
-    "Why these two: first-try debit success touches every instalment every month and keeps money flowing without the investor having to act; stop-to-adjust is the one point where an investor actively decides to leave, and turning a stop into a smaller step keeps the SIP alive. Both are moments the app controls.");
+    "Why these two: stop-intent is the share of SIPs where the investor opens stop or cancel, which is how a scary month shows up in the product; stop-to-adjust is the share of those who pay less, skip or move the date instead of cancelling. Lowering the first and raising the second both keep SIPs alive, and both are moments the app controls.");
 };
