@@ -134,7 +134,7 @@
   .nact { display:flex; gap:8px; margin:8px 12px 0; } .nact button { flex:1; background:rgba(245,246,250,.94); color:var(--ink); border-radius:15px; padding:11px 0; font-weight:600; font-size:14px; }
   .hint { text-align:center; font-size:13px; opacity:.75; margin-top:14px; }
   .view { flex:1; min-height:0; display:flex; flex-direction:column; height:100%; }
-  .view.fwd { animation:inR .28s ease-out; } .view.back { animation:inL .28s ease-out; } .view.fade { animation:fadeIn .22s ease-out; }
+  .view.v-fwd { animation:inR .28s ease-out; } .view.v-back { animation:inL .28s ease-out; } .view.v-fade { animation:fadeIn .22s ease-out; }
   @keyframes inR { from { opacity:0; transform:translateX(36px); } to { opacity:1; transform:none; } }
   @keyframes inL { from { opacity:0; transform:translateX(-36px); } to { opacity:1; transform:none; } }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -178,7 +178,7 @@
   @media (max-width: 760px) {
     html, body { height:100%; width:100%; overflow:hidden; background:#fff; }
     .wrap, .phone, .screen { max-width:100vw; overflow:hidden; }
-    body { display:flex; flex-direction:column; height:100dvh; }
+    body { display:flex; flex-direction:column; height:100dvh; position:fixed; inset:0; }
     .topbar { font-size:12px; padding:6px 10px; gap:4px; flex:none; }
     .wrap { flex:1; min-height:0; flex-direction:column; align-items:stretch; padding:0; gap:0; max-width:none; }
     .guide { flex:none; max-width:none; border-radius:0; box-shadow:none; border-bottom:1px solid var(--line); padding:8px 10px; }
@@ -374,7 +374,7 @@ const SCREENS = {
   },
   hub() {
     const d = dates(), s = scn();
-    return `${head("SIPal Assistant", "explore")}<div class="body"><div class="pad">
+    return `${head("SIPal Assistant", MF())}<div class="body"><div class="pad">
       <div class="hero"><svg width="64" height="64" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Hi, I'm SIPal.</div><div class="hs">I explain your SIP in plain words. I don't give investment advice.</div></div></div>
       <button class="card" style="text-align:left" onclick="go('checkin')"><div class="h5"><span class="dot" style="background:var(--blue)">&#9679;</span>Weekly check-in is ready</div><div class="txt">${d.week}: see how your funds did and why.</div></button>
       <button class="card" style="text-align:left" onclick="state.choice=null;state.newAmount=null;go('due')"><div class="h5"><span class="dot" style="background:var(--green)">&#8377;</span>Next SIP due ${dlText()}</div><div class="txt">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due}. Check if this month is OK.</div></button>
@@ -384,7 +384,7 @@ const SCREENS = {
     const d = dates(), s = scn(), dir = s.weekPct < 0 ? "down" : "up";
     const f1 = Math.round(s.weekPct * 9) / 10, f2 = dir === "down" ? -2.1 : 1.9;
     setTimeout(loadCheckin, 0);
-    return `${head("SIPal Assistant", ["dashboard", "lock"].includes(state.from) ? state.from : "hub")}<div class="body"><div class="pad">
+    return `${head("SIPal Assistant", MF())}<div class="body"><div class="pad">
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your weekly check-in</div><div class="hs">${d.week} &middot; SIP running for ${s.months} month${s.months > 1 ? "s" : ""}</div></div></div>
       <div class="card"><div class="lbl">YOUR SIP PORTFOLIO (SAMPLE)</div><div class="val">${inr(s.current)}</div><div class="sub">Invested ${inr(s.invested)}</div>
         <div class="tags"><span class="tag ${dir}">${dir === "down" ? "&#9660;" : "&#9650;"} ${pct(s.weekPct)} this week</span><span class="tag ${s.diff < 0 ? "down" : "up"}">${s.diff < 0 ? "&#9660; −" : "&#9650; +"}${inr(s.diff)} overall</span></div>
@@ -401,7 +401,7 @@ const SCREENS = {
     const d = dates(), s = scn(), c = state.choice, na = state.newAmount;
     const opts = [MIN_SIP, Math.round(s.sipA / 3 / 100) * 100, Math.round(s.sipA * 2 / 3 / 100) * 100].filter((v, i, a) => v >= MIN_SIP && v < s.sipA && a.indexOf(v) === i);
     if (c === "less" && na !== null) setTimeout(loadDue, 0);
-    return `${head("SIPal Assistant", ["sips", "lock"].includes(state.from) ? state.from : "hub")}<div class="body"><div class="pad">
+    return `${head("SIPal Assistant", MF())}<div class="body"><div class="pad">
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your next SIP</div><div class="hs">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due} (${daysLeft === 0 ? "today" : dlText()})</div></div></div>
       <div class="card"><div class="h5">Can you pay ${inr(s.sipA)} this month?</div>
         <div class="choices"><button class="choice" onclick="state.choice='yes';state.newAmount=null;go('payConfirm')"><span class="r"></span>Yes, all set</button><button class="choice ${c === "less" ? "sel" : ""}" onclick="state.choice='less';state.newAmount=null;state.custom=false;go('due')"><span class="r"></span>Not this month</button></div></div>
@@ -419,7 +419,7 @@ const SCREENS = {
   },
   payConfirm() {
     const d = dates(), s = scn(), full = state.choice === "yes", amt = full ? s.sipA : state.newAmount, skip = !full && amt === 0;
-    return `${head(skip ? "Skip this month?" : "Proceed to pay?", state.payFrom === "lock" ? "lock" : "due")}<div class="body"><div class="pad">
+    return `${head(skip ? "Skip this month?" : "Proceed to pay?", MF())}<div class="body"><div class="pad">
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">${skip ? "Skip this month?" : "Proceed to pay?"}</div><div class="hs">Please check the details</div></div></div>
       <div class="card">
         <div class="rowkv"><span>Fund</span><b>${FLEXI[funds[0]]}</b></div>
@@ -434,7 +434,7 @@ const SCREENS = {
   },
   done() {
     const d = dates(), s = scn(), full = state.choice === "yes", amt = full ? s.sipA : state.newAmount;
-    return `${head("SIPal Assistant", "hub")}<div class="body"><div class="pad">
+    return `${head("SIPal Assistant", MF())}<div class="body"><div class="pad">
       <div style="text-align:center;padding-top:10px"><svg width="96" height="96" viewBox="0 0 120 120"><use href="#char"/></svg>
         <div style="font-size:20px;font-weight:700;margin-top:4px">${full ? `All set! ${inr(amt)} goes in on ${d.due}` : `Done! ${d.dueMonth} is set to ${amt === 0 ? "skip" : inr(amt)}`}</div><div class="sub" style="font-size:14px">Your SIP keeps running. Nothing else to do.</div></div>
       ${full ? "" : `<div class="card"><div class="h5">What happens next</div>
@@ -447,7 +447,7 @@ const SCREENS = {
   chat() {
     const SUG = ["What happens if I miss 3 SIPs?", "Which fund should I buy instead?", "Should I stop my SIP?", "What is XIRR?", "SIP skip karne se kya hoga?", "Will my bank charge me if the debit fails?"];
     setTimeout(() => { renderChat(); const i = $("#q"); if (i && window.innerWidth > 760) i.focus(); }, 0);
-    return `${head("Ask SIPal", state.from || "hub")}<div class="body" id="chatbody"><div class="pad" style="gap:10px" id="chatlist"></div></div>
+    return `${head("Ask SIPal", MF())}<div class="body" id="chatbody"><div class="pad" style="gap:10px" id="chatlist"></div></div>
       <div class="chatbar"><div class="sugg">${SUG.map(q => `<button type="button" onclick="ask(this.textContent)">${q}</button>`).join("")}</div>
         <form class="ask" onsubmit="event.preventDefault(); ask($('#q').value)"><input id="q" placeholder="Type your question" autocomplete="off" enterkeyhint="send" maxlength="300" aria-label="Ask SIPal"><button class="send" id="qsend" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form>
         <div class="na" style="margin-top:6px">SIPal explains; it does not give investment advice.</div></div>`;
@@ -461,17 +461,20 @@ function renderChat() {
   const B = $("#chatbody"); if (B) B.scrollTop = B.scrollHeight;
 }
 const TABS = ["explore", "dashboard", "sips", "watchlist"];
+const MF = () => state.lastTab || "explore";
 function go(name, how) {
   if (name === "lockWeekly" || name === "lockDue") name = "lock";
   if (!["chat", "payConfirm", "done"].includes(name) && name !== state.screen && !["payConfirm", "done", "chat"].includes(state.screen)) state.from = state.screen;
   if (name === "payConfirm" && state.screen !== "payConfirm") state.payFrom = state.screen;
   if (name === "done") state.answered = true;
+  if (TABS.includes(name)) state.lastTab = name;
+  if (name === "lock") state.lastTab = "explore";
   if (name === "explore") { state.choice = null; state.newAmount = null; state.custom = false; }
   const anim = how || (name === state.screen ? "" : TABS.includes(name) && TABS.includes(state.screen) ? "fade" : "fwd");
-  state.screen = name; $("#screen").innerHTML = `<div class="view ${anim}">${SCREENS[name]()}</div>`;
+  state.screen = name; $("#screen").innerHTML = `<div class="view ${anim ? "v-" + anim : ""}">${SCREENS[name]()}</div>`;
   const b = $("#screen .body"); if (b && name !== "chat") b.scrollTop = 0;
 }
-function openChat(ctx) { state.ctx = ctx; state.from = state.screen; state.screen = "chat"; $("#screen").innerHTML = `<div class="view fwd">${SCREENS.chat()}</div>`; }
+function openChat(ctx) { state.ctx = ctx; state.from = state.screen; state.screen = "chat"; $("#screen").innerHTML = `<div class="view v-fwd">${SCREENS.chat()}</div>`; }
 function dismiss(k) { const c = $("#n-" + k); if (c) c.classList.add("gone"); setTimeout(() => { state.dismissed[k] = true; go("lock"); }, 260); }
 function pick(v) { state.newAmount = v; state.custom = false; go("due"); }
 function useCustom() {
