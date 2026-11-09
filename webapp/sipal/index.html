@@ -425,7 +425,7 @@ const SCREENS = {
         <div class="rowkv"><span>Fund</span><b>${FLEXI[funds[0]]}</b></div>
         <div class="rowkv"><span>${skip ? "This month" : "Amount this month"}</span><b>${skip ? "Skipped" : inr(amt)}</b></div>
         <div class="rowkv"><span>Debit date</span><b>${d.due}</b></div>
-        <div class="rowkv"><span>From</span><b>Bank a/c &bull;&bull;4821 (autopay)</b></div>
+        <div class="rowkv"><span>From</span><b>Bank a/c &bull;&bull;4821</b></div>
         ${full ? "" : `<div class="rowkv"><span>Next month</span><b>${inr(s.sipA)} on ${d.next}</b></div>`}</div>
       ${skip ? `<div class="infobox"><span>&#9432;</span><span>Your SIP stays active. 3 missed or skipped instalments in a row cancel a SIP.</span></div>` : ""}
       <button class="btn pri" onclick="go('done')">${skip ? "Confirm skip" : "Proceed to pay"}</button>
