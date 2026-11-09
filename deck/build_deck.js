@@ -339,7 +339,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   const C3 = [
     ["Why idea 1 wins", GREEN, "It is the only idea that comes to the investor in the week returns fall, instead of waiting to be found. Low returns are the largest stated drop-off reason (33%), none of the 4 interviewees turned to the app when worried, and all 4 asked for a notification. It also scores far higher on RICE: 48, against 1.0 and 0.8."],
     ["How it was refined", BLUE, "Combined: a calm check-in that explains the dip with the investor's own funds and the week's economic reasons, plus a gentler step than stopping (pay less this month), offered again in daily reminders before the debit. Weekly, not daily; never advice; pay less is never pitched as loss protection."],
-    ["What it borrows", BLUE, "The name SIPal and the Explore entry come from idea 3, so the guide is also there whenever someone looks for it. A “Listen” button from idea 2 can come later for investors who prefer voice. The AI videos are dropped for now: they are costly to make, hard to check for accuracy, and general lessons are already free on YouTube."]];
+    ["How this helps", BLUE, "Investors get a calm, plain answer in the week their returns fall: why their own funds moved, whether a dip is normal in year one, and a gentler step than stopping. Groww keeps more first-timers investing through dips, measured by lower stop-intent and higher stop-to-adjust."]];
   C3.forEach((c, i) => {
     const x = 0.5 + i * 4.18;
     card(s, x, 4.48, 3.98, 2.72, PURE, c[1], "why-" + i);
