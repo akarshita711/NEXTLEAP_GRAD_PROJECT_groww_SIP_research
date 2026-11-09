@@ -58,9 +58,9 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   s.addImage({ path: ART + "groww_logo.png", x: 0.7, y: 0.55, w: 0.62, h: 0.62, altText: "Groww logo" });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 1.5, y: 0.61, w: 6.2, h: 0.5, rectRadius: 0.25, fill: { color: PURE }, line: { color: BLUE, width: 1.5 }, objectName: "kicker" });
   T(s, "NextLeap graduation project  |  Growth PM case: Groww", { x: 1.5, y: 0.61, w: 6.2, h: 0.5, fontSize: 16, bold: true, color: BLUE, align: "center", valign: "middle" });
-  T(s, "Helping first-time Groww investors stay invested through year one", { x: 0.7, y: 1.45, w: 7.1, h: 2.1, fontFace: HEAD, fontSize: 40, bold: true, valign: "top", color: GREEN, keepGreen: true });
+  T(s, "Cracking the 12-Month Horizon: Re-Engineering First-Time Investor Retention on Groww", { x: 0.7, y: 1.4, w: 7.15, h: 2.15, fontFace: HEAD, fontSize: 33, bold: true, valign: "middle", color: GREEN, keepGreen: true });
   s.addShape(pres.shapes.RECTANGLE, { x: 0.72, y: 3.62, w: 1.4, h: 0.09, fill: { color: BLUE }, line: { color: BLUE }, objectName: "title-underline" });
-  T(s, "Why first-time investors stop their SIP when returns fall, and SIPal: a calm in-app guide for that moment, without giving advice", { x: 0.7, y: 3.85, w: 7.1, h: 0.95, fontSize: 19 });
+  T(s, "A case study on why first-time investors stop their SIP when returns fall, and how to keep them invested through year one", { x: 0.7, y: 3.85, w: 7.1, h: 0.95, fontSize: 19 });
   s.addImage({ path: ART + "cover_art.png", x: 7.95, y: 0.55, w: 4.9, h: 4.0, altText: "Art: a SIPal sprout on a stack of rupee coins beside a rising green line, green and blue candles and a dashed blue line that falls and recovers" });
   card(s, 0.7, 4.95, 12.13, 0.95, PURE, GREEN, "north-star");
   T(s, [{ text: "North-star metric: ", options: { bold: true, color: BLUE } }, { text: "percentage of first-time mutual fund investors who still have an active SIP 12 months after starting their first one." }], { x: 0.95, y: 4.98, w: 11.6, h: 0.9, fontSize: 19, valign: "middle" });
@@ -115,11 +115,13 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   card(s, 8.8, 1.45, 4.03, 5.72, PURE, BLUE, "insights");
   T(s, "What investors are telling us", { x: 8.98, y: 1.53, w: 3.7, h: 0.36, fontSize: 16, bold: true, color: BLUE });
   T(s, [
-    { text: "1  A dip reads as a loss", options: { bold: true, color: BLUE, breakLine: true } }, { text: "“Sip band kar do kyun ki market aur gire ga.”", options: { italic: true, breakLine: true } },
-    { text: "2  Fear turns into stopping", options: { bold: true, color: BLUE, breakLine: true } }, { text: "“Owing to poor returns of market and the impending global crisis, I redeemed my Mutual Funds investments”", options: { italic: true, breakLine: true } },
-    { text: "3  They expected steady growth", options: { bold: true, color: BLUE, breakLine: true } }, { text: "84% of target-segment posts that state an expectation expect steady long-term growth.", options: { breakLine: true } },
-    { text: "4  They want a trusted answer", options: { bold: true, color: BLUE, breakLine: true } }, { text: "It is the top need in 54% of first-year posts; answers come from YouTube and Reddit, not the app." }],
-    { x: 8.98, y: 1.95, w: 3.7, h: 5.15, fontSize: 14, paraSpaceAfter: 3 });
+    { text: "82% ", options: { bold: true, color: BLUE } }, { text: "of 1,061 posts about falling or confusing returns sound confused, anxious or frustrated.", options: { breakLine: true } },
+    { text: "1  Unsure", options: { bold: true, color: BLUE, breakLine: true } }, { text: "\u201CShould I Stop My SIP in a Small-Cap Fund Underperforming the Benchmark?\u201D", options: { italic: true, breakLine: true } },
+    { text: "2  Panicking", options: { bold: true, color: BLUE, breakLine: true } }, { text: "\u201CSip band kar do kyun ki market aur gire ga.\u201D", options: { italic: true, breakLine: true } },
+    { text: "3  Shaken", options: { bold: true, color: BLUE, breakLine: true } }, { text: "\u201C\u2026I am scared to jump back in\u201D", options: { italic: true, breakLine: true } },
+    { text: "4  Confused by the numbers", options: { bold: true, color: BLUE, breakLine: true } }, { text: "\u201C\u2026my dashboard is showing less than 50% of my invested amount.\u201D", options: { italic: true, breakLine: true } },
+    { text: "5  Giving up at the low", options: { bold: true, color: BLUE, breakLine: true } }, { text: "\u201CThat\u2019s was kinda my reason of stopping sips. My portfolio is the lowest point now.\u201D", options: { italic: true } }],
+    { x: 8.98, y: 1.93, w: 3.72, h: 5.18, fontSize: 14, paraSpaceAfter: 2 });
   s.addNotes("Discovery engine (v3 labelling prompt): collected 40,000 Play Store reviews, 38,517 Reddit posts, 15,862 Reddit comments and 15,799 YouTube comments; 21,073 kept after cleaning and seeded sampling; 11,711 analysed; 8,871 relevant to a person's own mutual fund SIP; 334 drop-off signals, 230 with a stated reason. " +
     "Stated reasons: low or negative returns 37, failed payment or mandate 34, cash-flow pressure 32, better alternative 25, app issue 22, expectation mismatch 22, life event 21, others' advice 19, confusion about numbers 18. Grouped: low returns, expectations or confusing numbers 33%; missed or failed instalment (payment, mandate, app) 24%; money pressure or life event 23%; better option or advice 19%. " +
     "First-year posts: trusted help is the main need in 421 of 774 (54%). Quotes are real public excerpts, shown without usernames. Golden set: 20 posts labelled by hand; label agreement 63 to 67 of 100 after prompt fixes (in-sample).");
@@ -211,18 +213,21 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   });
   s.addImage({ path: ART + "icon_fall.png", x: 4.38, y: 3.19, w: 0.5, h: 0.33, altText: "Falling graph in red" });
   card(s, 0.5, 4.45, 6.05, 2.77, PURE, BLUE, "hyp-evidence");
-  T(s, [{ text: "Why we believe it", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
+  T(s, [{ text: "Why we believe it (discovery engine)", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
     { text: "Low returns, wrong expectations or confusing numbers: 33% of stated drop-off reasons, the largest group", options: { bullet: true, breakLine: true } },
-    { text: "“Sip band kar do kyun ki market aur gire ga.” (public post)", options: { bullet: true, italic: true, breakLine: true } },
-    { text: "Survey (n=19): 10 thought of stopping; 5 cited market-fall news, 2 low profit; 9 did nothing", options: { bullet: true, breakLine: true } },
-    { text: "Interviews: 2 of 4 thought of quitting over low returns or jargon; 0 of 4 turned to the app for help", options: { bullet: true } }],
-    { x: 0.68, y: 4.52, w: 5.72, h: 2.64, fontSize: 14, paraSpaceAfter: 3 });
+    { text: "82% of 1,061 posts about falling returns sound confused, anxious or frustrated", options: { bullet: true, breakLine: true } },
+    { text: "65% of them ask for a plain explanation, \u201Cis this normal?\u201D or realistic expectations", options: { bullet: true, breakLine: true } },
+    { text: "62 of 77 returns-driven drop-offs had already stopped; 74% sounded anxious, frustrated or confused (54% for other reasons)", options: { bullet: true, breakLine: true } },
+    { text: "Plain answers come from Reddit and YouTube, not the app", options: { bullet: true } }],
+    { x: 0.68, y: 4.5, w: 5.72, h: 2.66, fontSize: 14, paraSpaceAfter: 2 });
   card(s, 6.75, 4.45, 6.08, 2.77, PURE, GREEN, "hyp-test");
-  T(s, [{ text: "How we will know, and why “pay less”", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
-    { text: "Right if: ", options: { bold: true } }, { text: "after a dip, investors who see SIPal stop less, and more choose to adjust instead (stop-to-adjust rate up vs control).", options: { breakLine: true } },
-    { text: "Wrong if: ", options: { bold: true } }, { text: "investors who understand the dip still stop as often, or stops are mostly about needing the money.", options: { breakLine: true } },
-    { text: "Pay less: ", options: { bold: true } }, { text: "for someone ready to stop after a dip, a smaller amount keeps the SIP alive. It does not shrink a loss already shown, so SIPal never pitches it as loss protection." }],
-    { x: 6.93, y: 4.52, w: 5.75, h: 2.64, fontSize: 14, paraSpaceAfter: 3 });
+  T(s, [{ text: "How we will test it, and why \u201Cpay less\u201D", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
+    { text: "Test: ", options: { bold: true } }, { text: "A/B test in the next down week with salaried 22-30 first-timers: SIPal's check-in vs today's app.", options: { breakLine: true } },
+    { text: "Right if: ", options: { bold: true } }, { text: "fewer open stop after the dip (stop-intent down) and more who do pay less instead (stop-to-adjust up).", options: { breakLine: true } },
+    { text: "Wrong if: ", options: { bold: true } }, { text: "investors who understand the dip still stop as often.", options: { breakLine: true } },
+    { text: "Pay less: ", options: { bold: true } }, { text: "a gentler step than stopping that keeps the SIP alive; it does not shrink a loss already shown.", options: { breakLine: true } },
+    { text: "Guardrail: ", options: { bold: true } }, { text: "cancel stays one tap away, and no alert uses fear or urgency." }],
+    { x: 6.93, y: 4.52, w: 5.75, h: 2.64, fontSize: 14, paraSpaceAfter: 5 });
   s.addNotes("One segment, one moment, one root cause. Segment: salaried first-time SIP investors aged 22-30 in the first year of their SIP (the largest first-timer group). Moment: a week or month when returns fall. Root cause: the app shows the loss but nothing calmly explains, in plain words, why the value fell and whether it is normal, so stopping feels like the only way to avoid losing more. " +
     "Evidence: discovery engine, 230 stated drop-off reasons: low or negative returns, expectation mismatch and confusing numbers 33% (the largest group); in the target segment, 84% of those who state an expectation expect steady long-term growth (378 of 450), and trusted, plain answers come from Reddit and YouTube rather than the app. Survey n=19: 10 thought of stopping or pausing (6 yes, 4 maybe); reasons included market-fall news 5 and low profit 2; 9 did nothing next. " +
     "Interviews: Praveen thought of quitting over low returns and poor market knowledge; Darshan found notifications too technical ('if they had given information in simple terms life would have been easy') and was drawn to ETFs and bonds; none of the 4 turned to the app when worried (brother, Reddit, friend, nothing). " +
@@ -236,25 +241,26 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   const s = newSlide("Survey and interviews: 10 of 19 thought of stopping, and when returns felt low, none of 4 interviewees turned to the app");
   const SV = require("./survey_numbers.json");
   const thought = (SV.q7_thought_stop.Yes || 0) + (SV.q7_thought_stop.Maybe || 0);
-  card(s, 0.5, 1.45, 6.1, 2.75, PURE, GREEN, "survey");
-  T(s, `Survey snapshot (n=${SV.n})`, { x: 0.68, y: 1.52, w: 5.7, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  T(s, "Validation of hypothesis", { x: 0.5, y: 1.36, w: 12.33, h: 0.32, fontSize: 17, bold: true, color: BLUE, valign: "middle" });
+  card(s, 0.5, 1.72, 6.1, 2.42, PURE, GREEN, "survey");
+  T(s, `Survey snapshot (n=${SV.n})`, { x: 0.68, y: 1.76, w: 5.7, h: 0.34, fontSize: 15, bold: true, color: BLUE });
   const tiles = [[`${thought} of ${SV.n}`, `thought of stopping or pausing (${SV.q7_thought_stop.Yes} yes, ${SV.q7_thought_stop.Maybe} maybe)`],
     [`${SV.q9_next["I did nothing"]} of ${SV.n}`, `did nothing next; ${SV.q9_next["Discussed with a friend"]} asked a friend, ${Object.entries(SV.q9_next).find(([k]) => k.startsWith("Looked for"))[1]} followed influencers`],
-    [`${SV.q8_reason["News about the market falling"]} and ${SV.q8_reason["The profit was low"]}`, "said news of the market falling, or low profit, made them think of stopping"],
-    [`${SV.q9_next["Discussed with a friend"] + 3} of ${SV.n}`, "turned to a friend or influencers next; none of the options was the app"]];
+    [`${SV.q8_reason["News about the market falling"]} and ${SV.q8_reason["The profit was low"]}`, "cited news of the market falling, or low profit"],
+    [`${SV.q9_next["Discussed with a friend"] + 3} of ${SV.n}`, "turned to a friend or influencers; none to the app"]];
   tiles.forEach((t, i) => {
-    const x = 0.68 + (i % 2) * 2.92, y = 1.95 + Math.floor(i / 2) * 1.1;
+    const x = 0.68 + (i % 2) * 2.92, y = 2.1 + Math.floor(i / 2) * 1.0;
     T(s, [{ text: t[0], options: { bold: true, fontSize: 20, color: BLUE, breakLine: true } }, { text: t[1], options: { fontSize: 14 } }], { x, y, w: 2.8, h: 1.05 });
   });
-  card(s, 6.75, 1.45, 6.08, 2.75, PURE, BLUE, "interviews");
-  T(s, "Interview findings (4 salaried SIP investors)", { x: 6.93, y: 1.52, w: 5.7, h: 0.36, fontSize: 16, bold: true, color: BLUE });
+  card(s, 6.75, 1.72, 6.08, 2.42, PURE, BLUE, "interviews");
+  T(s, "Interview findings (4 salaried SIP investors)", { x: 6.93, y: 1.76, w: 5.7, h: 0.34, fontSize: 15, bold: true, color: BLUE });
   T(s, [
     { text: "2 of 4 thought of quitting over low returns or jargon", options: { bullet: true, breakLine: true } },
     { text: "0 of 4 turned to the app when worried: brother, Reddit, friend, or nothing", options: { bullet: true, breakLine: true } },
     { text: "3 of 4 expected 10% or more a year, or \u201Cexponential\u201D growth", options: { bullet: true, breakLine: true } },
     { text: "4 of 4 named a gentler step than stopping: pay less, skip, move the date", options: { bullet: true, breakLine: true } },
     { text: "All 4 want help as a notification, in plain words", options: { bullet: true } }],
-    { x: 6.93, y: 1.95, w: 5.75, h: 2.2, fontSize: 14.5, paraSpaceAfter: 2 });
+    { x: 6.93, y: 2.1, w: 5.75, h: 2.0, fontSize: 14, paraSpaceAfter: 1 });
   const P2 = [
     { x: 0.5, col: BLUE, ini: "P", name: "Praveen, 34", tag: "Watches the graph, nearly quit", rows: [
       ["Demographics", "salaried; first-ever SIP about 4 months ago, mid-month date"],
@@ -266,12 +272,13 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
       ["App usage", "opened the app daily in year one (\u201Cadrenaline\u201D); read FAQs to use skip"],
       ["Key goals", "steady, organic growth, \u201Cnot too over excited\u201D; simple explanations"],
       ["Core friction", "notifications full of jargon he had to Google; ETFs and bonds looked better"]] }];
+  T(s, "Respondent personas", { x: 0.5, y: 4.2, w: 12.33, h: 0.32, fontSize: 17, bold: true, color: BLUE, valign: "middle" });
   P2.forEach((p, i) => {
-    card(s, p.x, 4.35, i ? 6.08 : 6.1, 2.85, PURE, p.col, "persona-" + (i + 1));
-    s.addShape(pres.shapes.OVAL, { x: p.x + 0.18, y: 4.47, w: 0.56, h: 0.56, fill: { color: p.col }, line: { color: p.col }, objectName: "avatar-" + (i + 1) });
-    T(s, p.ini, { x: p.x + 0.18, y: 4.47, w: 0.56, h: 0.56, fontSize: 18, bold: true, align: "center", valign: "middle", color: p.col === BLUE ? PURE : BLACK });
-    T(s, [{ text: p.name, options: { bold: true, color: BLUE } }, { text: "  ·  " + p.tag, options: { bold: true } }], { x: p.x + 0.86, y: 4.5, w: 5.0, h: 0.46, fontSize: 16, valign: "middle" });
-    T(s, p.rows.flatMap((r, k) => [{ text: r[0] + ": ", options: { bold: true, color: BLUE } }, { text: r[1], options: { breakLine: k < 3 } }]), { x: p.x + 0.2, y: 5.1, w: 5.7, h: 2.02, fontSize: 14, paraSpaceAfter: 3 });
+    card(s, p.x, 4.56, i ? 6.08 : 6.1, 2.66, PURE, p.col, "persona-" + (i + 1));
+    s.addShape(pres.shapes.OVAL, { x: p.x + 0.18, y: 4.64, w: 0.5, h: 0.5, fill: { color: p.col }, line: { color: p.col }, objectName: "avatar-" + (i + 1) });
+    T(s, p.ini, { x: p.x + 0.18, y: 4.64, w: 0.5, h: 0.5, fontSize: 18, bold: true, align: "center", valign: "middle", color: p.col === BLUE ? PURE : BLACK });
+    T(s, [{ text: p.name, options: { bold: true, color: BLUE } }, { text: "  ·  " + p.tag, options: { bold: true } }], { x: p.x + 0.8, y: 4.66, w: 5.1, h: 0.46, fontSize: 16, valign: "middle" });
+    T(s, p.rows.flatMap((r, k) => [{ text: r[0] + ": ", options: { bold: true, color: BLUE } }, { text: r[1], options: { breakLine: k < 3 } }]), { x: p.x + 0.2, y: 5.18, w: 5.72, h: 1.98, fontSize: 14, paraSpaceAfter: 1 });
   });
   s.addNotes(`Survey: ${SV.n} unique respondents (one duplicate removed, latest answer kept); 18 have started a SIP. Thought of stopping or pausing: ${SV.q7_thought_stop.Yes} yes, ${SV.q7_thought_stop.Maybe} maybe. Reasons (multi-select): needed money ${SV.q8_reason["I needed money"]}, market-fall news ${SV.q8_reason["News about the market falling"]}, low profit ${SV.q8_reason["The profit was low"] || 0}, other funds better ${SV.q8_reason["Other funds are doing better"] || 0}. ` +
     `What next: did nothing ${SV.q9_next["I did nothing"]}, friend ${SV.q9_next["Discussed with a friend"]}, influencers 3, Google ${SV.q9_next["Searched in Google"] || 0}, family ${SV.q9_next["Asked a family member"] || 0}. First platform: Groww ${SV.q4_platform.Groww} of ${SV.n}. ` +

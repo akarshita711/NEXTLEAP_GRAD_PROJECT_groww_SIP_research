@@ -42,8 +42,8 @@ module.exports = function addKpiTreeV3(pres, s, C) {
   const E = [
     box(4, ey(0), H, "Autopay active rate", "working autopay ÷ SIPs due"),
     box(4, ey(1), H, "First-try debit success", "successful debits ÷ debits tried"),
-    box(4, ey(2), H, "Stop-intent rate", "opened stop or cancel ÷ SIPs due", { line: Y, lw: 3, name: "metric-stop-intent" }),
-    box(4, ey(3), H, "Stop-to-adjust rate", "adjusted ÷ opened stop or cancel", { line: Y, lw: 3, name: "metric-stop-to-adjust" }),
+    box(4, ey(2), H, "Stop-intent rate", "opened stop or cancel ÷ SIPs due", { fill: Y, line: Y, lw: 2, name: "metric-stop-intent" }),
+    box(4, ey(3), H, "Stop-to-adjust rate", "adjusted ÷ opened stop or cancel", { fill: Y, line: Y, lw: 2, name: "metric-stop-to-adjust" }),
     box(4, ey(4), H, "Debit failure rate", "failed debits ÷ SIPs due"),
     box(4, ey(5), H, "Fix rate", "paid within 7 days ÷ failed"),
   ];
