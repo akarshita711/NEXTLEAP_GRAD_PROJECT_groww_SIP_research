@@ -19,15 +19,15 @@ const pct = n => sgn(n) + Math.abs(n).toFixed(1) + "%";
 const clamp = (v, lo, hi, d) => { v = Number(v); return Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : d; };
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const fmtDate = d => `${DOW[d.getUTCDay()]}, ${d.getUTCDate()} ${MON[d.getUTCMonth()]}`;
-function dates() {
+function dates(dueIn = 3) {
   const ist = new Date(Date.now() + 5.5 * 3600e3); ist.setUTCHours(0, 0, 0, 0);
-  const due = new Date(ist.getTime() + 3 * 864e5), lastChange = new Date(ist.getTime() + 2 * 864e5);
+  const due = new Date(ist.getTime() + dueIn * 864e5), lastChange = new Date(ist.getTime() + Math.max(0, dueIn - 1) * 864e5);
   const next = new Date(Date.UTC(due.getUTCFullYear(), due.getUTCMonth() + 1, Math.min(due.getUTCDate(), 28)));
   return { due: fmtDate(due), lastChange: fmtDate(lastChange), nextMonth: fmtDate(next), dueMonth: MON[due.getUTCMonth()], nextMonthName: MON[next.getUTCMonth()] };
 }
 function scenario(raw = {}) {
   const amount = Math.round(clamp(raw.amount, 100, 200000, 5000) / 100) * 100;
-  const months = Math.round(clamp(raw.months, 1, 12, 11));
+  const months = Math.round(clamp(raw.months, 1, 12, 11)), dueIn = Math.round(clamp(raw.dueIn, 0, 3, 3));
   const weekPct = Math.round(clamp(raw.weekPct, -15, 15, -1.8) * 10) / 10;
   const overallPct = Math.round(clamp(raw.overallPct, -40, 40, weekPct < 0 ? -4.7 : 5.3) * 10) / 10;
   const sipA = Math.max(100, Math.round(amount * 0.6 / 100) * 100), sipB = Math.max(0, amount - sipA);   // two SIPs: flexi cap (due soon) + index
@@ -37,10 +37,10 @@ function scenario(raw = {}) {
   const dir = weekPct < 0 ? "down" : "up", pool = KB.drivers[dir];
   let dv = (Array.isArray(raw.drivers) ? raw.drivers : []).map(x => Math.round(clamp(x, 0, pool.length - 1, 0))).filter((v, i, a) => a.indexOf(v) === i).slice(0, 3);
   if (dv.length < 3) dv = dir === "down" ? [0, 1, 3] : [0, 1, 2];
-  return { amount, sipA, sipB, months, weekPct, overallPct, newAmount, invested, current, diff: current - invested, dir, holdings: [FLEXI[fi], INDEX[ii]], drivers: dv.map(i => pool[i]) };
+  return { amount, sipA, sipB, dueIn, months, weekPct, overallPct, newAmount, invested, current, diff: current - invested, dir, holdings: [FLEXI[fi], INDEX[ii]], drivers: dv.map(i => pool[i]) };
 }
 function facts(s) {
-  const d = dates(), m = KB.market[s.dir];
+  const d = dates(s.dueIn), m = KB.market[s.dir];
   return {
     my_sip: { monthly_amount: inr(s.amount), months_running: s.months, total_invested: inr(s.invested), current_value: inr(s.current),
       overall_change: `${s.diff < 0 ? "−" : "+"}${inr(s.diff)} (${pct(s.overallPct)})`, this_week_change: pct(s.weekPct),
@@ -50,7 +50,7 @@ function facts(s) {
       next_instalment: `${inr(s.sipA)} for ${s.holdings[0]} on ${d.due}` },
     market_this_week: { note: KB.market.label, index: m.index, change: pct(m.change), main_reason: s.drivers[0].short + " and " + s.drivers[1].short,
       economic_reasons: s.drivers.map(x => ({ reason: x.title, how_it_works: x.text })) },
-    due_flow: { fund: s.holdings[0], due_date: d.due, usual_amount: inr(s.sipA), chosen_amount_this_month: s.newAmount === null ? null : inr(s.newAmount),
+    due_flow: { fund: s.holdings[0], due_date: d.due, due_in: s.dueIn === 0 ? "today" : s.dueIn === 1 ? "1 day" : s.dueIn + " days", usual_amount: inr(s.sipA), chosen_amount_this_month: s.newAmount === null ? null : inr(s.newAmount),
       minimum_sip_amount_sample: inr(500), last_day_to_change: d.lastChange, next_month_date: d.nextMonth, next_month_amount: inr(s.sipA) },
   };
 }

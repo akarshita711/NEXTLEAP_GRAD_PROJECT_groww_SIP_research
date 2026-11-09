@@ -101,7 +101,7 @@
   @keyframes sh { to { background-position:-200% 0; } }
   /* explore + lock */
   .mf-head { display:flex; align-items:center; gap:12px; padding:8px 18px 4px; flex:none; }
-  .mf-logo { width:36px; height:36px; border-radius:50%; background:linear-gradient(160deg,#C9CBD6,#E6E7EE); }
+  .mf-logo { width:38px; height:38px; border-radius:50%; box-shadow:0 0 0 2.5px #CFE0FF; display:block; }
   .avatar { width:34px; height:34px; border-radius:50%; background:#3E4A57; color:#fff; display:grid; place-items:center; font-weight:600; font-size:15px; }
   .tabs { display:flex; justify-content:space-between; padding:8px 18px 0; border-bottom:1px solid var(--line); font-size:15px; color:var(--muted); font-weight:500; flex:none; }
   .tabs button { padding:0 2px 10px; border-bottom:3px solid transparent; color:inherit; font-weight:500; } .tabs .on { color:var(--ink); border-bottom-color:var(--ink); font-weight:600; }
@@ -114,7 +114,7 @@
   .flogo { width:34px; height:34px; border-radius:9px; display:grid; place-items:center; color:#fff; font-weight:700; font-size:14px; flex:none; }
   .bnav { flex:none; border-top:1px solid var(--line); display:flex; justify-content:space-around; padding:7px 4px 10px; font-size:11.5px; color:var(--muted); background:#fff; }
   .bnav div { display:flex; flex-direction:column; align-items:center; gap:3px; } .bnav .on { color:var(--blue); font-weight:600; }
-  .bnav i { width:22px; height:22px; border-radius:6px; border:2px solid currentColor; display:block; }
+  .bnav svg { width:26px; height:26px; display:block; }
   .holding { border:1px solid var(--line); border-radius:18px; padding:14px; margin:14px 16px 0; }
   .lrow { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line); font-size:14px; }
   .lrow .r { text-align:right; flex:none; } .lrow .mute { color:var(--muted); font-size:12.5px; margin-top:3px; }
@@ -133,6 +133,25 @@
   .notif .t { font-weight:700; font-size:14.5px; } .notif .b { font-size:14px; line-height:1.38; margin-top:3px; color:#2A2B3D; }
   .nact { display:flex; gap:8px; margin:8px 12px 0; } .nact button { flex:1; background:rgba(245,246,250,.94); color:var(--ink); border-radius:15px; padding:11px 0; font-weight:600; font-size:14px; }
   .hint { text-align:center; font-size:13px; opacity:.75; margin-top:14px; }
+  .view { flex:1; min-height:0; display:flex; flex-direction:column; height:100%; }
+  .view.fwd { animation:inR .28s ease-out; } .view.back { animation:inL .28s ease-out; } .view.fade { animation:fadeIn .22s ease-out; }
+  @keyframes inR { from { opacity:0; transform:translateX(36px); } to { opacity:1; transform:none; } }
+  @keyframes inL { from { opacity:0; transform:translateX(-36px); } to { opacity:1; transform:none; } }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  .lockbody { flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; padding-bottom:14px; }
+  .ncenter { display:flex; flex-direction:column; gap:12px; margin-top:auto; padding-top:16px; }
+  .ncard { margin:0 12px; background:rgba(245,246,250,.95); color:var(--ink); border-radius:22px; padding:12px 13px; transition:transform .28s ease, opacity .28s ease; animation:drop .35s ease-out both; }
+  .ncard:nth-child(2) { animation-delay:.12s; }
+  @keyframes drop { from { opacity:0; transform:translateY(-14px); } to { opacity:1; transform:none; } }
+  .ncard.gone { transform:translateX(110%); opacity:0; }
+  .ncard.stacked { box-shadow:0 7px 0 -3px rgba(245,246,250,.55), 0 14px 0 -6px rgba(245,246,250,.3); margin-bottom:10px; }
+  .ncard .top { display:flex; gap:10px; text-align:left; width:100%; }
+  .ncard .app { font-size:12px; color:var(--muted); display:flex; justify-content:space-between; margin-bottom:2px; }
+  .ncard .t { font-weight:700; font-size:14.5px; display:block; } .ncard .b { font-size:14px; line-height:1.38; margin-top:2px; color:#2A2B3D; display:block; }
+  .ncard .acts { display:flex; gap:8px; margin-top:10px; } .ncard .acts button { flex:1; background:#fff; border-radius:12px; padding:9px 0; font-weight:600; font-size:13.5px; color:var(--ink); }
+  .ncard .acts button.p { background:var(--green); color:#fff; }
+  .nseq { font-size:11.5px; color:var(--blue); font-weight:600; margin-top:6px; }
+  .swipe { display:block; margin:14px auto 0; color:#fff; opacity:.85; font-size:13px; border:1px solid rgba(255,255,255,.35); border-radius:20px; padding:7px 16px; }
   /* modal */
   .modal { position:fixed; inset:0; background:rgba(11,11,33,.55); display:none; align-items:flex-start; justify-content:center; padding:24px 12px; overflow-y:auto; z-index:20; }
   .modal.on { display:flex; }
@@ -171,7 +190,7 @@
     .phone { flex:1; min-height:0; width:100%; border-radius:0; padding:0; box-shadow:none; position:static; background:none; display:flex; }
     .screen { flex:1; width:100%; height:auto; min-height:0; border-radius:0; }
     .island, .status { display:none; }
-    .lock .ldate { margin-top:18px; } .lock .ltime { font-size:64px; }
+    .lock .ldate { margin-top:12px; font-size:16px; } .lock .ltime { font-size:56px; }
   }
 </style>
 </head>
@@ -183,7 +202,7 @@
     <p class="intro">An in-app guide that explains your SIP in plain words when returns dip or a payment is due. It never gives investment advice.</p>
     <div class="tasks">
       <button class="task" onclick="start('weekly')"><span class="n">1</span><span><b>Weekly check-in</b><span class="d">Why your SIP rose or fell, and is it normal</span></span></button>
-      <button class="task" onclick="start('due')"><span class="n b">2</span><span><b>SIP due in 3 days</b><span class="d">Pay in full, or pay less this month</span></span></button>
+      <button class="task" onclick="start('due')"><span class="n b">2</span><span><b id="t2label">SIP due in 3 days</b><span class="d">Pay in full, or pay less this month</span></span></button>
       <button class="task" onclick="start('ask')"><span class="n k">3</span><span><b>Ask for advice</b><span class="d">Ask which fund to buy and see what happens</span></span></button>
       <button class="mset" onclick="openSettings()" aria-label="Sample SIP settings">&#9881;</button>
     </div>
@@ -196,14 +215,14 @@
       </div>
       <p class="small">Made-up numbers only. Never enter a PAN or account number. Nothing is stored.</p>
     </div>
-    <div class="links"><button class="pillbtn" onclick="openQuality()">How SIPal is checked</button><button class="pillbtn" onclick="go('explore')">Restart</button></div>
+    <div class="links"><button class="pillbtn" onclick="openQuality()">How SIPal is checked</button><button class="pillbtn" onclick="start('lock')">Restart</button></div>
     <p class="small">Student prototype for a NextLeap PM case study. Not affiliated with Groww. Sample data. Mutual fund investments are subject to market risks.</p>
   </aside>
   <section class="phone"><div class="screen" id="screen"></div></section>
 </div>
 
 <div class="modal" id="quality" onclick="if(event.target===this)this.classList.remove('on')"><div class="sheet" id="qsheet">Loading&hellip;</div></div>
-<div class="modal" id="settings" onclick="if(event.target===this)closeSettings()"><div class="sheet" id="ssheet"><button class="x" onclick="closeSettings()" aria-label="Close">&times;</button><h2>Sample SIP</h2><div id="sslot"></div><div class="links"><button class="pillbtn" onclick="closeSettings();openQuality()">How SIPal is checked</button><button class="pillbtn" onclick="closeSettings();go('explore')">Restart</button></div><p class="small">Student prototype for a NextLeap PM case study. Not affiliated with Groww. Sample data. Not investment advice.</p></div></div>
+<div class="modal" id="settings" onclick="if(event.target===this)closeSettings()"><div class="sheet" id="ssheet"><button class="x" onclick="closeSettings()" aria-label="Close">&times;</button><h2>Sample SIP</h2><div id="sslot"></div><div class="links"><button class="pillbtn" onclick="closeSettings();openQuality()">How SIPal is checked</button><button class="pillbtn" onclick="closeSettings();start('lock')">Restart</button></div><p class="small">Student prototype for a NextLeap PM case study. Not affiliated with Groww. Sample data. Not investment advice.</p></div></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="mini" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#00D09C"/><path d="M24 22 C24 17 24 14 24 12" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/><path d="M24 15 C18 15 14 11 13 6 C19 6 23 9 24 15Z" fill="#fff"/><path d="M24 13 C29 13 33 9 35 4 C29 4 25 7 24 13Z" fill="#E6FAF5"/><ellipse cx="24" cy="31" rx="12" ry="11" fill="#fff"/><circle cx="20" cy="29.5" r="1.7" fill="#0B0B21"/><circle cx="28" cy="29.5" r="1.7" fill="#0B0B21"/><path d="M19.5 34 Q24 38 28.5 34" stroke="#0B0B21" stroke-width="1.8" fill="none" stroke-linecap="round"/></symbol>
@@ -219,11 +238,11 @@ const pct = n => (n < 0 ? "−" : "+") + Math.abs(n).toFixed(1) + "%";
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], DOWL = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 function ist() { const d = new Date(Date.now() + 5.5 * 3600e3); d.setUTCHours(0, 0, 0, 0); return d; }
 const fmt = d => `${DOW[d.getUTCDay()]}, ${d.getUTCDate()} ${MON[d.getUTCMonth()]}`;
-function dates() { const t = ist(), due = new Date(t.getTime() + 3 * 864e5), next = new Date(Date.UTC(due.getUTCFullYear(), due.getUTCMonth() + 1, Math.min(due.getUTCDate(), 28)));
+function dates() { const t = ist(), due = new Date(t.getTime() + daysLeft * 864e5), next = new Date(Date.UTC(due.getUTCFullYear(), due.getUTCMonth() + 1, Math.min(due.getUTCDate(), 28)));
   const first = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() + 1, 1));
   const wkEnd = new Date(t.getTime() - ((t.getUTCDay() + 1) % 7 + 1) * 864e5), wkStart = new Date(wkEnd.getTime() - 4 * 864e5);
   return { today: t, todayLong: `${DOWL[t.getUTCDay()]}, ${t.getUTCDate()} ${["January","February","March","April","May","June","July","August","September","October","November","December"][t.getUTCMonth()]}`,
-    due: fmt(due), dueD: due, dueDay: DOWL[due.getUTCDay()], dueMonth: MON[due.getUTCMonth()], next: fmt(next), lastChange: fmt(new Date(due.getTime() - 864e5)), firstD: first,
+    due: fmt(due), dueD: due, dueDay: DOWL[due.getUTCDay()], dueMonth: MON[due.getUTCMonth()], next: fmt(next), lastChange: daysLeft >= 2 ? fmt(new Date(due.getTime() - 864e5)) : "", firstD: first,
     week: `${wkStart.getUTCDate()} ${MON[wkStart.getUTCMonth()]} to ${wkEnd.getUTCDate()} ${MON[wkEnd.getUTCMonth()]}` }; }
 const MIN_SIP = 500;   // sample minimum for the flexi cap SIP (real minimums are set by each fund house)
 function scn(extra = {}) {
@@ -231,7 +250,7 @@ function scn(extra = {}) {
   const weekPct = Math.round((+$("#f-week").value || -1.8) * 10) / 10, overallPct = Math.round((+$("#f-overall").value || (weekPct < 0 ? -4.7 : 5.3)) * 10) / 10;
   const invested = amount * months, current = Math.round(invested * (1 + overallPct / 100) / 100) * 100;
   const sipA = Math.max(100, Math.round(amount * 0.6 / 100) * 100), sipB = amount - sipA;
-  return { amount, sipA, sipB, months, weekPct, overallPct, invested, current, diff: current - invested, funds, drivers, ...extra };
+  return { amount, sipA, sipB, months, weekPct, overallPct, invested, current, diff: current - invested, funds, drivers, dueIn: daysLeft, ...extra };
 }
 const FLEXI = ["Parag Parikh Flexi Cap Fund", "HDFC Flexi Cap Fund", "Kotak Flexicap Fund", "UTI Flexi Cap Fund", "SBI Flexicap Fund",
   "Franklin India Flexi Cap Fund", "Aditya Birla Sun Life Flexi Cap Fund", "Canara Robeco Flexicap Fund", "DSP Flexi Cap Fund", "ICICI Prudential Flexicap Fund"];
@@ -242,7 +261,10 @@ let drivers = [0, 1, 3];
 function newFunds() { let f; do { f = [Math.floor(Math.random() * FLEXI.length), Math.floor(Math.random() * INDEX.length)]; } while (f[0] === funds[0] && f[1] === funds[1]); funds = f;
   const pool = [0, 1, 2, 3, 4, 5, 6, 7].sort(() => Math.random() - 0.5); drivers = pool.slice(0, 3); }
 newFunds();
-const state = { screen: "explore", choice: null, newAmount: null, custom: false, chat: [], ctx: "SIPal home", from: "hub", busy: false };
+const state = { screen: "lock", choice: null, newAmount: null, custom: false, chat: [], ctx: "SIPal home", from: "hub", busy: false, payFrom: "due", dismissed: {}, answered: false };
+let daysLeft = 3, dueSeen = false;          // SIPal reminds daily from 3 days before the debit: 3, 2, 1 days, then today
+const dlText = () => daysLeft === 0 ? "today" : daysLeft === 1 ? "in 1 day" : `in ${daysLeft} days`;
+function updateTaskLabel() { const b = $("#t2label"); if (b) b.textContent = "SIP due " + dlText(); }
 const COLORS = ["#1F3B73", "#2A2F8F", "#B3261E", "#0B6E4F", "#6A2C91", "#C2410C"];
 const logo = (name, i) => `<span class="flogo" style="background:${COLORS[i % COLORS.length]}">${esc(name.trim()[0])}</span>`;
 
@@ -262,7 +284,7 @@ function qline(r) {
   return `<div class="qline">&#10003; Checked: numbers match, no advice, calm tone${r.sources && r.sources.length ? ` &middot; Source: ${srcLinks(r)}` : ""}</div>`;
 }
 const NA = `<div class="na">SIPal explains; it does not give investment advice.</div>`;
-const backBtn = to => `<button class="back" aria-label="Back" onclick="go('${to}')"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+const backBtn = to => `<button class="back" aria-label="Back" onclick="go('${to}','back')"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
 const STATUS = `<div class="island"></div><div class="status"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>`;
 const head = (title, back) => `${STATUS}<div class="nav">${backBtn(back)}<div class="t">${title}</div></div>`;
 const askBtn = ctx => `<button class="btn sec" onclick="openChat('${ctx}')">&#128172;&nbsp; Ask SIPal a question</button>`;
@@ -270,11 +292,15 @@ const askBtn = ctx => `<button class="btn sec" onclick="openChat('${ctx}')">&#12
 // ---------- the Mutual Funds shell with working tabs ----------
 function mf(tab, inner) {
   const T = [["explore", "Explore"], ["dashboard", "Dashboard"], ["sips", "SIPs"], ["watchlist", "Watchlist"]];
-  return `${STATUS}<div class="mf-head"><div class="mf-logo"></div><div style="font-size:20px;font-weight:600;flex:1">Mutual Funds</div>
+  return `${STATUS}<div class="mf-head"><img class="mf-logo" src="groww_logo.png" alt="Groww logo"><div style="font-size:20px;font-weight:600;flex:1">Mutual Funds</div>
       <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" stroke="#1B1C2E" stroke-width="2" fill="none"/><path d="M16 16 L21 21" stroke="#1B1C2E" stroke-width="2" stroke-linecap="round"/></svg><div class="avatar">A</div></div>
     <div class="tabs">${T.map(([k, n]) => `<button class="${k === tab ? "on" : ""}" onclick="go('${k}')">${n}</button>`).join("")}</div>
     <div class="body">${inner}</div>
-    <div class="bnav"><div><i></i>Stocks</div><div><i></i>F&amp;O</div><div class="on"><i style="border-radius:50%"></i>Mutual Funds</div><div><i></i>Loans</div></div>`;
+    <div class="bnav">
+      <div><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><rect x="3.5" y="4.5" width="19" height="17" rx="3"/><polyline points="7,16.5 11,12 14,14.5 19,9"/></svg>Stocks</div>
+      <div><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><rect x="3.5" y="4.5" width="19" height="17" rx="3"/><polyline points="3.8,18 9.5,11 13,15 15.5,12.5 22.2,18.5"/></svg>F&amp;O</div>
+      <div class="on"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 5.2 A8.6 8.6 0 1 0 20.8 14 H12 Z"/><path d="M14.6 3 A8.4 8.4 0 0 1 23 11.4 H14.6 Z"/></svg>Mutual Funds</div>
+      <div><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="7" width="20" height="13" rx="2.2"/><circle cx="13" cy="13.5" r="2.6"/><path d="M7 13.5h.01M19 13.5h.01" stroke-width="2.6"/></svg>Loans</div></div>`;
 }
 function portfolio() {
   const s = scn(), invA = s.sipA * s.months, curA = Math.round(invA * (1 + s.overallPct / 100)), curB = s.current - curA;
@@ -297,64 +323,68 @@ const SCREENS = {
         <svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 5 L16 12 L9 19" stroke="#1B1C2E" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></button>
       <div class="sech"><b>Popular Funds</b><span>View all &rsaquo;</span></div>
       <div class="fgrid">${POP.map(([n, r], i) => `<div class="fcard">${logo(n, i)}<div class="nm">${n}</div><div class="rt"><b>${r}</b><span>3Y</span></div></div>`).join("")}</div>
-      <p class="na" style="margin:12px 16px 16px">Popular Funds is the app's existing list, shown for context (values from an app screenshot, 9 Nov 2026). SIPal itself never recommends funds.</p>`);
+      <p class="na" style="margin:12px 16px 16px">Popular Funds is the app's own list. SIPal never recommends funds.</p>`);
   },
   dashboard() {
     const p = portfolio(), s = p.s, d1 = p.oneDay, tot = s.diff;
     return mf("dashboard", `
-      <div class="holding"><div class="lbl">HOLDINGS (2) &middot; SAMPLE</div><div class="val">${inr(s.current)}</div>
+      <div class="holding"><div class="lbl">HOLDINGS (2)</div><div class="val">${inr(s.current)}</div>
         <div class="rowkv" style="margin-top:8px"><span>1D returns</span><b class="${d1 < 0 ? "down" : "up"}">${d1 < 0 ? "−" : "+"}${inr2(d1)} (${Math.abs(d1 / s.current * 100).toFixed(2)}%)</b></div>
         <div class="rowkv"><span>Total returns</span><b class="${tot < 0 ? "down" : "up"}">${tot < 0 ? "−" : "+"}${inr(tot)} (${pct(s.overallPct)})</b></div>
         <div class="rowkv"><span>Invested</span><b>${inr(s.invested)}</b></div>
         <div class="rowkv"><span>XIRR</span><b>${p.xirr.toFixed(2)}%</b></div></div>
       <button class="entry" onclick="go('checkin')"><svg width="40" height="40" viewBox="0 0 48 48"><use href="#mini"/></svg><span style="flex:1"><b style="font-size:15px">Why did my funds move?</b><span style="display:block;font-size:13px;color:var(--ink2);margin-top:2px">Your weekly SIPal check-in is ready</span></span><span>&rsaquo;</span></button>
       ${[[FLEXI[funds[0]], p.curA - p.invA, p.invA], [INDEX[funds[1]], p.curB - p.invB, p.invB]].map(([n, g, inv]) => `<div class="lrow"><div>${n}<div class="mute">SIP</div></div><div class="r"><b>${g < 0 ? "−" : "+"}${inr(g)}</b><div class="${g < 0 ? "down" : "up"}" style="font-size:13px">(${pct(g / inv * 100)})</div></div></div>`).join("")}
-      <p class="na" style="margin:12px 16px">Sample holdings and returns for this demo, not real fund performance.</p>`);
+      <div style="height:12px"></div>`);
   },
   sips() {
     const s = scn(), d = dates();
     return mf("sips", `
-      <div class="holding"><div class="lbl">MONTHLY SIP AMOUNT &middot; SAMPLE</div><div class="val">${inr(s.amount)}</div></div>
+      <div class="holding"><div class="lbl">MONTHLY SIP AMOUNT</div><div class="val">${inr(s.amount)}</div></div>
       <div class="sech"><b>Active SIPs (2)</b><span>Sort by: Due date</span></div>
       <div class="lrow"><div>${FLEXI[funds[0]]}<div class="mute">${inr(s.sipA)}</div></div><div class="datebox"><b>${d.dueD.getUTCDate()}</b><span>${MON[d.dueD.getUTCMonth()]}</span></div></div>
-      <button class="entry" style="margin-top:10px" onclick="state.choice=null;state.newAmount=null;go('due')"><svg width="36" height="36" viewBox="0 0 48 48"><use href="#mini"/></svg><span style="flex:1"><b style="font-size:14.5px">Due in 3 days</b><span style="display:block;font-size:13px;color:var(--ink2)">Is this month OK? Pay in full or pay less.</span></span><span>&rsaquo;</span></button>
+      <button class="entry" style="margin-top:10px" onclick="state.choice=null;state.newAmount=null;go('due')"><svg width="36" height="36" viewBox="0 0 48 48"><use href="#mini"/></svg><span style="flex:1"><b style="font-size:14.5px">Due ${dlText()}</b><span style="display:block;font-size:13px;color:var(--ink2)">Is this month OK? Pay in full or pay less.</span></span><span>&rsaquo;</span></button>
       <div class="lrow"><div>${INDEX[funds[1]]}<div class="mute">${inr(s.sipB)}</div></div><div class="datebox"><b>1</b><span>${MON[d.firstD.getUTCMonth()]}</span></div></div>
       <div class="note">As per SEBI's latest regulations, SIPs get cancelled on missing or skipping 3 instalments in a row.</div>`);
   },
   watchlist() {
     return mf("watchlist", `
-      <div class="sech" style="padding-bottom:4px"><span>Mutual Funds &middot; sample watchlist</span><span>1D Returns</span></div>
+      <div class="sech" style="padding-bottom:4px"><span>Mutual Funds</span><span>1D Returns</span></div>
       ${[["SBI Gold Direct Plan-Growth", "Commodities · Gold", "−1.69%", 0], ["Nippon India Small Cap Fund", "Equity · Small Cap", "−0.79%", 2]].map(([n, c, r, i]) => `<div class="lrow"><div style="display:flex;gap:10px;align-items:center">${logo(n, i)}<div>${n}<div class="mute">${c}</div></div></div><b class="r">${r}</b></div>`).join("")}
       <div class="sech"><span style="color:var(--green-d);font-weight:600">Add funds</span><span style="color:var(--green-d);font-weight:600">Edit watchlist</span></div>
-      <p class="na" style="margin:0 16px">Values from an app screenshot, 9 Nov 2026, for illustration.</p>`);
+      `);
   },
-  lockWeekly() {
-    const d = dates();
-    return `<div class="screen lock" style="height:100%;width:100%;border-radius:0">${STATUS}
-      <div class="ldate">${d.todayLong}</div><div class="ltime">9:41</div><div style="height:110px"></div>
-      <button class="notif" onclick="go('checkin')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg><span><span class="t">SIPal: Your weekly SIP check-in is ready &#127807;</span><span class="b" style="display:block">See how your funds did this week, why the market moved, and whether it's normal. Takes about a minute.</span></span></button>
-      <div class="nact"><button onclick="go('checkin')">See my check-in</button><button onclick="go('explore')">Not now</button></div><p class="hint">Tap the notification</p></div>`;
-  },
-  lockDue() {
-    const d = dates(), s = scn();
-    return `<div class="screen lock" style="height:100%;width:100%;border-radius:0">${STATUS}
-      <div class="ldate">${d.todayLong}</div><div class="ltime">9:41</div><div style="height:110px"></div>
-      <button class="notif" onclick="go('due')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg><span><span class="t">SIPal: Your SIP is due on ${d.dueDay} &#127807;</span><span class="b" style="display:block">${inr(s.sipA)} goes to ${FLEXI[funds[0]]} on ${d.due}. Is this month OK for that amount? If money is tight, you can pay less just this once.</span></span></button>
-      <div class="nact"><button onclick="state.choice='yes';go('payConfirm')">Yes, all set</button><button onclick="state.choice='less';go('due')">Pay less this month</button></div><p class="hint">Tap the notification or a button</p></div>`;
+  lock() {
+    const d = dates(), s = scn(), dsm = state.dismissed, seq = 4 - daysLeft;
+    const dueTitle = daysLeft === 0 ? "Your SIP is due today" : `Your SIP is due ${dlText()}`;
+    const showDue = !dsm.due && !state.answered;
+    dueSeen = dueSeen || showDue;
+    const cards = [];
+    if (!dsm.weekly) cards.push(`<div class="ncard" id="n-weekly"><button class="top" onclick="go('checkin')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg>
+        <span style="flex:1"><span class="app"><span>SIPal</span><span>now</span></span><span class="t">Your weekly SIP check-in is ready &#127807;</span><span class="b">See how your funds did this week, why the market moved, and whether it's normal. Takes about a minute.</span></span></button>
+        <div class="acts"><button class="p" onclick="go('checkin')">See my check-in</button><button onclick="dismiss('weekly')">Not now</button></div></div>`);
+    if (showDue) cards.push(`<div class="ncard ${seq > 1 ? "stacked" : ""}" id="n-due"><button class="top" onclick="state.choice=null;state.newAmount=null;go('due')"><svg width="38" height="38" viewBox="0 0 48 48" style="flex:none"><use href="#mini"/></svg>
+        <span style="flex:1"><span class="app"><span>SIPal</span><span>${seq > 1 ? `${seq} reminders` : "now"}</span></span><span class="t">${dueTitle} &#127807;</span><span class="b">${inr(s.sipA)} goes to ${FLEXI[funds[0]]} ${daysLeft === 0 ? "today" : "on " + d.due}. Is this month OK for that amount? If money is tight, you can pay less just this once.</span></span></button>
+        <div class="acts"><button class="p" onclick="state.choice='yes';go('payConfirm')">Yes, all set</button><button onclick="state.choice='less';state.newAmount=null;state.custom=false;go('due')">Pay less this month</button></div>
+        <div class="nseq">Reminder ${seq} of 4 &middot; one a day until the debit; stops once you answer</div></div>`);
+    return `<div class="screen lock" style="height:100%;width:100%;border-radius:0">${STATUS}<div class="lockbody">
+      <div class="ldate">${d.todayLong}</div><div class="ltime">9:41</div>
+      <div class="ncenter">${cards.length ? cards.join("") : `<p class="hint" style="opacity:.9">No new notifications</p>`}</div>
+      <button class="swipe" onclick="go('explore')">Open the app &#8593;</button></div></div>`;
   },
   hub() {
     const d = dates(), s = scn();
     return `${head("SIPal Assistant", "explore")}<div class="body"><div class="pad">
       <div class="hero"><svg width="64" height="64" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Hi, I'm SIPal.</div><div class="hs">I explain your SIP in plain words. I don't give investment advice.</div></div></div>
       <button class="card" style="text-align:left" onclick="go('checkin')"><div class="h5"><span class="dot" style="background:var(--blue)">&#9679;</span>Weekly check-in is ready</div><div class="txt">${d.week}: see how your funds did and why.</div></button>
-      <button class="card" style="text-align:left" onclick="state.choice=null;state.newAmount=null;go('due')"><div class="h5"><span class="dot" style="background:var(--green)">&#8377;</span>Next SIP in 3 days</div><div class="txt">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due}. Check if this month is OK.</div></button>
+      <button class="card" style="text-align:left" onclick="state.choice=null;state.newAmount=null;go('due')"><div class="h5"><span class="dot" style="background:var(--green)">&#8377;</span>Next SIP due ${dlText()}</div><div class="txt">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due}. Check if this month is OK.</div></button>
       ${askBtn("SIPal home")}${NA}</div></div>`;
   },
   checkin() {
     const d = dates(), s = scn(), dir = s.weekPct < 0 ? "down" : "up";
     const f1 = Math.round(s.weekPct * 9) / 10, f2 = dir === "down" ? -2.1 : 1.9;
     setTimeout(loadCheckin, 0);
-    return `${head("SIPal Assistant", state.from === "dashboard" ? "dashboard" : "hub")}<div class="body"><div class="pad">
+    return `${head("SIPal Assistant", ["dashboard", "lock"].includes(state.from) ? state.from : "hub")}<div class="body"><div class="pad">
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your weekly check-in</div><div class="hs">${d.week} &middot; SIP running for ${s.months} month${s.months > 1 ? "s" : ""}</div></div></div>
       <div class="card"><div class="lbl">YOUR SIP PORTFOLIO (SAMPLE)</div><div class="val">${inr(s.current)}</div><div class="sub">Invested ${inr(s.invested)}</div>
         <div class="tags"><span class="tag ${dir}">${dir === "down" ? "&#9660;" : "&#9650;"} ${pct(s.weekPct)} this week</span><span class="tag ${s.diff < 0 ? "down" : "up"}">${s.diff < 0 ? "&#9660; −" : "&#9650; +"}${inr(s.diff)} overall</span></div>
@@ -371,8 +401,8 @@ const SCREENS = {
     const d = dates(), s = scn(), c = state.choice, na = state.newAmount;
     const opts = [MIN_SIP, Math.round(s.sipA / 3 / 100) * 100, Math.round(s.sipA * 2 / 3 / 100) * 100].filter((v, i, a) => v >= MIN_SIP && v < s.sipA && a.indexOf(v) === i);
     if (c === "less" && na !== null) setTimeout(loadDue, 0);
-    return `${head("SIPal Assistant", state.from === "sips" ? "sips" : "hub")}<div class="body"><div class="pad">
-      <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your next SIP</div><div class="hs">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due}</div></div></div>
+    return `${head("SIPal Assistant", ["sips", "lock"].includes(state.from) ? state.from : "hub")}<div class="body"><div class="pad">
+      <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">Your next SIP</div><div class="hs">${inr(s.sipA)} for ${FLEXI[funds[0]]} on ${d.due} (${daysLeft === 0 ? "today" : dlText()})</div></div></div>
       <div class="card"><div class="h5">Can you pay ${inr(s.sipA)} this month?</div>
         <div class="choices"><button class="choice" onclick="state.choice='yes';state.newAmount=null;go('payConfirm')"><span class="r"></span>Yes, all set</button><button class="choice ${c === "less" ? "sel" : ""}" onclick="state.choice='less';state.newAmount=null;state.custom=false;go('due')"><span class="r"></span>Not this month</button></div></div>
       ${c === "less" ? `<div class="card"><div class="h5">Pay a smaller amount, just for ${d.dueMonth}</div>
@@ -380,7 +410,8 @@ const SCREENS = {
         <div class="chips">${opts.map(v => `<button class="chip ${na === v && !state.custom ? "sel" : ""}" onclick="pick(${v})">${inr(v)}</button>`).join("")}<button class="chip ${na === 0 ? "sel" : ""}" onclick="pick(0)">Skip</button></div>
         ${state.custom ? `<form class="custom" novalidate onsubmit="event.preventDefault();useCustom()"><input id="camt" type="number" inputmode="numeric" placeholder="Amount in ₹" min="${MIN_SIP}" max="${s.sipA - 1}" value="${state.custom && na ? na : ""}" aria-label="Custom amount"><button>Use</button></form><div class="err" id="cerr"></div>`
           : `<button class="linkbtn" onclick="state.custom=true;go('due');setTimeout(()=>$('#camt')&&$('#camt').focus(),50)">+ Enter custom amount</button>`}
-        <div class="sub" style="margin-top:8px">Next month goes back to ${inr(s.sipA)} on its own.</div></div>
+        <div class="sub" style="margin-top:8px">Next month goes back to ${inr(s.sipA)} on its own.</div>
+        ${daysLeft <= 1 ? `<div class="infobox"><span>&#9432;</span><span>It's close to the debit date. If a change can't reach the fund house in time, it applies from next month.</span></div>` : ""}</div>
         ${na !== null ? `<div class="card"><div class="h5"><span class="dot" style="background:var(--green)">&#10003;</span>What changes?</div><div class="txt" id="d-changes"><div class="skel"></div><div class="skel" style="width:70%"></div></div></div><div id="d-qc"></div>
         <button class="btn pri" onclick="go('payConfirm')">Continue</button>` : ""}
         <div class="sub" style="text-align:center">Other options: move the date &middot; stop the SIP (always available in SIPs)</div>` : ""}
@@ -388,7 +419,7 @@ const SCREENS = {
   },
   payConfirm() {
     const d = dates(), s = scn(), full = state.choice === "yes", amt = full ? s.sipA : state.newAmount, skip = !full && amt === 0;
-    return `${head(skip ? "Skip this month?" : "Proceed to pay?", full ? (state.from === "lockDue" ? "lockDue" : "due") : "due")}<div class="body"><div class="pad">
+    return `${head(skip ? "Skip this month?" : "Proceed to pay?", state.payFrom === "lock" ? "lock" : "due")}<div class="body"><div class="pad">
       <div class="hero"><svg width="54" height="54" viewBox="0 0 120 120"><use href="#char"/></svg><div><div class="hi">${skip ? "Skip this month?" : "Proceed to pay?"}</div><div class="hs">Please check the details</div></div></div>
       <div class="card">
         <div class="rowkv"><span>Fund</span><b>${FLEXI[funds[0]]}</b></div>
@@ -398,7 +429,7 @@ const SCREENS = {
         ${full ? "" : `<div class="rowkv"><span>Next month</span><b>${inr(s.sipA)} on ${d.next}</b></div>`}</div>
       ${skip ? `<div class="infobox"><span>&#9432;</span><span>Your SIP stays active. 3 missed or skipped instalments in a row cancel a SIP.</span></div>` : ""}
       <button class="btn pri" onclick="go('done')">${skip ? "Confirm skip" : "Proceed to pay"}</button>
-      <button class="btn sec" onclick="go('due')">Go back</button>
+      <button class="btn sec" onclick="go(state.payFrom === 'lock' ? 'lock' : 'due','back')">Go back</button>
       <p class="na">Demo only: no real payment or change is made.</p>${NA}</div></div>`;
   },
   done() {
@@ -409,7 +440,7 @@ const SCREENS = {
       ${full ? "" : `<div class="card"><div class="h5">What happens next</div>
         <div class="txt"><b>${d.due} &middot; ${amt === 0 ? "skipped" : inr(amt)}</b><br><span class="sub">This month only</span></div>
         <div class="txt"><b>${d.next} &middot; ${inr(s.sipA)}</b><br><span class="sub">Back to your usual amount, automatically</span></div></div>`}
-      <div class="card"><div class="txt">&#10003; Your SIP stays active<br>&#10003; You can change this until ${d.lastChange}</div></div>
+      <div class="card"><div class="txt">&#10003; Your SIP stays active${d.lastChange ? `<br>&#10003; You can change this until ${d.lastChange}` : ""}<br>&#10003; SIPal stops this month&#39;s reminders</div></div>
       <p class="na">Demo only: no real payment or change is made.</p>
       <button class="btn pri" onclick="go('sips')">Back to my SIPs</button>${NA}</div></div>`;
   },
@@ -429,13 +460,19 @@ function renderChat() {
       : `<div>${esc(m.r.answer)}</div>${m.r.fallback ? `<div class="qc fb"><b>Safe fallback:</b> ${esc(FB[m.r.fallback_reason] || "SIPal used its safe fallback.")}${m.r.sources && m.r.sources.length ? ` Official source: ${srcLinks(m.r)}` : ""}</div>` : (m.r.sources && m.r.sources.length ? `<div class="src">Source: ${srcLinks(m.r)}</div>` : "")}`}</div>`).join("");
   const B = $("#chatbody"); if (B) B.scrollTop = B.scrollHeight;
 }
-function go(name) {
+const TABS = ["explore", "dashboard", "sips", "watchlist"];
+function go(name, how) {
+  if (name === "lockWeekly" || name === "lockDue") name = "lock";
   if (!["chat", "payConfirm", "done"].includes(name) && name !== state.screen && !["payConfirm", "done", "chat"].includes(state.screen)) state.from = state.screen;
+  if (name === "payConfirm" && state.screen !== "payConfirm") state.payFrom = state.screen;
+  if (name === "done") state.answered = true;
   if (name === "explore") { state.choice = null; state.newAmount = null; state.custom = false; }
-  state.screen = name; $("#screen").innerHTML = SCREENS[name]();
+  const anim = how || (name === state.screen ? "" : TABS.includes(name) && TABS.includes(state.screen) ? "fade" : "fwd");
+  state.screen = name; $("#screen").innerHTML = `<div class="view ${anim}">${SCREENS[name]()}</div>`;
   const b = $("#screen .body"); if (b && name !== "chat") b.scrollTop = 0;
 }
-function openChat(ctx) { state.ctx = ctx; state.from = state.screen; state.screen = "chat"; $("#screen").innerHTML = SCREENS.chat(); }
+function openChat(ctx) { state.ctx = ctx; state.from = state.screen; state.screen = "chat"; $("#screen").innerHTML = `<div class="view fwd">${SCREENS.chat()}</div>`; }
+function dismiss(k) { const c = $("#n-" + k); if (c) c.classList.add("gone"); setTimeout(() => { state.dismissed[k] = true; go("lock"); }, 260); }
 function pick(v) { state.newAmount = v; state.custom = false; go("due"); }
 function useCustom() {
   const s = scn(), v = Math.round(+$("#camt").value || 0), e = $("#cerr");
@@ -446,9 +483,11 @@ function useCustom() {
 function toggleReasons() { const r = $("#c-reasons"), b = $("#c-whybtn"); if (!r || !r.innerHTML) return; const on = r.classList.toggle("on"); b.setAttribute("aria-expanded", on); $("#c-pill").innerHTML = on ? "Hide reasons &#9652;" : "Economic reasons &#9662;"; }
 let lastDir = Math.random() < 0.5 ? "up" : "down";
 function start(which) { state.choice = null; state.newAmount = null; state.custom = false; state.chat = []; newFunds();
-  if (which === "weekly") { const dir = lastDir = lastDir === "down" ? "up" : "down"; $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; }
+  if (which !== "ask") { const dir = lastDir = lastDir === "down" ? "up" : "down"; $("#f-week").value = dir === "up" ? 1.6 : -1.8; $("#f-overall").value = dir === "up" ? 5.3 : -4.7; }
+  if (which !== "ask" && dueSeen) { daysLeft = daysLeft === 0 ? 3 : daysLeft - 1; dueSeen = false; updateTaskLabel(); }
+  state.dismissed = {}; state.answered = false;
   if (which === "ask") { state.screen = "hub"; openChat("SIPal home"); }
-  else go(which === "weekly" ? "lockWeekly" : "lockDue");
+  else { state.screen = ""; go("lock"); }
   if (window.innerWidth > 760 && window.innerWidth < 980) $(".phone").scrollIntoView({ behavior: "smooth" }); }
 // on phones the sample SIP fields live in a settings sheet; on wider screens they stay open in the guide
 let sampleHome = null;
@@ -508,7 +547,8 @@ async function openQuality() {
     ${E ? `<p class="small">Release gate: ${esc(E.gate)}. Run on ${esc(E.run_at)} with ${esc(E.models)}.</p>` : ""}`;
 }
 placeSample();
-go("explore");
+updateTaskLabel();
+go("lock");
 </script>
 </body>
 </html>
