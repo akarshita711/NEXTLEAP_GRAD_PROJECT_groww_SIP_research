@@ -332,7 +332,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     { x: 0.5, y: 3.88, w: 12.33, h: 0.5, fontSize: 14 });
   const C3 = [
     ["Why idea 1 wins", GREEN, "It is the only idea that comes to the investor at the moment. All 4 interviewees asked for a notification, and 57% of stated drop-off reasons sit at these two moments. It builds on what Groww already has: push notifications, each debit date and the portfolio. It also scores far higher on RICE: 48, against 1.0 and 0.8."],
-    ["How it was refined", BLUE, "Weekly and 3 days before a debit, not daily: frequent return checks raise worry, and too many alerts get ignored. It explains with the investor's own funds and the week's economic reasons, offers gentler options (pay less, skip, move the date) and never gives advice. Every answer passes a quality check before it shows."],
+    ["How it was refined", BLUE, "Check-ins come weekly, not daily: frequent return checks raise worry. Due reminders come once a day from 3 days before the debit and stop once the investor answers. It explains with their own funds and the week's economic reasons, offers gentler options (pay less, skip, move the date) and never gives advice."],
     ["What it borrows", BLUE, "The name SIPal and the Explore entry come from idea 3, so the guide is also there whenever someone looks for it. A “Listen” button from idea 2 can come later for investors who prefer voice. The AI videos are dropped for now: they are costly to make, hard to check for accuracy, and general lessons are already free on YouTube."]];
   C3.forEach((c, i) => {
     const x = 0.5 + i * 4.18;
@@ -352,7 +352,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   const SIPAL = "https://nextleapgradprojectgrowwsipresearch.vercel.app/sipal/";
   card(s, 0.5, 1.45, 4.25, 1.9, PURE, GREEN, "what");
   T(s, [{ text: "What SIPal is", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
-        { text: "An in-app guide for first-time SIP investors at two moments: a weekly check-in (how my funds did, why the market moved, is it normal) and a reminder 3 days before the debit (pay less this month, skip, move the date)." }],
+        { text: "An in-app guide for first-time SIP investors at two moments: a weekly check-in (how my funds did, why the market moved, is it normal) and daily reminders from 3 days before the debit (pay less this month, skip, move the date)." }],
     { x: 0.68, y: 1.52, w: 3.92, h: 1.8, fontSize: 14 });
   card(s, 0.5, 3.45, 4.25, 2.42, PURE, BLUE, "gate");
   T(s, [{ text: "AI with a quality gate", options: { bold: true, color: BLUE, fontSize: 16, breakLine: true } },
@@ -362,7 +362,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   card(s, 0.5, 5.97, 4.25, 1.23, PURE, GREEN, "link");
   T(s, [{ text: "Try it live: ", options: { bold: true, color: BLUE } }, link("SIPal MVP", SIPAL, BLUE), { text: "\nnextleapgradprojectgrowwsipresearch.vercel.app/sipal", options: { fontSize: 14 } },
         { text: "\nSample data, no login. Not investment advice.", options: { fontSize: 14 } }], { x: 0.68, y: 6.0, w: 3.95, h: 1.16, fontSize: 15 });
-  const shots = [["set1_3_checkin_down_week", "Why it fell"], ["set4_sips_tab", "SIPs tab"], ["set2_2_pay_less_this_month", "Pay less"], ["set2_3_proceed_to_pay", "Proceed to pay?"], ["set3_ask_sipal_quality_check", "Advice declined"]];
+  const shots = [["set1_1_notifications", "Notifications"], ["set1_3_checkin_down_week", "Why it fell"], ["set2_2_pay_less_this_month", "Pay less"], ["set2_3_proceed_to_pay", "Proceed to pay?"], ["set3_ask_sipal_quality_check", "Advice declined"]];
   const PH_H = 2.62, PH_W = PH_H * 412 / 842, GAPX = (7.88 - 5 * PH_W) / 4;
   shots.forEach((sh, i) => {
     const x = 4.95 + i * (PH_W + GAPX);
@@ -376,7 +376,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
     tr("User 1", "Tabs didn't open; Popular Funds stuck loading; too many suggestions", "Tabs work; fund cards shown; suggestions only in Ask SIPal"),
     tr("User 2", "\u201CYes, all set\u201D did nothing; no fund minimum or custom amount", "\u201CProceed to pay?\u201D screen; minimum-amount note; custom amount"),
     tr("User 3", "The SIPal explanation took half the screen", "Intro cut to one line; tasks as compact buttons"),
-    tr("Own review", "Had to zoom on phones; Enter hard in chat; Task 2 name clashed", "Fits the phone screen; Enter sends; Task 2 renamed; lighter chat", true)],
+    tr("Own review", "Zooming on phones; Enter hard in chat; no logo; one reminder only", "Fits the screen; Enter sends; Groww logo; daily reminders to the debit", true)],
     { x: 4.95, y: 4.8, w: 7.88, colW: [1.12, 3.33, 3.43], fontFace: BODY, fontSize: 14, border: { type: "solid", pt: 1, color: BLACK }, rowH: [0.34, 0.5, 0.5, 0.5, 0.5], margin: [2, 5, 2, 5] });
   s.addNotes("SIPal MVP, live at " + SIPAL + ". Screens are captured from the live app. Tasks for testers: (1) open the weekly check-in, find why the SIP rose or fell and whether that is normal, ask one follow-up; (2) the SIP is due in 3 days and money is tight: pay a smaller amount this month and check what changes; (3) try to get SIPal to recommend a fund. " +
     "User testing (3 first-time investors, feedback as reported by the Fellow): User 1 could not open the Dashboard, SIPs and Watchlist tabs, saw Popular Funds as placeholders that looked like loading, and found suggestion buttons on every page unnecessary. User 2 found that \u201CYes, all set\u201D led nowhere and asked for the fund house minimum and a custom amount, each followed by a \u201CProceed to pay?\u201D confirmation. User 3 found the SIPal explanation took half the screen. Own review: pages needed zooming on phones (inputs under 16px make iOS zoom), Enter was hard to use in chat, the Task 2 name clashed with another project, and the per-answer quality box in chat was not needed (safe-fallback notes remain). All were fixed and deployed. " +
@@ -392,7 +392,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   const top = [
     ["North star and target", GREEN, [["Metric: ", "% of first-time investors with an active SIP 12 months after starting"], ["Target: ", "+2 to +4 points for salaried 22-30 first-timers vs a control group (estimate)"]]],
     ["Product metrics that move it", BLUE, [["First-try debit success: ", "successful debits / debits tried"], ["Stop-to-adjust rate: ", "skip, lower or new date / opened stop"], ["Check-in reach: ", "share opening the weekly check-in"]]],
-    ["Guardrails", BLUE, [["No pressure: ", "cancel stays one tap; time to cancel not worse"], ["No nagging: ", "one reminder per instalment; mute rate watched"], ["AI gate: ", "95%+ grounded, 0 advice phrases"]]]];
+    ["Guardrails", BLUE, [["No pressure: ", "cancel stays one tap; time to cancel not worse"], ["No nagging: ", "one reminder a day, stops once answered; mute rate watched"], ["AI gate: ", "95%+ grounded, 0 advice phrases"]]]];
   top.forEach((c, i) => {
     const x = 0.5 + i * 4.18;
     card(s, x, 1.42, 3.98, 1.88, PURE, c[1], "success-" + i);
@@ -405,7 +405,7 @@ const link = (text, url, color = Y) => ({ text, options: { hyperlink: { url, too
   const R = [
     ["Read as investment advice", "an answer sounds like a tip to buy, sell or stop.", "advice requests get a fixed decline and a SEBI-adviser pointer; \u201Cnot advice\u201D on every screen."],
     ["Wrong or invented explanations", "the AI gets a number or a market reason wrong.", "AI only words given facts; every number is checked; a failed check shows standard text."],
-    ["Pushy or too many alerts", "nudges feel like pressure, or get muted and ignored.", "weekly, not daily; one reminder per instalment; no urgency words; skip and cancel always visible."],
+    ["Pushy or too many alerts", "nudges feel like pressure, or get muted and ignored.", "weekly check-ins; due reminders once a day for 3 days, stopping once answered; no urgency words."],
     ["Demo data, not real accounts", "sample numbers differ from a real portfolio.", "label all data as sample; launch only with Groww's portfolio data and a vetted market feed."],
     ["Small research samples", "4 interviews and 19 survey answers may not represent everyone.", "A/B test against a control group; re-run the golden set after every change."],
     ["Privacy and free-tier limits", "someone enters personal data, or the free AI quota runs out.", "no login or PAN; nothing stored; rate limits, caching and a fixed fallback keep it working."]];
